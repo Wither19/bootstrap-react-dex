@@ -1,5 +1,5 @@
 {
-  "name": "react-vite-template",
+  "name": "codespaces-blank",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,10 +10,20 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.1.1",
+    "@fontsource/roboto": "^5.1.1",
+    "@fontsource/ubuntu-sans": "^5.1.1",
+    "@number-flow/react": "^0.5.5",
+    "@pkmn/img": "^0.2.34",
+    "@popperjs/core": "^2.11.8",
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "jquery": "^3.7.1",
     "lodash": "^4.17.21",
+    "motion": "^12.4.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0",
     "sass": "^1.85.0"
   },
   "devDependencies": {

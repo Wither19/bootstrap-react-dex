@@ -1,0 +1,48 @@
+// Import all of Bootstrap's CSS
+@import "~bootstrap/scss/bootstrap";
+
+$header-font: "Inter", Arial, sans-serif;
+$text-font: "Ubuntu Sans", "Roboto", Arial, sans-serif;
+
+$base-item-size: 6rem;
+
+:root {
+	font-size: 20px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+[class^="display-"] {
+	font-family: $header-font;
+}
+
+p,
+sub,
+sup,
+a,
+span,
+li {
+	font-family: $text-font;
+}
+
+.pokemon-list-item {
+	cursor: pointer;
+	user-select: none;
+
+	&.sm {
+		width: $base-item-size;
+		font-size: 0.6rem;
+	}
+
+	&.md {
+		width: $base-item-size * 2;
+	}
+
+	&.lg {
+		width: $base-item-size * 3;
+	}
+}

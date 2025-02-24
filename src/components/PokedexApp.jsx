@@ -48,7 +48,9 @@ function PokedexApp() {
 	useEffect(() => {
 		const url = "https://pokeapi.co/api/v2/pokedex/1";
 		axios.get(url).then((response) => {
-			setPokedex(response.data.pokemon_entries);
+			setPokedex(
+				_.orderBy(response.data.pokemon_entries, [pokedexSort], sortOrder)
+			);
 			console.log(response.data.pokemon_entries);
 		});
 	}, []);
@@ -58,6 +60,9 @@ function PokedexApp() {
 	const [listSize, setListSize] = useState("md");
 	const [sortType, setSortType] = useState("dex");
 	const [sortOrder, setSortOrder] = useState("asc");
+
+	const pokedexSort =
+		sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
 	return (
 		<>
@@ -117,22 +122,41 @@ function PokedexApp() {
 						</select>
 					</div>
 					<div className="mb-4 col-3">
-						<label htmlFor="regionSelect">List View</label>
+						<label htmlFor="sortSelect">Sort by</label>
 						<select
 							className="form-control"
-							id="regionSelect"
-							value={listSize}
+							id="sortSelect"
+							value={sortType}
 							onChange={(e) => {
-								setListSize(e.target.value);
+								setSortType(e.target.value);
+								setTimeout(
+									setPokedex((prev) =>
+										_.orderBy(prev, [pokedexSort], sortOrder)
+									),
+									200
+								);
 							}}>
-							<option value="sm">Small</option>
-							<option value="md">Medium</option>
-							<option value="lg">Large</option>
+							<option value="dex">Dex #</option>
+							<option value="alpha">A-Z</option>
 						</select>
 					</div>
 					<div className="col-1 my-4 mx-0">
-						<button type="button" className="btn btn-outline-secondary">
-							<i className="bi bi-sort-alpha-down"></i>
+						<button
+							type="button"
+							className="btn btn-outline-secondary"
+							onClick={() => {
+								setSortOrder((prev) => (prev == "asc" ? "desc" : "asc"));
+								setTimeout(
+									setPokedex((prev) =>
+										_.orderBy(prev, [pokedexSort], sortOrder)
+									),
+									200
+								);
+							}}>
+							<i
+								className={`bi bi-sort-${
+									sortType == "dex" ? "numeric" : "alpha"
+								}-${sortOrder == "asc" ? "up" : "down"}`}></i>
 						</button>
 					</div>
 				</div>

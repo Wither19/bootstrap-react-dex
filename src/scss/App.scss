@@ -32,6 +32,7 @@ li {
 .pokemon-list-item {
 	cursor: pointer;
 	user-select: none;
+	text-transform: capitalize;
 
 	&.sm {
 		width: $base-item-size;

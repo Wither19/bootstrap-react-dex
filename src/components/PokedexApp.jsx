@@ -69,10 +69,13 @@ function PokedexApp() {
 							<i className="bi bi-search"></i>
 						</span>
 						<input
+							className="pokemon-searchbar"
 							type="text"
 							placeholder="Search to filter Pokemon..."
-							onChange={(e) => {
-								setSearchText(e.target.value.toLowerCase());
+							onKeyUp={(e) => {
+								if (e.which == 13 || e.target.value == "") {
+									setSearchText(e.target.value.toLowerCase());
+								}
 							}}
 						/>
 					</div>
@@ -180,7 +183,7 @@ function PokedexApp() {
 										: listSize == "md"
 										? "col-2"
 										: "col-3"
-								} m-2`}>
+								} m-4`}>
 								<div
 									key={pokemon.pokemon_species.name}
 									className={`card pokemon-list-item ${listSize}`}>

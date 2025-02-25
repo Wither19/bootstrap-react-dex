@@ -213,20 +213,16 @@ function PokedexApp() {
 										? "col-2"
 										: "col-3"
 								} m-4`}>
-								<div
+								<motion.div
 									key={pokemon.pokemon_species.name}
-									className={`card pokemon-list-item ${listSize}`}>
-									<motion.img
+									className={`card pokemon-list-item ${listSize}`}
+									whileHover={{
+										scale: 1.075,
+										transition: { duration: 0.5, type: "spring" },
+									}}>
+									<img
 										src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.entry_number}.png`}
 										className="card-img-top"
-										whileHover={{
-											duration: 0.4,
-											scale: {
-												type: "spring",
-												visualDuration: 0.4,
-												bounce: 0.5,
-											},
-										}}
 									/>
 									<div className="card-body">
 										<b>#{leadingZeroes(pokemon.entry_number, 4)}</b>{" "}
@@ -234,7 +230,7 @@ function PokedexApp() {
 											{caps(pokemon.pokemon_species.name.replace("-", " "))}
 										</p>
 									</div>
-								</div>
+								</motion.div>
 							</div>
 						))}
 				</div>

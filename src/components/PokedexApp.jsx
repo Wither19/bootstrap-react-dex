@@ -9,7 +9,7 @@ import _ from "lodash";
 import PokemonMenu from "./PokemonMenu";
 import { start } from "@popperjs/core";
 
-import { motion } from "motion";
+import * as motion from "motion/react-client";
 
 const regions = [
 	{ name: "", start: 1, end: 1025 },
@@ -219,7 +219,7 @@ function PokedexApp() {
 									<motion.img
 										src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.entry_number}.png`}
 										className="card-img-top"
-										hover={{
+										whileHover={{
 											duration: 0.4,
 											scale: {
 												type: "spring",

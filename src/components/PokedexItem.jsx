@@ -36,3 +36,5 @@ function PokedexItem(props) {
 		</motion.div>
 	);
 }
+
+export default PokedexItem;

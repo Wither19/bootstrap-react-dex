@@ -64,6 +64,13 @@ function PokedexApp() {
 	const pokedexSort =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
+	useEffect(() => {
+		setTimeout(
+			setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder)),
+			200
+		);
+	}, [pokedexSort, sortOrder, sortType]);
+
 	return (
 		<>
 			<div>
@@ -129,12 +136,6 @@ function PokedexApp() {
 							value={sortType}
 							onChange={(e) => {
 								setSortType(e.target.value);
-								setTimeout(
-									setPokedex((prev) =>
-										_.orderBy(prev, [pokedexSort], sortOrder)
-									),
-									200
-								);
 							}}>
 							<option value="dex">Dex #</option>
 							<option value="alpha">A-Z</option>

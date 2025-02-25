@@ -51,7 +51,6 @@ function PokedexApp() {
 			setPokedex(
 				_.orderBy(response.data.pokemon_entries, [pokedexSort], sortOrder)
 			);
-			console.log(response.data.pokemon_entries);
 		});
 	}, []);
 
@@ -64,12 +63,11 @@ function PokedexApp() {
 	const pokedexSort =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
-	useEffect(() => {
-		setTimeout(
-			setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder)),
-			200
-		);
-	}, [pokedexSort, sortOrder, sortType]);
+	const setSortedDex = () => {
+		setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder));
+	};
+
+	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
 
 	return (
 		<>
@@ -147,12 +145,6 @@ function PokedexApp() {
 							className="btn btn-outline-secondary"
 							onClick={() => {
 								setSortOrder((prev) => (prev == "asc" ? "desc" : "asc"));
-								setTimeout(
-									setPokedex((prev) =>
-										_.orderBy(prev, [pokedexSort], sortOrder)
-									),
-									200
-								);
 							}}>
 							<i
 								className={`bi bi-sort-${
@@ -163,50 +155,43 @@ function PokedexApp() {
 				</div>
 				<div className="pokemon-list d-flex flex-wrap justify-content-evenly">
 					{pokedex
-						.filter(
-							(pokemon, index) =>
-								function () {
-									var retValue = false;
-									// When search terms are active WITHOUT region filtering:
-									if (searchText != "" && regionDropdown == "") {
-										retValue =
-											pokemon.pokemon_species.name.includes(searchText) ||
-											pokemon.entry_number.toString().includes(searchText);
-										// When region filtering is active WITHOUT search terms:
-									} else if (searchText == "" && regionDropdown != "") {
-										retValue =
-											pokemon.entry_number >=
-												regions.find(
-													(region) =>
-														region.name.toLowerCase() == regionDropdown
-												).start &&
-											pokemon.entry_number <=
-												regions.find(
-													(region) =>
-														region.name.toLowerCase() == regionDropdown
-												).end;
-									}
-									// When both search terms and region filtering are active:
-									else if (searchText != "" && regionDropdown != "") {
-										retValue =
-											(pokemon.pokemon_species.name.includes(searchText) ||
-												pokemon.entry_number.toString().includes(searchText)) &&
-											pokemon.entry_number >=
-												regions.find(
-													(region) =>
-														region.name.toLowerCase() == regionDropdown
-												).start &&
-											pokemon.entry_number <=
-												regions.find(
-													(region) =>
-														region.name.toLowerCase() == regionDropdown
-												).end;
-									} else {
-										retValue = true;
-									}
-									return retValue;
-								}
-						)
+						.filter((pokemon, index) => {
+							var retValue = false;
+							// When search terms are active WITHOUT region filtering:
+							if (searchText != "" && regionDropdown == "") {
+								retValue =
+									pokemon.pokemon_species.name.includes(searchText) ||
+									pokemon.entry_number.toString().includes(searchText);
+								// When region filtering is active WITHOUT search terms:
+							} else if (searchText == "" && regionDropdown != "") {
+								retValue =
+									pokemon.entry_number >=
+										regions.find(
+											(region) => region.name.toLowerCase() == regionDropdown
+										).start &&
+									pokemon.entry_number <=
+										regions.find(
+											(region) => region.name.toLowerCase() == regionDropdown
+										).end;
+							}
+							// When both search terms and region filtering are active:
+							else if (searchText != "" && regionDropdown != "") {
+								retValue =
+									(pokemon.pokemon_species.name.includes(searchText) ||
+										pokemon.entry_number.toString().includes(searchText)) &&
+									pokemon.entry_number >=
+										regions.find(
+											(region) => region.name.toLowerCase() == regionDropdown
+										).start &&
+									pokemon.entry_number <=
+										regions.find(
+											(region) => region.name.toLowerCase() == regionDropdown
+										).end;
+							} else {
+								retValue = true;
+							}
+							return retValue;
+						})
 						.map((pokemon, index) => (
 							<div
 								className={`${

@@ -9,6 +9,8 @@ import _ from "lodash";
 import PokemonMenu from "./PokemonMenu";
 import { start } from "@popperjs/core";
 
+import { motion } from "motion";
+
 const regions = [
 	{ name: "", start: 1, end: 1025 },
 	{ name: "Kanto", start: 1, end: 151 },
@@ -214,9 +216,17 @@ function PokedexApp() {
 								<div
 									key={pokemon.pokemon_species.name}
 									className={`card pokemon-list-item ${listSize}`}>
-									<img
+									<motion.img
 										src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.entry_number}.png`}
 										className="card-img-top"
+										hover={{
+											duration: 0.4,
+											scale: {
+												type: "spring",
+												visualDuration: 0.4,
+												bounce: 0.5,
+											},
+										}}
 									/>
 									<div className="card-body">
 										<b>#{leadingZeroes(pokemon.entry_number, 4)}</b>{" "}

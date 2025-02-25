@@ -10,7 +10,6 @@ $base-item-size: 6rem;
 	font-size: 20px;
 }
 
-
 h1,
 h2,
 h3,
@@ -35,8 +34,18 @@ li {
 	user-select: none;
 	text-transform: capitalize;
 
-	&:hover > img {
-		animation: bounce 0.75s;
+	&:hover :is(p, b) {
+		color: #6c6aea;
+	}
+
+	img {
+		filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+		transition: filter 0.33s;
+
+		&:hover {
+			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(0, 0, 0, 0.5))
+				brightness(1.1);
+		}
 	}
 
 	&.sm {

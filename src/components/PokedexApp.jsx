@@ -215,14 +215,14 @@ function PokedexApp() {
 								} m-4`}>
 								<motion.div
 									key={pokemon.pokemon_species.name}
-									className={`card pokemon-list-item ${listSize}`}
-									whileHover={{
-										scale: 1.075,
-										transition: { duration: 0.5, type: "spring" },
-									}}>
-									<img
+									className={`card pokemon-list-item ${listSize}`}>
+									<motion.img
 										src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.entry_number}.png`}
 										className="card-img-top"
+										whileHover={{
+											scale: 1.1,
+											transition: { duration: 0.33, type: "spring" },
+										}}
 									/>
 									<div className="card-body">
 										<b>#{leadingZeroes(pokemon.entry_number, 4)}</b>{" "}

@@ -9,8 +9,6 @@ import _ from "lodash";
 import PokemonMenu from "./PokemonMenu";
 import { start } from "@popperjs/core";
 
-import { motion } from "motion/react";
-
 const regions = [
 	{ name: "", start: 1, end: 1025 },
 	{ name: "Kanto", start: 1, end: 151 },
@@ -27,27 +25,8 @@ const regions = [
 ];
 
 /*     
-		• Small, Medium, Large and List viewpoints for list items | Done!
-    • Search bar that filters list results | Done!
-    • (BS5) Dropdown to filter by region (ideally, independent of the search bar) | Done!
-    • Ascending-Descending Sort menu: Dex # (Default), A-Z | Done!
+		• Todos go here!
 */
-
-// Function to capitalize the first letter of a string
-
-const caps = (text) => {
-	if (typeof text !== "string") {
-		return "";
-	} else {
-		return text.charAt(0).toUpperCase() + text.slice(1);
-	}
-};
-
-// Adds leading zeroes to a number until it is four digits long
-
-const leadingZeroes = (num, size) => {
-	return num.toString().padStart(size, 0);
-};
 
 function PokedexApp() {
 	const [pokedex, setPokedex] = useState([]);
@@ -214,24 +193,12 @@ function PokedexApp() {
 										? "col-2"
 										: "col-3"
 								} m-4`}>
-								<motion.div
+								<PokedexItem
 									key={pokemon.pokemon_species.name}
-									className={`card pokemon-list-item ${listSize}`}>
-									<motion.img
-										src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${pokemon.entry_number}.png`}
-										className="card-img-top"
-										whileHover={{
-											scale: 1.1,
-											transition: { duration: 0.33, type: "spring" },
-										}}
-									/>
-									<div className="card-body">
-										<b>#{leadingZeroes(pokemon.entry_number, 4)}</b>{" "}
-										<p className="card-text">
-											{caps(pokemon.pokemon_species.name.replace("-", " "))}
-										</p>
-									</div>
-								</motion.div>
+									num={pokemon.entry_number}
+									name={pokemon.pokemon_species.name}
+									itemSize={listSize}
+								/>
 							</div>
 						))}
 				</div>

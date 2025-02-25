@@ -7,6 +7,8 @@ import axios from "axios";
 import _ from "lodash";
 
 import PokemonMenu from "./PokemonMenu";
+import PokedexItem from "./PokedexItem";
+
 import { start } from "@popperjs/core";
 
 const regions = [

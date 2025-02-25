@@ -9,7 +9,7 @@ import _ from "lodash";
 import PokemonMenu from "./PokemonMenu";
 import { start } from "@popperjs/core";
 
-import * as motion from "motion/react-client";
+import { motion } from "motion/react";
 
 const regions = [
 	{ name: "", start: 1, end: 1025 },

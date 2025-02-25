@@ -24,11 +24,13 @@ const regions = [
 ];
 
 /*     
-		• Small, Medium, Large and List viewpoints for list items
-    • Search bar that filters list results
-    • (BS5) Dropdown to filter by region (ideally, independent of the search bar)
-    • Ascending-Descending Sort menu: Dex # (Default), A-Z
+		• Small, Medium, Large and List viewpoints for list items | Done!
+    • Search bar that filters list results | Done!
+    • (BS5) Dropdown to filter by region (ideally, independent of the search bar) | Done!
+    • Ascending-Descending Sort menu: Dex # (Default), A-Z | Done!
 */
+
+// Function to capitalize the first letter of a string
 
 const caps = (text) => {
 	if (typeof text !== "string") {
@@ -38,12 +40,16 @@ const caps = (text) => {
 	}
 };
 
+// Adds leading zeroes to a number until it is four digits long
+
 const leadingZeroes = (num, size) => {
 	return num.toString().padStart(size, 0);
 };
 
 function PokedexApp() {
 	const [pokedex, setPokedex] = useState([]);
+
+	// Fetches the pokedex data from PokeAPI and sets the state to a lodash ordered array of the pokemon entries
 
 	useEffect(() => {
 		const url = "https://pokeapi.co/api/v2/pokedex/1";
@@ -60,8 +66,12 @@ function PokedexApp() {
 	const [sortType, setSortType] = useState("dex");
 	const [sortOrder, setSortOrder] = useState("asc");
 
+	// Ternary to decide sort type based on dropdown selection
+
 	const pokedexSort =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";
+
+	// Updates the sorted dex state after a sort type or sort order change, as well as when region filters or search terms are used
 
 	const setSortedDex = () => {
 		setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder));

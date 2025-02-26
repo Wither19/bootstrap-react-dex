@@ -17,10 +17,19 @@ const leadingZeroes = (num, size) => {
 };
 
 function PokedexItem(props) {
+	const [pkmn, setPkmn] = useState({});
+
+	const fetchItem = () => {
+		axios.get(`https://pokeapi.co/api/v2/pokemon/${props.num}`).then((res) => {
+			setPkmn(res.data);
+		});
+	};
+
 	return (
 		<motion.div
 			key={props.name}
-			className={`card pokemon-list-item ${props.itemSize}`}>
+			className={`card pokemon-list-item ${props.itemSize}`}
+			onClick={fetchItem}>
 			<motion.img
 				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${props.num}.png`}
 				className="card-img-top"

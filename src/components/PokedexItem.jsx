@@ -41,12 +41,14 @@ function PokedexItem(props) {
 				className="card-img-top sprite"
 				whileHover={{
 					scale: 1.1,
-					transition: { duration: 0.33, type: "spring" },
+					transition: { type: "spring", duration: 0.55, bounce: 0.7 },
 				}}
 			/>
 			<div className="card-body">
-				<b>#{leadingZeroes(props.num, 4)}</b>{" "}
-				<p className="card-text">{capitalize(props.name.replace("-", " "))}</p>
+				<b>#{leadingZeroes(props.num, 4)}</b>
+				<h5 className="card-title">
+					{capitalize(props.name.replace("-", " "))}
+				</h5>
 			</div>
 		</motion.div>
 	);

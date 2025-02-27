@@ -1,22 +1,46 @@
-$types: (
-	bug: #92bc2c,
-	dark: #595761,
-	dragon: #0c69c8,
-	electric: #f2d94e,
-	fire: #fba54c,
-	fairy: #ee90e6,
-	fighting: #d3425f,
-	flying: #a1bbec,
-	ghost: #5f6dbc,
-	grass: #5fbd58,
-	ground: #da7c4d,
-	ice: #75d0c1,
-	normal: #a0a29f,
-	poison: #b763cf,
-	psychic: #fa8581,
-	rock: #c9bb8a,
-	steel: #5695a3,
-	water: #539ddf,
+@use "sass:list";
+@use "sass:map";
+
+$type-names: (
+	bug,
+	dark,
+	dragon,
+	electric,
+	fire,
+	fairy,
+	fighting,
+	flying,
+	ghost,
+	grass,
+	ground,
+	ice,
+	normal,
+	poison,
+	psychic,
+	rock,
+	steel,
+	water
+);
+
+$type-colors: (
+	#92bc2c,
+	#595761,
+	#0c69c8,
+	#f2d94e,
+	#fba54c,
+	#ee90e6,
+	#d3425f,
+	#a1bbec,
+	#5f6dbc,
+	#5fbd58,
+	#da7c4d,
+	#75d0c1,
+	#a0a29f,
+	#b763cf,
+	#fa8581,
+	#c9bb8a,
+	#5695a3,
+	#539ddf
 );
 
 .icon {
@@ -47,10 +71,10 @@ $types: (
 	margin: 20%;
 }
 
-@each $type in $types {
-	.#{type} {
-		background: map-get($types, type);
-		box-shadow: 0 0 20px map-get($types, type);
+@each $type in $type-names {
+	.#{$type} {
+		background: list.index($type-colors, $type);
+		box-shadow: 0 0 20px list.index($type-colors, $type);
 	}
 }
 /*

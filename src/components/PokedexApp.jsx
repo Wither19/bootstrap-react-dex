@@ -115,7 +115,6 @@ function PokedexApp() {
 							onChange={(e) => {
 								setListSize(e.target.value);
 							}}>
-							<option value="sm">Small</option>
 							<option value="md">Medium</option>
 							<option value="lg">Large</option>
 						</select>
@@ -187,14 +186,7 @@ function PokedexApp() {
 							return retValue;
 						})
 						.map((pokemon, index) => (
-							<div
-								className={`${
-									listSize == "sm"
-										? "col-1"
-										: listSize == "md"
-										? "col-2"
-										: "col-3"
-								} m-4`}>
+							<div className={`${listSize == "md" ? "col-2" : "col-3"} m-4`}>
 								<PokedexItem
 									key={pokemon.pokemon_species.name}
 									num={pokemon.entry_number}

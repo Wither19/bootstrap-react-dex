@@ -16,7 +16,6 @@ const leadingZeroes = (num, size) => {
 
 function PokedexItem(props) {
 	const [pkmn, setPkmn] = useState({});
-	const [cardBack, cardFlip] = useState(false);
 	const [itemShiny, setShinyState] = useState(false);
 
 	const getPkmn = () => {

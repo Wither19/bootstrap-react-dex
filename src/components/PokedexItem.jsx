@@ -2,17 +2,11 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 
+import capitalize from "capitalize";
+
 import { motion } from "motion/react";
 
 // Function to capitalize the first letter of a string
-
-const caps = (text) => {
-	if (typeof text !== "string") {
-		return "";
-	} else {
-		return text.charAt(0).toUpperCase() + text.slice(1);
-	}
-};
 
 // Adds leading zeroes to a number until it is four digits long
 
@@ -52,7 +46,7 @@ function PokedexItem(props) {
 			/>
 			<div className="card-body">
 				<b>#{leadingZeroes(props.num, 4)}</b>{" "}
-				<p className="card-text">{caps(props.name.replace("-", " "))}</p>
+				<p className="card-text">{capitalize(props.name.replace("-", " "))}</p>
 			</div>
 		</motion.div>
 	);

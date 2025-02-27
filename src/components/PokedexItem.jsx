@@ -26,7 +26,6 @@ function PokedexItem(props) {
 	const getPkmn = () => {
 		axios.get(`https://pokeapi.co/api/v2/pokemon/${props.num}`).then((res) => {
 			setPkmn(res.data);
-			// console.log(pkmn.name);
 		});
 	};
 

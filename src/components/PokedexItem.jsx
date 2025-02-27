@@ -50,16 +50,6 @@ function PokedexItem(props) {
 					transition: { duration: 0.33, type: "spring" },
 				}}
 			/>
-			<div class="d-flex flex-wrap justify-content-evenly">
-				{pkmn.types &&
-					pkmn.types.map((type) => (
-						<div className={`icon sm ${type.type.name}`}>
-							<img
-								src={`https://duiker101.github.io/pokemon-type-svg-icons/icons/${type.type.name}.svg`}
-							/>
-						</div>
-					))}
-			</div>
 			<div className="card-body">
 				<b>#{leadingZeroes(props.num, 4)}</b>{" "}
 				<p className="card-text">{caps(props.name.replace("-", " "))}</p>

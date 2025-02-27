@@ -17,6 +17,7 @@ const leadingZeroes = (num, size) => {
 function PokedexItem(props) {
 	const [pkmn, setPkmn] = useState({});
 	const [cardBack, cardFlip] = useState(false);
+	const [itemShiny, setShinyState] = useState(false);
 
 	const getPkmn = () => {
 		axios.get(`https://pokeapi.co/api/v2/pokemon/${props.num}`).then((res) => {
@@ -32,25 +33,43 @@ function PokedexItem(props) {
 	};
 
 	return (
-		<motion.div
-			key={props.name}
-			className={`card pokemon-list-item ${props.itemSize}`}
-			onClick={cardClickHandler}>
-			<motion.img
-				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${props.num}.png`}
-				className="card-img-top sprite"
-				whileHover={{
-					scale: 1.1,
-					transition: { type: "spring", duration: 0.55, bounce: 0.7 },
-				}}
-			/>
-			<div className="card-body">
-				<b>#{leadingZeroes(props.num, 4)}</b>
-				<h5 className="card-title">
-					{capitalize(props.name.replace("-", " "))}
-				</h5>
+		<>
+			<motion.div
+				key={props.name}
+				className={`card pokemon-list-item ${itemShiny ? "shiny" : "reg"} ${
+					props.itemSize
+				}`}
+				onClick={cardClickHandler}>
+				<motion.img
+					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
+						itemShiny ? "shiny/" : ""
+					}${props.num}.png`}
+					className="card-img-top sprite"
+					whileHover={{
+						scale: 1.1,
+						transition: { type: "spring", duration: 0.55, bounce: 0.7 },
+					}}
+				/>
+				<div className="card-body">
+					<b>#{leadingZeroes(props.num, 4)}</b>
+					<h5 className="card-title text-nowrap">
+						{capitalize(props.name.replace("-", " "))}
+					</h5>
+				</div>
+			</motion.div>
+			<div class="form-check form-switch">
+				<input
+					class="form-check-input"
+					type="checkbox"
+					role="switch"
+					id="shinySwitch"
+					value={itemShiny}
+					onChange={(e) => {
+						setShinyState(e.target.checked);
+					}}
+				/>
 			</div>
-		</motion.div>
+		</>
 	);
 }
 

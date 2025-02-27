@@ -22,6 +22,7 @@ const leadingZeroes = (num, size) => {
 
 function PokedexItem(props) {
 	const [pkmn, setPkmn] = useState({});
+	const [cardBack, cardFlip] = useState(false);
 
 	const getPkmn = () => {
 		axios.get(`https://pokeapi.co/api/v2/pokemon/${props.num}`).then((res) => {
@@ -29,19 +30,39 @@ function PokedexItem(props) {
 		});
 	};
 
+	const cardClickHandler = () => {
+		if (Object.keys(pkmn).length === 0) {
+			getPkmn();
+		}
+		cardFlip((prev) => !prev);
+	};
+
 	return (
 		<motion.div
 			key={props.name}
 			className={`card pokemon-list-item ${props.itemSize}`}
-			onClick={getPkmn}>
-			<motion.img
-				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${props.num}.png`}
-				className="card-img-top"
-				whileHover={{
-					scale: 1.1,
-					transition: { duration: 0.33, type: "spring" },
-				}}
-			/>
+			onClick={cardClickHandler}>
+			{cardBack ? (
+				<div class="d-flex flex-wrap justify-content-evenly">
+					{pkmn.types &&
+						pkmn.types.map((type) => (
+							<div className={`icon sm ${type.type.name}`}>
+								<img
+									src={`https://duiker101.github.io/pokemon-type-svg-icons/icons/${type.type.name}.svg`}
+								/>
+							</div>
+						))}
+				</div>
+			) : (
+				<motion.img
+					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${props.num}.png`}
+					className="card-img-top sprite"
+					whileHover={{
+						scale: 1.1,
+						transition: { duration: 0.33, type: "spring" },
+					}}
+				/>
+			)}
 			<div className="card-body">
 				<b>#{leadingZeroes(props.num, 4)}</b>{" "}
 				<p className="card-text">{caps(props.name.replace("-", " "))}</p>

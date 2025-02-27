@@ -2,24 +2,24 @@
 @use "sass:map";
 
 $type-names: (
-	bug,
-	dark,
-	dragon,
-	electric,
-	fire,
-	fairy,
-	fighting,
-	flying,
-	ghost,
-	grass,
-	ground,
-	ice,
-	normal,
-	poison,
-	psychic,
-	rock,
-	steel,
-	water
+	"bug",
+	"dark",
+	"dragon",
+	"electric",
+	"fire",
+	"fairy",
+	"fighting",
+	"flying",
+	"ghost",
+	"grass",
+	"ground",
+	"ice",
+	"normal",
+	"poison",
+	"psychic",
+	"rock",
+	"steel",
+	"water"
 );
 
 $type-colors: (

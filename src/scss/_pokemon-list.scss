@@ -1,0 +1,32 @@
+.pokemon-list-item {
+	cursor: pointer;
+	user-select: none;
+	text-transform: capitalize;
+
+	&:hover :is(p, b) {
+		color: #6c6aea;
+	}
+
+	img.sprite {
+		filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+		transition: filter 0.33s;
+
+		&:hover {
+			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(0, 0, 0, 0.5))
+				brightness(1.08);
+		}
+	}
+
+	&.sm {
+		width: $base-item-size;
+		font-size: 0.6rem;
+	}
+
+	&.md {
+		width: $base-item-size * 2;
+	}
+
+	&.lg {
+		width: $base-item-size * 3;
+	}
+}

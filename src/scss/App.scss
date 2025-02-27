@@ -1,12 +1,10 @@
 // Import all of Bootstrap's CSS
 @import "~bootstrap/scss/bootstrap";
 
+@import "_variables";
+
+@import "_pokemon-list";
 @import "_type-icons";
-
-$header-font: "Inter", Arial, sans-serif;
-$text-font: "Ubuntu Sans", "Roboto", Arial, sans-serif;
-
-$base-item-size: 6rem;
 
 :root {
 	font-size: 20px;
@@ -29,37 +27,4 @@ a,
 span,
 li {
 	font-family: $text-font;
-}
-
-.pokemon-list-item {
-	cursor: pointer;
-	user-select: none;
-	text-transform: capitalize;
-
-	&:hover :is(p, b) {
-		color: #6c6aea;
-	}
-
-	img.sprite {
-		filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
-		transition: filter 0.33s;
-
-		&:hover {
-			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(0, 0, 0, 0.5))
-				brightness(1.08);
-		}
-	}
-
-	&.sm {
-		width: $base-item-size;
-		font-size: 0.6rem;
-	}
-
-	&.md {
-		width: $base-item-size * 2;
-	}
-
-	&.lg {
-		width: $base-item-size * 3;
-	}
 }

@@ -35,15 +35,15 @@ function PokedexItem(props) {
 		<>
 			<motion.div
 				key={props.name}
-				className={`card pokemon-list-item ${itemShiny ? "shiny" : "reg"} ${
-					props.itemSize
+				className={`card pokemon-list-item ${props.itemSize} ${
+					itemShiny ? "shiny" : "reg"
 				}`}
 				onClick={cardClickHandler}>
 				<motion.img
 					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
 						itemShiny ? "shiny/" : ""
 					}${props.num}.png`}
-					className="card-img-top sprite"
+					className={`card-img-top sprite`}
 					whileHover={{
 						scale: 1.1,
 						transition: { type: "spring", duration: 0.55, bounce: 0.7 },

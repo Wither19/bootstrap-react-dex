@@ -17,7 +17,7 @@
 
 	img.sprite {
 		transition: filter 0.33s;
-		.reg {
+		&.reg {
 			filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
 
 			&:hover {
@@ -25,7 +25,7 @@
 					brightness(1.08);
 			}
 		}
-		.shiny {
+		&.shiny {
 			filter: drop-shadow(0 0 0.75rem rgba(255, 217, 0, 0.75));
 			&:hover {
 				filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(255, 217, 0, 0.75))

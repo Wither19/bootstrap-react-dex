@@ -8,11 +8,11 @@
 	}
 
 	&.md {
-		width: $base-item-size * 2;
+		width: $item-size;
 	}
 
 	&.lg {
-		width: $base-item-size * 3;
+		width: $item-size * 1.5;
 	}
 
 	img.sprite {

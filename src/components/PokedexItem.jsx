@@ -18,29 +18,13 @@ function PokedexItem(props) {
 	const [pkmn, setPkmn] = useState({});
 	const [itemShiny, setShinyState] = useState(false);
 
-	const getPkmn = () => {
-		axios.get(`https://pokeapi.co/api/v2/pokemon/${props.num}`).then((res) => {
-			setPkmn(res.data);
-		});
-	};
-
-	useEffect(() => alert(res.data), [pkmn]);
-
-	const cardClickHandler = () => {
-		if (pkmn == {}) {
-			getPkmn();
-		}
-		cardFlip((prev) => !prev);
-	};
-
 	return (
 		<>
 			<motion.div
 				key={props.name}
 				className={`card pokemon-list-item ${itemShiny ? "shiny" : "reg"} ${
 					props.itemSize
-				}`}
-				onClick={cardClickHandler}>
+				}`}>
 				<motion.img
 					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
 						itemShiny ? "shiny/" : ""

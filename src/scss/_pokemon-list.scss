@@ -3,10 +3,6 @@
 	user-select: none;
 	text-transform: capitalize;
 
-	&:hover h5 {
-		color: #6c6aea;
-	}
-
 	&.md {
 		width: $item-size;
 	}
@@ -17,20 +13,34 @@
 
 	img.sprite {
 		transition: filter 0.33s;
-		&.reg {
-			filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+	}
 
-			&:hover {
-				filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(0, 0, 0, 0.5))
-					brightness(1.08);
-			}
+	&.reg {
+		&:hover h5 {
+			color: #6c6aea;
 		}
-		&.shiny {
+
+		img.sprite {
+			filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+		}
+
+		&:hover img.sprite {
+			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(0, 0, 0, 0.5))
+				brightness(1.08);
+		}
+	}
+
+	&.shiny {
+		&:hover h5 {
+			color: #ffcc00;
+		}
+
+		img.sprite {
 			filter: drop-shadow(0 0 0.75rem rgba(255, 217, 0, 0.75));
-			&:hover {
-				filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(255, 217, 0, 0.75))
-					brightness(1.08);
-			}
+		}
+		&:hover img.sprite {
+			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(255, 217, 0, 0.75))
+				brightness(1.08);
 		}
 	}
 }

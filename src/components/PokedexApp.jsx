@@ -1,6 +1,6 @@
-import React from "react";
+import React, { createContext } from "react";
 
-import { useEffect, useState, useContext } from "react";
+import { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -46,9 +46,16 @@ function PokedexApp() {
 
 	const [regionDropdown, setRegionDropdown] = useState("");
 	const [searchText, setSearchText] = useState("");
+
 	const [listSize, setListSize] = useState("md");
 	const [sortType, setSortType] = useState("dex");
 	const [sortOrder, setSortOrder] = useState("asc");
+
+	const [displayMenu, setDisplayMenu] = useState(false);
+
+	const [pokemon, setPokemon] = useState({});
+
+	const passedPokemon = createContext(pokemon);
 
 	// Ternary to decide sort type based on dropdown selection
 
@@ -61,11 +68,23 @@ function PokedexApp() {
 		setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder));
 	};
 
+	const changeDisplay = () => setDisplayMenu((prev) => !prev);
+
 	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
+
+	useEffect(() => {
+		const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
+		axios
+			.get(url)
+			.then((response) => {
+				setPokemon(response.data);
+			})
+			.catch();
+	}, [pokemon]);
 
 	return (
 		<>
-			<div>
+			<div style={{ display: displayMenu ? "none" : "block" }}>
 				<div className="row">
 					{/* Searchbar */}
 					<div className="input-group mb-3">
@@ -192,12 +211,13 @@ function PokedexApp() {
 									num={pokemon.entry_number}
 									name={pokemon.pokemon_species.name}
 									itemSize={listSize}
+									onClick={changeDisplay}
 								/>
 							</div>
 						))}
 				</div>
 			</div>
-			<PokemonMenu />
+			<PokemonMenu show={displayMenu} />
 		</>
 	);
 }

@@ -2,3 +2,45 @@ $header-font: "Inter", Arial, sans-serif;
 $text-font: "Ubuntu Sans", "Roboto", Arial, sans-serif;
 
 $item-size: 12rem;
+
+$type-names: (
+	bug,
+	dark,
+	dragon,
+	electric,
+	fire,
+	fairy,
+	fighting,
+	flying,
+	ghost,
+	grass,
+	ground,
+	ice,
+	normal,
+	poison,
+	psychic,
+	rock,
+	steel,
+	water
+);
+
+$type-colors: (
+	#92bc2c,
+	#595761,
+	#0c69c8,
+	#f2d94e,
+	#fba54c,
+	#ee90e6,
+	#d3425f,
+	#a1bbec,
+	#5f6dbc,
+	#5fbd58,
+	#da7c4d,
+	#75d0c1,
+	#a0a29f,
+	#b763cf,
+	#fa8581,
+	#c9bb8a,
+	#5695a3,
+	#539ddf
+);

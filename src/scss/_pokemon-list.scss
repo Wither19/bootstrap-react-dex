@@ -15,18 +15,26 @@
 		transition: filter 0.33s;
 	}
 
+	h5 {
+		transition: color 200ms;
+	}
+
+	&:hover img.sprite {
+		filter: brightness(1.075);
+	}
+
 	&.reg {
 		&:hover h5 {
 			color: #6c6aea;
 		}
 
 		img.sprite {
-			filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.5));
+			filter: drop-shadow($shadow-resting $shadow-color-regular);
 		}
 
 		&:hover img.sprite {
-			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(0, 0, 0, 0.5))
-				brightness(1.08);
+			filter: drop-shadow($shadow-expanded $shadow-color-regular)
+				
 		}
 	}
 
@@ -36,11 +44,10 @@
 		}
 
 		img.sprite {
-			filter: drop-shadow(0 0 0.75rem rgba(255, 217, 0, 0.75));
+			filter: drop-shadow($shadow-resting $shadow-color-shiny);
 		}
 		&:hover img.sprite {
-			filter: drop-shadow(0.15rem 0.15rem 0.75rem rgba(255, 217, 0, 0.75))
-				brightness(1.08);
+			filter: drop-shadow($shadow-expanded $shadow-color-shiny)
 		}
 	}
 }

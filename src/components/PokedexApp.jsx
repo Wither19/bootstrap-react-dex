@@ -55,7 +55,10 @@ function PokedexApp() {
 
 	const [pokemon, setPokemon] = useState("");
 
-	const passedPokemon = createContext(pokemon);
+	const PokemonContext = createContext(null);
+	const DisplayContext = createContext(null);
+
+	const pkmnBlank = pokemon || "bulbasaur";
 
 	// Ternary to decide sort type based on dropdown selection
 
@@ -211,13 +214,20 @@ function PokedexApp() {
 									num={pokemon.entry_number}
 									name={pokemon.pokemon_species.name}
 									itemSize={listSize}
-									onClick={changeDisplay}
+									click={() => {
+										changeDisplay();
+										setPokemon(pokemon.pokemon_species.name);
+									}}
 								/>
 							</div>
 						))}
 				</div>
 			</div>
-			<PokemonMenu show={displayMenu} />
+			<PokemonContext.Provider value={pkmnBlank}>
+				<DisplayContext.Provider value={displayMenu}>
+					<PokemonMenu />
+				</DisplayContext.Provider>
+			</PokemonContext.Provider>
 		</>
 	);
 }

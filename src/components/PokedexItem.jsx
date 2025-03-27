@@ -24,7 +24,8 @@ function PokedexItem(props) {
 				key={props.name}
 				className={`card pokemon-list-item ${itemShiny ? "shiny" : "reg"} ${
 					props.itemSize
-				}`}>
+				}`}
+				onClick={props.click}>
 				<motion.img
 					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
 						itemShiny ? "shiny/" : ""

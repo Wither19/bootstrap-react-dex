@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 
-function PokemonMenu(props) {
+function PokemonMenu() {
+	const pkmn = useContext(PokemonContext);
+	const display = useContext(DisplayContext);
+
 	return (
-		<div style={{ display: props.show ? "none" : "block" }}>
+		<div style={{ display: display ? "block" : "none" }}>
 			{/* 
 	    • Core information
         ◦ Name

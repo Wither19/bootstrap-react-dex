@@ -1,8 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+
 import { PokemonContext } from "../contexts/PokemonContext";
 
 function PokemonMenu() {
-	const pkmn = useContext(PokemonContext);
+	const pokemon = useContext(PokemonContext);
+
+	const [pkmnGeneral, setGeneralData] = useState({});
+	const [pkmnSpecies, setSpeciesData] = useState({});
+
+	useEffect(() => {
+		axios
+			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+			.then((response) => setGeneralData(response.data))
+			.catch(() => alert("Could not load Pokemon data!"));
+
+		axios
+			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
+			.then((response) => setGeneralData(response.data))
+			.catch(() => alert("Could not load Pokemon species data!"));
+	}, [pokemon]);
 
 	return (
 		<div>
@@ -18,7 +35,7 @@ function PokemonMenu() {
     • Click Sprite to toggle shiny
     • Make Pokémon name header turn gold with shiny toggle (Framer Motion animated shiny icon)
 		 */}
-				<h1>{pkmn}</h1>
+				{pkmnGeneral && <h1>{pkmnGeneral.name.replace("-", " ")}</h1>}
 			</PokemonContext.Provider>
 		</div>
 	);

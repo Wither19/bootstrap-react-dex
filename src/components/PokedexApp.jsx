@@ -51,10 +51,9 @@ function PokedexApp() {
 	const [sortType, setSortType] = useState("dex");
 	const [sortOrder, setSortOrder] = useState("asc");
 
-	const [displayMenu, setDisplayMenu] = useState(false);
+	const [selectedName, setName] = useState("bulbasaur");
 
 	const PokemonContext = createContext(null);
-	const DisplayContext = createContext(null);
 
 	// Ternary to decide sort type based on dropdown selection
 
@@ -203,23 +202,13 @@ function PokedexApp() {
 								))}
 						</div>
 					</div>
-					<div className="col-9">
-						<PokemonContext.Provider value="">
-							<DisplayContext.Provider value="">
-								<PokemonMenu />
-							</DisplayContext.Provider>
+					<div className="col-8">
+						<PokemonContext.Provider value={selectedName}>
+							<PokemonMenu />
 						</PokemonContext.Provider>
 					</div>
 				</div>
 			</div>
-			{/*<div>
-				<div className="row">
-					
-					</div>
-				</div>
-				<div className="row">
-	
-				</div>*/}
 		</>
 	);
 }

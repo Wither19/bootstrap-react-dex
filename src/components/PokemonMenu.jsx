@@ -1,10 +1,8 @@
 import React, { useContext } from "react";
 
 function PokemonMenu() {
-	//const pkmn = useContext(PokemonContext);
-	//const menuDisplay = useContext(DisplayContext);
+	const pkmn = useContext(PokemonContext);
 
-	// style={{ display: menuDisplay ? "block" : "none" }}
 	return (
 		<div>
 			{/* 

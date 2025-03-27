@@ -1,6 +1,4 @@
-import React, { createContext } from "react";
-
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
@@ -8,6 +6,8 @@ import _ from "lodash";
 
 import PokemonMenu from "./PokemonMenu";
 import PokedexItem from "./PokedexItem";
+
+import { PokemonProvider } from "../contexts/PokemonContext";
 
 import { start } from "@popperjs/core";
 
@@ -53,8 +53,6 @@ function PokedexApp() {
 
 	const [selectedName, setName] = useState("bulbasaur");
 	const [selectedNumber, setNumber] = useState(1);
-
-	const PokemonContext = createContext(selectedName);
 
 	// Ternary to decide sort type based on dropdown selection
 
@@ -205,9 +203,9 @@ function PokedexApp() {
 						</div>
 					</div>
 					<div className="col-8">
-						<PokemonContext.Provider value={selectedName}>
+						<PokemonProvider val={selectedName}>
 							<PokemonMenu />
-						</PokemonContext.Provider>
+						</PokemonProvider>
 					</div>
 				</div>
 			</div>

@@ -1,6 +1,24 @@
 $header-font: "Inter", Arial, sans-serif;
 $text-font: "Ubuntu Sans", "Roboto", Arial, sans-serif;
 
+$header-elems: (
+	"h1",
+	"h2",
+	"h3",
+	"h4",
+	"h5",
+	"h6",
+	".h1",
+	".h2",
+	".h3",
+	".h4",
+	".h5",
+	".h6",
+	'[class^="display-"]'
+);
+
+$text-elems: ("p", "sub", "sup", "a", "span", "li", "b");
+
 $type-names: (
 	bug,
 	dark,

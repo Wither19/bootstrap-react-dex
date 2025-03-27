@@ -1,30 +1,6 @@
-// Import all of Bootstrap's CSS
-@import "~bootstrap/scss/bootstrap";
-
-@import "_variables";
-
+@import "_general";
 @import "_pokemon-list";
 @import "_type-icons";
 
-:root {
-	font-size: 20px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-[class^="display-"] {
-	font-family: $header-font;
-}
-
-p,
-sub,
-sup,
-a,
-span,
-li {
-	font-family: $text-font;
-}
+@import "~bootstrap/scss/bootstrap";
+@import "_variables";

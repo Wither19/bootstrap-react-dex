@@ -199,11 +199,7 @@ function PokedexApp() {
 								))}
 						</div>
 					</div>
-					<div className="col-8">
-						<PokemonContext.Provider value={selectedName}>
-							<PokemonMenu />
-						</PokemonContext.Provider>
-					</div>
+					<div className="col-8"></div>
 				</div>
 			</div>
 		</>

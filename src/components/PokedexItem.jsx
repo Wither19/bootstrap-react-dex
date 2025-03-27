@@ -22,39 +22,23 @@ function PokedexItem(props) {
 		<>
 			<motion.div
 				key={props.name}
-				className={`card pokemon-list-item ${itemShiny ? "shiny" : "reg"} ${
-					props.itemSize
-				}`}
+				className="list-group-item pokemon-list-item"
 				onClick={props.click}>
 				<motion.img
-					src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
-						itemShiny ? "shiny/" : ""
-					}${props.num}.png`}
-					className={`card-img-top sprite`}
+					src={`https://raw.githubusercontent.com/Wither19/pokerogue/refs/heads/main/public/images/pokemon/icons/${props.num}.png`}
+					className="sprite"
 					whileHover={{
 						scale: 1.1,
 						transition: { type: "spring", duration: 0.55, bounce: 0.7 },
 					}}
 				/>
 				<div className="card-body">
-					<b>#{leadingZeroes(props.num, 4)}</b>
-					<h5 className="card-title text-nowrap">
+					<b>#{leadingZeroes(props.num, 4)}</b> -{" "}
+					<span className="card-title text-nowrap">
 						{capitalize(props.name.replace("-", " "))}
-					</h5>
+					</span>
 				</div>
 			</motion.div>
-			<div class="form-check form-switch">
-				<input
-					class="form-check-input"
-					type="checkbox"
-					role="switch"
-					id="shinySwitch"
-					value={itemShiny}
-					onChange={(e) => {
-						setShinyState(e.target.checked);
-					}}
-				/>
-			</div>
 		</>
 	);
 }

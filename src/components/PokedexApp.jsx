@@ -53,12 +53,8 @@ function PokedexApp() {
 
 	const [displayMenu, setDisplayMenu] = useState(false);
 
-	const [pokemon, setPokemon] = useState("");
-
 	const PokemonContext = createContext(null);
 	const DisplayContext = createContext(null);
-
-	const pkmnBlank = pokemon || "bulbasaur";
 
 	// Ternary to decide sort type based on dropdown selection
 
@@ -75,21 +71,72 @@ function PokedexApp() {
 
 	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
 
-	useEffect(() => {
-		const url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`;
-		axios
-			.get(url)
-			.then((response) => {
-				setPokemon(response.data);
-			})
-			.catch();
-	}, [pokemon]);
-
 	return (
 		<>
-			<div style={{ display: displayMenu ? "none" : "block" }}>
+			<div>
 				<div className="row">
-					{/* Searchbar */}
+					<div className="col-3">
+						<div className="list-group">
+							{pokedex
+								.filter((pokemon, index) => {
+									var retValue = false;
+									// When search terms are active WITHOUT region filtering:
+									if (searchText != "" && regionDropdown == "") {
+										retValue =
+											pokemon.pokemon_species.name.includes(searchText) ||
+											pokemon.entry_number.toString().includes(searchText);
+										// When region filtering is active WITHOUT search terms:
+									} else if (searchText == "" && regionDropdown != "") {
+										retValue =
+											pokemon.entry_number >=
+												regions.find(
+													(region) =>
+														region.name.toLowerCase() == regionDropdown
+												).start &&
+											pokemon.entry_number <=
+												regions.find(
+													(region) =>
+														region.name.toLowerCase() == regionDropdown
+												).end;
+									}
+									// When both search terms and region filtering are active:
+									else if (searchText != "" && regionDropdown != "") {
+										retValue =
+											(pokemon.pokemon_species.name.includes(searchText) ||
+												pokemon.entry_number.toString().includes(searchText)) &&
+											pokemon.entry_number >=
+												regions.find(
+													(region) =>
+														region.name.toLowerCase() == regionDropdown
+												).start &&
+											pokemon.entry_number <=
+												regions.find(
+													(region) =>
+														region.name.toLowerCase() == regionDropdown
+												).end;
+									} else {
+										retValue = true;
+									}
+									return retValue;
+								})
+								.map((pokemon, index) => (
+									<PokedexItem
+										key={pokemon.pokemon_species.name}
+										num={pokemon.entry_number}
+										name={pokemon.pokemon_species.name}
+										itemSize={listSize}
+										click={() => {
+											changeDisplay();
+											setPokemon(pokemon.pokemon_species.name);
+										}}
+									/>
+								))}
+						</div>
+					</div>
+				</div>
+			</div>
+			{/*<div>
+				<div className="row">
 					<div className="input-group mb-3">
 						<span className="input-group-text" id="basic-addon1">
 							<i className="bi bi-search"></i>
@@ -107,7 +154,6 @@ function PokedexApp() {
 					</div>
 				</div>
 				<div className="row">
-					{/* Region Select */}
 					<div className="form-group mb-4 col-4">
 						<label htmlFor="regionSelect">Select Region</label>
 						<select
@@ -127,7 +173,6 @@ function PokedexApp() {
 								))}
 						</select>
 					</div>
-					{/* List View Select */}
 					<div className="form-group mb-4 col-4">
 						<label htmlFor="regionSelect">List View</label>
 						<select
@@ -222,14 +267,7 @@ function PokedexApp() {
 							</div>
 						))}
 				</div>
-			</div>
-			{
-				<PokemonContext.Provider value={pkmnBlank}>
-					<DisplayContext.Provider value={displayMenu}>
-						<PokemonMenu />
-					</DisplayContext.Provider>
-				</PokemonContext.Provider>
-			}
+			</div>*/}
 		</>
 	);
 }

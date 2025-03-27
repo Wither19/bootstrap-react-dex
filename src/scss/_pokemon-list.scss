@@ -1,17 +1,10 @@
-.card.pokemon-list-item {
+.pokemon-list-item {
 	cursor: pointer;
 	user-select: none;
 	text-transform: capitalize;
 
-	&.md {
-		width: $item-size;
-	}
-
-	&.lg {
-		width: $item-size * 1.5;
-	}
-
 	img.sprite {
+		width: 70px;
 		transition: filter 0.33s;
 	}
 
@@ -20,7 +13,7 @@
 	}
 
 	&:hover img.sprite {
-		filter: brightness(1.075);
+		filter: brightness(1.1);
 	}
 
 	&.reg {
@@ -33,8 +26,7 @@
 		}
 
 		&:hover img.sprite {
-			filter: drop-shadow($shadow-expanded $shadow-color-regular)
-				
+			filter: drop-shadow($shadow-expanded $shadow-color-regular);
 		}
 	}
 
@@ -47,7 +39,7 @@
 			filter: drop-shadow($shadow-resting $shadow-color-shiny);
 		}
 		&:hover img.sprite {
-			filter: drop-shadow($shadow-expanded $shadow-color-shiny)
+			filter: drop-shadow($shadow-expanded $shadow-color-shiny);
 		}
 	}
 }

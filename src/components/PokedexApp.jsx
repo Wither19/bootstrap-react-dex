@@ -223,11 +223,13 @@ function PokedexApp() {
 						))}
 				</div>
 			</div>
-			<PokemonContext.Provider value={pkmnBlank}>
-				<DisplayContext.Provider value={displayMenu}>
-					<PokemonMenu />
-				</DisplayContext.Provider>
-			</PokemonContext.Provider>
+			{
+				<PokemonContext.Provider value={pkmnBlank}>
+					<DisplayContext.Provider value={displayMenu}>
+						<PokemonMenu />
+					</DisplayContext.Provider>
+				</PokemonContext.Provider>
+			}
 		</>
 	);
 }

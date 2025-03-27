@@ -75,7 +75,77 @@ function PokedexApp() {
 		<>
 			<div>
 				<div className="row">
-					<div className="col-3">
+					<div className="col-3 m-1">
+						<div className="input-group">
+							<button
+								type="button"
+								className="btn btn-outline-secondary"
+								onClick={() => {
+									setSortOrder((prev) => (prev == "asc" ? "desc" : "asc"));
+								}}>
+								<i
+									className={`bi bi-sort-${
+										sortType == "dex" ? "numeric" : "alpha"
+									}-${sortOrder == "asc" ? "up" : "down"}`}></i>
+							</button>
+
+							<input
+								className="pokemon-searchbar"
+								type="text"
+								placeholder="Search to filter Pokémon"
+								onKeyUp={(e) => {
+									if (e.which == 13 || e.target.value == "") {
+										setSearchText(e.target.value.toLowerCase());
+									}
+								}}
+							/>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-3">
+							<div className="form-group mb-4">
+								<label htmlFor="regionSelect">Select Region</label>
+								<select
+									className="form-control"
+									id="regionSelect"
+									value={regionDropdown}
+									onChange={(e) => {
+										setRegionDropdown(e.target.value);
+									}}>
+									<option value="">All Regions</option>
+									{regions
+										.filter((_, index) => index != 0)
+										.map((region) => (
+											<option
+												key={region.name}
+												value={region.name.toLowerCase()}>
+												{region.name}
+											</option>
+										))}
+								</select>
+							</div>
+						</div>
+					</div>
+					<div className="row">
+						<div className="col-3">
+							<div className="form-group mb-4">
+								<label htmlFor="regionSelect">List View</label>
+								<select
+									className="form-control"
+									id="regionSelect"
+									value={listSize}
+									onChange={(e) => {
+										setListSize(e.target.value);
+									}}>
+									<option value="md">Medium</option>
+									<option value="lg">Large</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-4">
 						<div className="list-group">
 							{pokedex
 								.filter((pokemon, index) => {
@@ -127,147 +197,29 @@ function PokedexApp() {
 										itemSize={listSize}
 										click={() => {
 											changeDisplay();
-											setPokemon(pokemon.pokemon_species.name);
+											setName(pokemon.pokemon_species.name);
 										}}
 									/>
 								))}
 						</div>
 					</div>
+					<div className="col-9">
+						<PokemonContext.Provider value="">
+							<DisplayContext.Provider value="">
+								<PokemonMenu />
+							</DisplayContext.Provider>
+						</PokemonContext.Provider>
+					</div>
 				</div>
 			</div>
 			{/*<div>
 				<div className="row">
-					<div className="input-group mb-3">
-						<span className="input-group-text" id="basic-addon1">
-							<i className="bi bi-search"></i>
-						</span>
-						<input
-							className="pokemon-searchbar"
-							type="text"
-							placeholder="Search to filter Pokemon..."
-							onKeyUp={(e) => {
-								if (e.which == 13 || e.target.value == "") {
-									setSearchText(e.target.value.toLowerCase());
-								}
-							}}
-						/>
+					
 					</div>
 				</div>
 				<div className="row">
-					<div className="form-group mb-4 col-4">
-						<label htmlFor="regionSelect">Select Region</label>
-						<select
-							className="form-control"
-							id="regionSelect"
-							value={regionDropdown}
-							onChange={(e) => {
-								setRegionDropdown(e.target.value);
-							}}>
-							<option value="">All Regions</option>
-							{regions
-								.filter((_, index) => index != 0)
-								.map((region) => (
-									<option key={region.name} value={region.name.toLowerCase()}>
-										{region.name}
-									</option>
-								))}
-						</select>
-					</div>
-					<div className="form-group mb-4 col-4">
-						<label htmlFor="regionSelect">List View</label>
-						<select
-							className="form-control"
-							id="regionSelect"
-							value={listSize}
-							onChange={(e) => {
-								setListSize(e.target.value);
-							}}>
-							<option value="md">Medium</option>
-							<option value="lg">Large</option>
-						</select>
-					</div>
-					<div className="mb-4 col-3">
-						<label htmlFor="sortSelect">Sort by</label>
-						<select
-							className="form-control"
-							id="sortSelect"
-							value={sortType}
-							onChange={(e) => {
-								setSortType(e.target.value);
-							}}>
-							<option value="dex">Dex #</option>
-							<option value="alpha">A-Z</option>
-						</select>
-					</div>
-					<div className="col-1 my-4 mx-0">
-						<button
-							type="button"
-							className="btn btn-outline-secondary"
-							onClick={() => {
-								setSortOrder((prev) => (prev == "asc" ? "desc" : "asc"));
-							}}>
-							<i
-								className={`bi bi-sort-${
-									sortType == "dex" ? "numeric" : "alpha"
-								}-${sortOrder == "asc" ? "up" : "down"}`}></i>
-						</button>
-					</div>
-				</div>
-				<div className="pokemon-list d-flex flex-wrap justify-content-evenly">
-					{pokedex
-						.filter((pokemon, index) => {
-							var retValue = false;
-							// When search terms are active WITHOUT region filtering:
-							if (searchText != "" && regionDropdown == "") {
-								retValue =
-									pokemon.pokemon_species.name.includes(searchText) ||
-									pokemon.entry_number.toString().includes(searchText);
-								// When region filtering is active WITHOUT search terms:
-							} else if (searchText == "" && regionDropdown != "") {
-								retValue =
-									pokemon.entry_number >=
-										regions.find(
-											(region) => region.name.toLowerCase() == regionDropdown
-										).start &&
-									pokemon.entry_number <=
-										regions.find(
-											(region) => region.name.toLowerCase() == regionDropdown
-										).end;
-							}
-							// When both search terms and region filtering are active:
-							else if (searchText != "" && regionDropdown != "") {
-								retValue =
-									(pokemon.pokemon_species.name.includes(searchText) ||
-										pokemon.entry_number.toString().includes(searchText)) &&
-									pokemon.entry_number >=
-										regions.find(
-											(region) => region.name.toLowerCase() == regionDropdown
-										).start &&
-									pokemon.entry_number <=
-										regions.find(
-											(region) => region.name.toLowerCase() == regionDropdown
-										).end;
-							} else {
-								retValue = true;
-							}
-							return retValue;
-						})
-						.map((pokemon, index) => (
-							<div className={`${listSize == "md" ? "col-2" : "col-3"} m-4`}>
-								<PokedexItem
-									key={pokemon.pokemon_species.name}
-									num={pokemon.entry_number}
-									name={pokemon.pokemon_species.name}
-									itemSize={listSize}
-									click={() => {
-										changeDisplay();
-										setPokemon(pokemon.pokemon_species.name);
-									}}
-								/>
-							</div>
-						))}
-				</div>
-			</div>*/}
+	
+				</div>*/}
 		</>
 	);
 }

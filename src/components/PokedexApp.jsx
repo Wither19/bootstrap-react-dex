@@ -52,6 +52,7 @@ function PokedexApp() {
 	const [sortOrder, setSortOrder] = useState("asc");
 
 	const [selectedName, setName] = useState("bulbasaur");
+	const [selectedNumber, setNumber] = useState(1);
 
 	const PokemonContext = createContext(selectedName);
 
@@ -72,7 +73,7 @@ function PokedexApp() {
 		<>
 			<div>
 				<div className="row">
-					<div className="col-3 m-1">
+					<div className="col-5 m-1">
 						<div className="input-group">
 							<button
 								type="button"
@@ -99,7 +100,7 @@ function PokedexApp() {
 						</div>
 					</div>
 					<div className="row">
-						<div className="col-3">
+						<div className="col-4">
 							<div className="form-group mb-4">
 								<label htmlFor="regionSelect">Select Region</label>
 								<select
@@ -124,7 +125,7 @@ function PokedexApp() {
 						</div>
 					</div>
 					<div className="row">
-						<div className="col-3">
+						<div className="col-4">
 							<div className="form-group mb-4">
 								<label htmlFor="regionSelect">List View</label>
 								<select
@@ -191,9 +192,13 @@ function PokedexApp() {
 										key={pokemon.pokemon_species.name}
 										num={pokemon.entry_number}
 										name={pokemon.pokemon_species.name}
+										selected={
+											selectedNumber == pokemon.entry_number ? true : false
+										}
 										itemSize={listSize}
 										click={() => {
 											setName(pokemon.pokemon_species.name);
+											setNumber(pokemon.entry_number);
 										}}
 									/>
 								))}

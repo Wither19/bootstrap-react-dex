@@ -22,7 +22,9 @@ function PokedexItem(props) {
 		<>
 			<motion.div
 				key={props.name}
-				className="list-group-item pokemon-list-item"
+				className={`list-group-item ${
+					props.selected ? "active" : ""
+				} pokemon-list-item`}
 				onClick={props.click}>
 				<motion.img
 					src={`https://raw.githubusercontent.com/Wither19/pokerogue/refs/heads/main/public/images/pokemon/icons/${props.num}.png`}

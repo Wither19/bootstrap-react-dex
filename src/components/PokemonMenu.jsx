@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 
 function PokemonMenu() {
 	const pkmn = useContext(PokemonContext);
-	const display = useContext(DisplayContext);
+	const menuDisplay = useContext(DisplayContext);
 
 	return (
-		<div style={{ display: display ? "block" : "none" }}>
+		<div style={{ display: menuDisplay ? "block" : "none" }}>
 			{/* 
 	    • Core information
         ◦ Name

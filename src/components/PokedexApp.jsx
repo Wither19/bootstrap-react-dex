@@ -53,7 +53,7 @@ function PokedexApp() {
 
 	const [displayMenu, setDisplayMenu] = useState(false);
 
-	const [pokemon, setPokemon] = useState({});
+	const [pokemon, setPokemon] = useState("");
 
 	const passedPokemon = createContext(pokemon);
 

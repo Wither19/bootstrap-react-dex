@@ -53,7 +53,7 @@ function PokedexApp() {
 
 	const [selectedName, setName] = useState("bulbasaur");
 
-	const PokemonContext = createContext(null);
+	const PokemonContext = createContext(selectedName);
 
 	// Ternary to decide sort type based on dropdown selection
 
@@ -65,8 +65,6 @@ function PokedexApp() {
 	const setSortedDex = () => {
 		setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder));
 	};
-
-	const changeDisplay = () => setDisplayMenu((prev) => !prev);
 
 	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
 
@@ -195,7 +193,6 @@ function PokedexApp() {
 										name={pokemon.pokemon_species.name}
 										itemSize={listSize}
 										click={() => {
-											changeDisplay();
 											setName(pokemon.pokemon_species.name);
 										}}
 									/>

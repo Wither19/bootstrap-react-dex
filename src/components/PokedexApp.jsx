@@ -167,6 +167,15 @@ function PokedexApp() {
 								);
 								// When region filtering is active WITHOUT search terms:
 							} else if (searchText == "" && regionDropdown != "") {
+								/*retValue =
+									pokemon.entry_number >=
+										regions.find(
+											(region) => region.name.toLowerCase() == regionDropdown
+										).start &&
+									pokemon.entry_number <=
+										regions.find(
+											(region) => region.name.toLowerCase() == regionDropdown
+										).end;*/
 								isInRegion(pokemon.entry_number, regions, regionDropdown);
 							}
 							// When both search terms and region filtering are active:

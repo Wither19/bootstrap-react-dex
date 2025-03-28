@@ -6,8 +6,18 @@ import { PokemonContext } from "../contexts/PokemonContext";
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
 
-	const [pkmnGeneral, setGeneralData] = useState({});
-	const [pkmnSpecies, setSpeciesData] = useState({});
+	interface PokemonGeneral {
+		id: number;
+		name: string;
+		// Add other properties as needed
+	}
+
+	interface PokemonSpecies {
+		genus: string;
+	}
+
+	const [pkmnGeneral, setGeneralData] = useState<PokemonGeneral | null>(null);
+	const [pkmnSpecies, setSpeciesData] = useState<PokemonSpecies | null>(null);
 
 	const [isShiny, setShinyState] = useState(false);
 	const artworkType = isShiny ? "shiny/" : "";
@@ -18,25 +28,25 @@ function PokemonMenu() {
 			.then((response) => {
 				setGeneralData(response.data);
 			})
-			.catch(() => alert("Could not load Pokemon data!"));
+			.catch(() => {});
 
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
 				setGeneralData(response.data);
 			})
-			.catch(() => alert("Could not load Pokemon species data!"));
+			.catch(() => {});
 	}, [pokemon]);
 
 	return (
 		<>
-			<PokemonContext.Provider>
+			<PokemonContext.Provider value={pokemon}>
 				{/* 
 	    • Core information
         ◦ Name
         ◦ Genus
         ◦ Types
-        ◦ Abilities
+				{pkmnGeneral !== null && (
     • All available Dex entries for the Pokémon
     • In the interest of condensing the menu, only feature Pokémon HOME artwork
     • Click Sprite to toggle shiny
@@ -44,7 +54,10 @@ function PokemonMenu() {
 		 */}
 				{pkmnGeneral && (
 					<>
-						<div className="display-5 pkmn-name-header">
+						<div
+							className={`display-5 pkmn-name-header ${
+								isShiny ? "shiny" : "regular"
+							}`}>
 							#{pkmnGeneral.id?.toString().padStart(4, "0")}
 							{" - "}
 							{pkmnGeneral.name?.replace("-", " ")}

@@ -31,7 +31,9 @@ const regions = [
 */
 
 function PokedexApp() {
-	const [pokedex, setPokedex] = useState([]);
+	const [pokedex, setPokedex] = useState<
+		{ entry_number: number; pokemon_species: { name: string } }[]
+	>([]);
 
 	// Fetches the pokedex data from PokeAPI and sets the state to a lodash ordered array of the pokemon entries
 
@@ -48,7 +50,7 @@ function PokedexApp() {
 	const [searchText, setSearchText] = useState("");
 
 	const [sortType, setSortType] = useState("dex");
-	const [sortOrder, setSortOrder] = useState("asc");
+	const [sortOrder, setSortOrder] = useState<boolean>(false);
 
 	const [selectedName, setName] = useState("bulbasaur");
 	const [selectedNumber, setNumber] = useState(1);
@@ -60,7 +62,7 @@ function PokedexApp() {
 	const pokedexSort =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
-	const nameIdSearch = (name, id) => {
+	const nameIdSearch = (name: string, id: number) => {
 		var retValue = false;
 		if (name.includes(searchText) || id.toString().includes(searchText)) {
 			retValue = true;
@@ -70,7 +72,7 @@ function PokedexApp() {
 
 	const isInRegion = (id) => {
 		var retValue = false;
-		const currentRegion = regions?.find(
+		const currentRegion: any = regions?.find(
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
 
@@ -99,19 +101,19 @@ function PokedexApp() {
 								type="button"
 								className="btn btn-outline-secondary"
 								onClick={() => {
-									setSortOrder((prev) => (prev == "asc" ? "desc" : "asc"));
+									setSortOrder((prev) => !prev);
 								}}>
 								<i
 									className={`bi bi-sort-${
 										sortType == "dex" ? "numeric" : "alpha"
-									}-${sortOrder == "asc" ? "up" : "down"}`}></i>
+									}-${sortOrder ? "down" : "up"}`}></i>
 							</button>
 
 							<input
 								className="pokemon-searchbar"
 								type="text"
 								placeholder="Search to filter Pokémon"
-								onKeyUp={(e) => {
+								onKeyUp={(e: any) => {
 									if (e.which == 13 || e.target.value == "") {
 										setSearchText(e.target.value.toLowerCase());
 									}
@@ -127,7 +129,7 @@ function PokedexApp() {
 									className="form-control"
 									id="regionSelect"
 									value={regionDropdown}
-									onChange={(e) => {
+									onChange={(e: any) => {
 										setRegionDropdown(e.target.value);
 									}}>
 									<option value="">All Regions</option>

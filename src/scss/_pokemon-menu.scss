@@ -1,6 +1,10 @@
 .pkmn-name-header {
 	text-align: center;
 	text-transform: capitalize;
+
+	&.shiny {
+		color: goldenrod;
+	}
 }
 
 img.artwork {

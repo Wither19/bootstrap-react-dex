@@ -97,6 +97,11 @@ function PokedexApp() {
 							/>
 						</div>
 					</div>
+					<div className="col-6 my-3">
+						<PokemonProvider val={selectedName}>
+							<PokemonMenu />
+						</PokemonProvider>
+					</div>
 					<div className="row">
 						<div className="col-4">
 							<div className="form-group mb-4">
@@ -201,11 +206,6 @@ function PokedexApp() {
 									/>
 								))}
 						</div>
-					</div>
-					<div className="col-8">
-						<PokemonProvider val={selectedName}>
-							<PokemonMenu />
-						</PokemonProvider>
 					</div>
 				</div>
 			</div>

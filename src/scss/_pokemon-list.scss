@@ -1,3 +1,8 @@
+.list-group {
+	height: 60vh;
+	overflow-y: scroll;
+}
+
 .pokemon-list-item {
 	cursor: pointer;
 	user-select: none;

@@ -9,20 +9,28 @@ function PokemonMenu() {
 	const [pkmnGeneral, setGeneralData] = useState({});
 	const [pkmnSpecies, setSpeciesData] = useState({});
 
+	const [isShiny, setShinyState] = useState(false);
+	const artworkType = isShiny ? "front_shiny" : "front_default";
+
 	useEffect(() => {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-			.then((response) => setGeneralData(response.data))
+			.then((response) => {
+				setGeneralData(response.data);
+				console.log(response.data.sprites.other.home["front_default"]);
+			})
 			.catch(() => alert("Could not load Pokemon data!"));
 
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
-			.then((response) => setGeneralData(response.data))
+			.then((response) => {
+				setGeneralData(response.data);
+			})
 			.catch(() => alert("Could not load Pokemon species data!"));
 	}, [pokemon]);
 
 	return (
-		<div>
+		<>
 			<PokemonContext.Provider>
 				{/* 
 	    • Core information
@@ -35,9 +43,21 @@ function PokemonMenu() {
     • Click Sprite to toggle shiny
     • Make Pokémon name header turn gold with shiny toggle (Framer Motion animated shiny icon)
 		 */}
-				{pkmnGeneral && <h1>{pkmnGeneral.name.replace("-", " ")}</h1>}
+				{pkmnGeneral && (
+					<>
+						<div className="display-5 pkmn-name-header">
+							#{pkmnGeneral.id?.toString().padStart(4, "0")}
+							{" - "}
+							{pkmnGeneral.name?.replace("-", " ")}
+						</div>
+						<img
+							src={pkmnGeneral?.sprites?.other?.home[artworkType]}
+							className="artwork"
+						/>
+					</>
+				)}
 			</PokemonContext.Provider>
-		</div>
+		</>
 	);
 }
 

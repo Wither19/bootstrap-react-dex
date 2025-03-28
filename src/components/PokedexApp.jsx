@@ -59,6 +59,25 @@ function PokedexApp() {
 	const pokedexSort =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
+	const nameIdSearch = (name, id, searchTerm) => {
+		var retValue = false;
+		if (name.includes(searchTerm) || id.toString().includes(searchTerm)) {
+			retValue = true;
+		}
+		return retValue;
+	};
+
+	const isInRegion = (id, list, region) => {
+		var retValue = false;
+		if (
+			id >= list?.find((region) => region.name.toLowerCase() == region).start &&
+			id <= list?.find((region) => region.name.toLowerCase() == region).end
+		) {
+			retValue = true;
+		}
+		return retValue;
+	};
+
 	// Updates the sorted dex state after a sort type or sort order change, as well as when region filters or search terms are used
 
 	const setSortedDex = () => {
@@ -70,7 +89,7 @@ function PokedexApp() {
 	return (
 		<>
 			<div className="row">
-				<div className="col-5 m-1">
+				<div className="col-4 m-1">
 					<div className="input-group">
 						<button
 							type="button"
@@ -96,12 +115,6 @@ function PokedexApp() {
 						/>
 					</div>
 				</div>
-				<div className="col-6 my-3">
-					<PokemonProvider val={selectedName}>
-						<PokemonMenu />
-					</PokemonProvider>
-				</div>
-
 				<div className="col-4">
 					<div className="form-group mb-4">
 						<label htmlFor="regionSelect">Select Region</label>
@@ -123,13 +136,12 @@ function PokedexApp() {
 						</select>
 					</div>
 				</div>
-
 				<div className="col-4">
 					<div className="form-group mb-4">
-						<label htmlFor="regionSelect">List View</label>
+						<label htmlFor="listViewSelect">List View</label>
 						<select
 							className="form-control"
-							id="regionSelect"
+							id="listViewSelect"
 							value={listSize}
 							onChange={(e) => {
 								setListSize(e.target.value);
@@ -148,26 +160,23 @@ function PokedexApp() {
 							var retValue = false;
 							// When search terms are active WITHOUT region filtering:
 							if (searchText != "" && regionDropdown == "") {
-								retValue =
-									pokemon.pokemon_species.name.includes(searchText) ||
-									pokemon.entry_number.toString().includes(searchText);
+								retValue = nameIdSearch(
+									pokemon.pokemon_species.name,
+									pokemon.entry_number,
+									searchText
+								);
 								// When region filtering is active WITHOUT search terms:
 							} else if (searchText == "" && regionDropdown != "") {
-								retValue =
-									pokemon.entry_number >=
-										regions.find(
-											(region) => region.name.toLowerCase() == regionDropdown
-										).start &&
-									pokemon.entry_number <=
-										regions.find(
-											(region) => region.name.toLowerCase() == regionDropdown
-										).end;
+								isInRegion(pokemon.entry_number, regions, regionDropdown);
 							}
 							// When both search terms and region filtering are active:
 							else if (searchText != "" && regionDropdown != "") {
 								retValue =
-									(pokemon.pokemon_species.name.includes(searchText) ||
-										pokemon.entry_number.toString().includes(searchText)) &&
+									nameIdSearch(
+										pokemon.pokemon_species.name,
+										pokemon.entry_number,
+										searchText
+									) &&
 									pokemon.entry_number >=
 										regions.find(
 											(region) => region.name.toLowerCase() == regionDropdown
@@ -194,6 +203,11 @@ function PokedexApp() {
 								}}
 							/>
 						))}
+				</div>
+				<div className="col-2 my-3">
+					<PokemonProvider val={selectedName}>
+						<PokemonMenu />
+					</PokemonProvider>
 				</div>
 			</div>
 		</>

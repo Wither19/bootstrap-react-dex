@@ -59,19 +59,20 @@ function PokedexApp() {
 	const pokedexSort =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
-	const nameIdSearch = (name, id, searchTerm) => {
+	const nameIdSearch = (name, id) => {
 		var retValue = false;
-		if (name.includes(searchTerm) || id.toString().includes(searchTerm)) {
+		if (name.includes(searchText) || id.toString().includes(searchText)) {
 			retValue = true;
 		}
 		return retValue;
 	};
 
-	const isInRegion = (id, list, region) => {
+	const isInRegion = (id) => {
 		var retValue = false;
 		if (
-			id >= list?.find((r) => r.name.toLowerCase() == region).start &&
-			id <= list?.find((r) => r.name.toLowerCase() == region).end
+			id >=
+				regions?.find((r) => r.name.toLowerCase() == regionDropdown).start &&
+			id <= regions?.find((r) => r.name.toLowerCase() == regionDropdown).end
 		) {
 			retValue = true;
 		}
@@ -89,8 +90,8 @@ function PokedexApp() {
 	return (
 		<>
 			<div className="row">
-				<div className="col-4 m-1">
-					<div className="input-group">
+				<div className="col-3 m-1">
+					<div className="input-group-sm">
 						<button
 							type="button"
 							className="btn btn-outline-secondary"
@@ -115,44 +116,47 @@ function PokedexApp() {
 						/>
 					</div>
 				</div>
-				<div className="col-4">
-					<div className="form-group mb-4">
-						<label htmlFor="regionSelect">Select Region</label>
-						<select
-							className="form-control"
-							id="regionSelect"
-							value={regionDropdown}
-							onChange={(e) => {
-								setRegionDropdown(e.target.value);
-							}}>
-							<option value="">All Regions</option>
-							{regions
-								.filter((_, index) => index != 0)
-								.map((region) => (
-									<option key={region.name} value={region.name.toLowerCase()}>
-										{region.name}
-									</option>
-								))}
-						</select>
+				<div className="row">
+					<div className="col-3">
+						<div className="form-group mb-4">
+							<label htmlFor="regionSelect">Select Region</label>
+							<select
+								className="form-control"
+								id="regionSelect"
+								value={regionDropdown}
+								onChange={(e) => {
+									setRegionDropdown(e.target.value);
+								}}>
+								<option value="">All Regions</option>
+								{regions
+									.filter((_, index) => index != 0)
+									.map((region) => (
+										<option key={region.name} value={region.name.toLowerCase()}>
+											{region.name}
+										</option>
+									))}
+							</select>
+						</div>
 					</div>
 				</div>
-				<div className="col-4">
-					<div className="form-group mb-4">
-						<label htmlFor="listViewSelect">List View</label>
-						<select
-							className="form-control"
-							id="listViewSelect"
-							value={listSize}
-							onChange={(e) => {
-								setListSize(e.target.value);
-							}}>
-							<option value="md">Medium</option>
-							<option value="lg">Large</option>
-						</select>
+				<div className="row">
+					<div className="col-3">
+						<div className="form-group mb-4">
+							<label htmlFor="listViewSelect">List View</label>
+							<select
+								className="form-control"
+								id="listViewSelect"
+								value={listSize}
+								onChange={(e) => {
+									setListSize(e.target.value);
+								}}>
+								<option value="md">Medium</option>
+								<option value="lg">Large</option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
-
 			<div className="col-4">
 				<div className="list-group">
 					{pokedex
@@ -162,8 +166,7 @@ function PokedexApp() {
 							if (searchText != "" && regionDropdown == "") {
 								retValue = nameIdSearch(
 									pokemon.pokemon_species.name,
-									pokemon.entry_number,
-									searchText
+									pokemon.entry_number
 								);
 								// When region filtering is active WITHOUT search terms:
 							} else if (searchText == "" && regionDropdown != "") {
@@ -176,15 +179,14 @@ function PokedexApp() {
 										regions.find(
 											(region) => region.name.toLowerCase() == regionDropdown
 										).end;*/
-								isInRegion(pokemon.entry_number, regions, regionDropdown);
+								isInRegion(pokemon.entry_number);
 							}
 							// When both search terms and region filtering are active:
 							else if (searchText != "" && regionDropdown != "") {
 								retValue =
 									nameIdSearch(
 										pokemon.pokemon_species.name,
-										pokemon.entry_number,
-										searchText
+										pokemon.entry_number
 									) &&
 									pokemon.entry_number >=
 										regions.find(
@@ -213,6 +215,8 @@ function PokedexApp() {
 							/>
 						))}
 				</div>
+			</div>
+			<div className="row">
 				<div className="col-2 my-3">
 					<PokemonProvider val={selectedName}>
 						<PokemonMenu />

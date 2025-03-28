@@ -70,7 +70,7 @@ function PokedexApp() {
 	const isInRegion = (id, list, region) => {
 		var retValue = false;
 		if (
-			id >= list?.find((r) => rc.name.toLowerCase() == region).start &&
+			id >= list?.find((r) => r.name.toLowerCase() == region).start &&
 			id <= list?.find((r) => r.name.toLowerCase() == region).end
 		) {
 			retValue = true;

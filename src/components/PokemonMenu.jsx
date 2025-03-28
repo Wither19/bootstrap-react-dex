@@ -10,14 +10,13 @@ function PokemonMenu() {
 	const [pkmnSpecies, setSpeciesData] = useState({});
 
 	const [isShiny, setShinyState] = useState(false);
-	const artworkType = isShiny ? "front_shiny" : "front_default";
+	const artworkType = isShiny ? "shiny/" : "";
 
 	useEffect(() => {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
 			.then((response) => {
 				setGeneralData(response.data);
-				console.log(response.data.sprites.other.home["front_default"]);
 			})
 			.catch(() => alert("Could not load Pokemon data!"));
 
@@ -51,7 +50,7 @@ function PokemonMenu() {
 							{pkmnGeneral.name?.replace("-", " ")}
 						</div>
 						<img
-							src={pkmnGeneral?.sprites?.other?.home[artworkType]}
+							src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
 							className="artwork"
 						/>
 					</>

@@ -47,7 +47,6 @@ function PokedexApp() {
 	const [regionDropdown, setRegionDropdown] = useState("");
 	const [searchText, setSearchText] = useState("");
 
-	const [listSize, setListSize] = useState("md");
 	const [sortType, setSortType] = useState("dex");
 	const [sortOrder, setSortOrder] = useState("asc");
 
@@ -92,8 +91,8 @@ function PokedexApp() {
 
 	return (
 		<>
-			<div className="flex flex-wrap">
-				<div style={{ display: displayMenu ? "none" : "flex" }}>
+			<div className="d-flex flex-wrap flex-row">
+				<div style={{ flexBasis: "40%" }}>
 					<div className="m-1">
 						<div className="input-group">
 							<button
@@ -146,23 +145,6 @@ function PokedexApp() {
 						</div>
 					</div>
 					<div>
-						<div>
-							<div className="form-group mb-4">
-								<label htmlFor="listViewSelect">List View</label>
-								<select
-									className="form-control"
-									id="listViewSelect"
-									value={listSize}
-									onChange={(e) => {
-										setListSize(e.target.value);
-									}}>
-									<option value="md">Medium</option>
-									<option value="lg">Large</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div>
 						<div className="list-group">
 							{pokedex
 								.filter((pokemon, index) => {
@@ -197,7 +179,6 @@ function PokedexApp() {
 										selected={
 											selectedNumber == pokemon.entry_number ? true : false
 										}
-										itemSize={listSize}
 										click={() => {
 											setName(pokemon.pokemon_species.name);
 											setNumber(pokemon.entry_number);
@@ -207,10 +188,7 @@ function PokedexApp() {
 						</div>
 					</div>
 				</div>
-
-				<div
-					style={{ display: displayMenu ? "flex" : "none" }}
-					className="my-3">
+				<div style={{ flexBasis: "60%" }} className="my-3">
 					<PokemonProvider val={selectedName}>
 						<PokemonMenu />
 					</PokemonProvider>

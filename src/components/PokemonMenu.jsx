@@ -49,10 +49,14 @@ function PokemonMenu() {
 							{" - "}
 							{pkmnGeneral.name?.replace("-", " ")}
 						</div>
-						<img
-							src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
-							className="artwork"
-						/>
+						<div
+							onClick={() => setShinyState((prev) => !prev)}
+							style={{ textAlign: "center" }}>
+							<img
+								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
+								className={`artwork ${isShiny ? "shiny" : "regular"}`}
+							/>
+						</div>
 					</>
 				)}
 			</PokemonContext.Provider>

@@ -19,7 +19,7 @@ import "@fontsource/inter/400-italic.css";
 import "@fontsource/inter/700.css";
 import "@fontsource/inter/700-italic.css";
 
-import App from "./App.jsx";
+import App from "./App.js";
 
 createRoot(document.getElementById("root")).render(
 	<StrictMode>

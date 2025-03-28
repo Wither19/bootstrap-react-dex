@@ -8,43 +8,15 @@
 	user-select: none;
 	text-transform: capitalize;
 
+	&:not(.active):hover {
+		filter: brightness(0.8);
+	}
+
 	img.sprite {
 		width: 70px;
-		transition: filter 0.33s;
 	}
 
 	h5 {
 		transition: color 200ms;
-	}
-
-	&:hover img.sprite {
-		filter: brightness(1.1);
-	}
-
-	&.reg {
-		&:hover h5 {
-			color: #6c6aea;
-		}
-
-		img.sprite {
-			filter: drop-shadow($shadow-resting $shadow-color-regular);
-		}
-
-		&:hover img.sprite {
-			filter: drop-shadow($shadow-expanded $shadow-color-regular);
-		}
-	}
-
-	&.shiny {
-		&:hover h5 {
-			color: #ffcc00;
-		}
-
-		img.sprite {
-			filter: drop-shadow($shadow-resting $shadow-color-shiny);
-		}
-		&:hover img.sprite {
-			filter: drop-shadow($shadow-expanded $shadow-color-shiny);
-		}
 	}
 }

@@ -1,0 +1,28 @@
+.pkmn-name-header {
+	text-align: center;
+	text-transform: capitalize;
+
+	&.shiny {
+		color: goldenrod;
+	}
+}
+
+img.artwork {
+	width: 400px;
+	margin: 10px auto;
+	text-align: center;
+	transition: 300ms;
+
+	&.regular {
+		filter: drop-shadow($shadow-resting $shadow-color-regular);
+		&:hover {
+			filter: drop-shadow($shadow-expanded $shadow-color-regular);
+		}
+	}
+	&.shiny {
+		filter: drop-shadow($shadow-resting $shadow-color-shiny);
+		&:hover {
+			filter: drop-shadow($shadow-expanded $shadow-color-shiny);
+		}
+	}
+}

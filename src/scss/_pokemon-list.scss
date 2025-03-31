@@ -1,53 +1,22 @@
-.card.pokemon-list-item {
+.list-group {
+	height: 70vh;
+	overflow-y: scroll;
+}
+
+.pokemon-list-item {
 	cursor: pointer;
 	user-select: none;
 	text-transform: capitalize;
 
-	&.md {
-		width: $item-size;
-	}
-
-	&.lg {
-		width: $item-size * 1.5;
+	&:not(.active):hover {
+		filter: brightness(0.8);
 	}
 
 	img.sprite {
-		transition: filter 0.33s;
+		width: 70px;
 	}
 
 	h5 {
 		transition: color 200ms;
-	}
-
-	&:hover img.sprite {
-		filter: brightness(1.075);
-	}
-
-	&.reg {
-		&:hover h5 {
-			color: #6c6aea;
-		}
-
-		img.sprite {
-			filter: drop-shadow($shadow-resting $shadow-color-regular);
-		}
-
-		&:hover img.sprite {
-			filter: drop-shadow($shadow-expanded $shadow-color-regular)
-				
-		}
-	}
-
-	&.shiny {
-		&:hover h5 {
-			color: #ffcc00;
-		}
-
-		img.sprite {
-			filter: drop-shadow($shadow-resting $shadow-color-shiny);
-		}
-		&:hover img.sprite {
-			filter: drop-shadow($shadow-expanded $shadow-color-shiny)
-		}
 	}
 }

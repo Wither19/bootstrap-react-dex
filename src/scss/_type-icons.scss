@@ -1,5 +1,3 @@
-@use "sass:list";
-
 .icon {
 	height: 100px;
 	width: 100px;
@@ -20,10 +18,9 @@
 	}
 }
 
-@each $type in $type-names {
-	$type-color: list.nth($type-colors, list.index($type-names, $type));
-	.#{$type} {
-		background-color: $type-color;
-		box-shadow: 0 0 20px $type-color;
+@each $name, $color in $types {
+	.#{$name} {
+		background-color: $color;
+		box-shadow: 0 0 20px $color;
 	}
 }

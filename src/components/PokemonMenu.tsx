@@ -11,6 +11,7 @@ function PokemonMenu() {
   interface PokemonGeneral {
     id: number;
     name: string;
+    stats: { any };
     // Add other properties as needed
   }
 
@@ -67,7 +68,12 @@ function PokemonMenu() {
                 className={`artwork ${isShiny ? "shiny" : "regular"}`}
               />
             </div>
-            <Stat />
+            <Stat name="hp" value={} />
+            <Stat name="hp" value={} />
+            <Stat name="hp" value={} />
+            <Stat name="hp" value={} />
+            <Stat name="hp" value={} />
+            <Stat name="hp" value={} />
           </>
         )}
       </PokemonContext.Provider>

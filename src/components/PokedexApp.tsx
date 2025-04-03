@@ -9,7 +9,7 @@ import PokedexItem from "./PokedexItem";
 
 import { PokemonProvider } from "../contexts/PokemonContext";
 
-import type { PokedexEntry } from "../types";
+import { PokedexEntry } from "../types/types";
 
 import { start } from "@popperjs/core";
 
@@ -34,7 +34,7 @@ const regions = [
 */
 
 function PokedexApp() {
-  const [pokedex, setPokedex] = useState<Array<PokedexEntry>>([]);
+	const [pokedex, setPokedex] = useState<PokedexEntry[]>([]);
 
   // Fetches the pokedex data from PokeAPI, and sets the state to a lodash ordered array of the pokemon entries
   useEffect(() => {

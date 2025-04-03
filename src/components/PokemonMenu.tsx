@@ -5,46 +5,37 @@ import Stat from "./Stat";
 
 import { PokemonContext } from "../contexts/PokemonContext";
 
+import { PokemonGeneral, PokemonSpecies } from "../types/types";
+
 function PokemonMenu() {
-  const pokemon = useContext(PokemonContext);
+	const pokemon = useContext(PokemonContext);
 
-  interface PokemonGeneral {
-    id: number;
-    name: string;
-    stats: { any };
-    // Add other properties as needed
-  }
+	const [pkmnGeneral, setGeneralData] = useState<PokemonGeneral | null>(null);
+	const [pkmnSpecies, setSpeciesData] = useState<PokemonSpecies | null>(null);
 
-  interface PokemonSpecies {
-    genus: string;
-  }
+	const [isShiny, setShinyState] = useState(false);
+	const artworkType = isShiny ? "shiny/" : "";
 
-  const [pkmnGeneral, setGeneralData] = useState<PokemonGeneral | null>(null);
-  const [pkmnSpecies, setSpeciesData] = useState<PokemonSpecies | null>(null);
+	useEffect(() => {
+		axios
+			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
+			.then((response) => {
+				setGeneralData(response.data);
+			})
+			.catch(() => {});
 
-  const [isShiny, setShinyState] = useState(false);
-  const artworkType = isShiny ? "shiny/" : "";
+		axios
+			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
+			.then((response) => {
+				setGeneralData(response.data);
+			})
+			.catch(() => {});
+	}, [pokemon]);
 
-  useEffect(() => {
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-      .then((response) => {
-        setGeneralData(response.data);
-      })
-      .catch(() => {});
-
-    axios
-      .get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
-      .then((response) => {
-        setGeneralData(response.data);
-      })
-      .catch(() => {});
-  }, [pokemon]);
-
-  return (
-    <>
-      <PokemonContext.Provider value={pokemon}>
-        {/* 
+	return (
+		<>
+			<PokemonContext.Provider value={pokemon}>
+				{/* 
 	    • Core information
         ◦ Name
         ◦ Genus
@@ -55,30 +46,35 @@ function PokemonMenu() {
     • Click Sprite to toggle shiny
     • Make Pokémon name header turn gold with shiny toggle (Framer Motion animated shiny icon)
 		 */}
-        {pkmnGeneral && (
-          <>
-            <div className={`display-5 pkmn-name-header ${isShiny ? "shiny" : "regular"}`}>
-              #{pkmnGeneral.id?.toString().padStart(4, "0")}
-              {" - "}
-              {pkmnGeneral.name?.replace("-", " ")}
-            </div>
-            <div onClick={() => setShinyState((prev) => !prev)} style={{ textAlign: "center" }}>
-              <img
-                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
-                className={`artwork ${isShiny ? "shiny" : "regular"}`}
-              />
-            </div>
-            <Stat name="hp" value={} />
-            <Stat name="hp" value={} />
-            <Stat name="hp" value={} />
-            <Stat name="hp" value={} />
-            <Stat name="hp" value={} />
-            <Stat name="hp" value={} />
-          </>
-        )}
-      </PokemonContext.Provider>
-    </>
-  );
+				{pkmnGeneral && (
+					<>
+						<div
+							className={`display-5 pkmn-name-header ${
+								isShiny ? "shiny" : "regular"
+							}`}>
+							#{pkmnGeneral.id?.toString().padStart(4, "0")}
+							{" - "}
+							{pkmnGeneral.name?.replace("-", " ")}
+						</div>
+						<div
+							onClick={() => setShinyState((prev) => !prev)}
+							style={{ textAlign: "center" }}>
+							<img
+								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
+								className={`artwork ${isShiny ? "shiny" : "regular"}`}
+							/>
+						</div>
+						<Stat name="hp" value={pkmnGeneral.stats[0].base_stat} />
+						<Stat name="atk" value={pkmnGeneral.stats[1].base_stat} />
+						<Stat name="def" value={pkmnGeneral.stats[2].base_stat} />
+						<Stat name="sp-atk" value={pkmnGeneral.stats[3].base_stat} />
+						<Stat name="sp-def" value={pkmnGeneral.stats[4].base_stat} />
+						<Stat name="spd" value={pkmnGeneral.stats[5].base_stat} />
+					</>
+				)}
+			</PokemonContext.Provider>
+		</>
+	);
 }
 
 export default PokemonMenu;

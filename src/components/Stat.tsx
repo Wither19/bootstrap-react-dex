@@ -57,13 +57,7 @@ function Stat(props) {
 	return (
 		<>
 			{getStatName(props.name)}
-			<div
-				className="bar"
-				style={{
-					color: getStatColors(
-						props.name == "cp" ? props.value / 26 : props.value
-					),
-				}}>
+			<div className="bar" style={{}}>
 				{props.value}
 			</div>
 		</>

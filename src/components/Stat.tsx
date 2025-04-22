@@ -11,19 +11,12 @@ const statColors: string[] = [
 ];
 const statThresholds: number[] = [40, 65, 80, 105, 170];
 
-const names = {
-	hp: "HP",
-	atk: "Attack",
-	def: "Defense",
-	"sp-atk": "Sp. Attack",
-	"sp-def": "Sp. Defense",
-	spd: "Speed",
-};
-
 const getStatColors = (stat: number) => {};
 
 const getStatName = (stat: string) => {
-	return names[stat];
+	let n = stat.replace("-", " ");
+	n = n.charAt(0).toUpperCase() + n.slice(1);
+	return n;
 };
 
 function iterateComparison<T>(
@@ -53,12 +46,12 @@ function iterateComparison<T>(
 	return returnValue;
 }
 
-function Stat(props) {
+function Stat({ name, value }: { name: string; value: number }) {
 	return (
 		<>
-			{getStatName(props.name)}
+			{getStatName(name)}
 			<div className="bar" style={{}}>
-				{props.value}
+				{value == 0 ? "Loading..." : value}
 			</div>
 		</>
 	);

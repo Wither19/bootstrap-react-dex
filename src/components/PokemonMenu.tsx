@@ -5,7 +5,7 @@ import Stat from "./Stat";
 
 import { PokemonContext } from "../contexts/PokemonContext";
 
-import type { PokemonGeneral, PokemonSpecies } from "../types/types";
+import type { PokemonGeneral, PokemonSpecies, Stats } from "../types/types";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
@@ -64,24 +64,10 @@ function PokemonMenu() {
 								className={`artwork ${isShiny ? "shiny" : "regular"}`}
 							/>
 						</div>
-						{pkmnGeneral.stats ? (
-						<>
-						<Stat name="hp" value={pkmnGeneral.stats[0].base_stat} />
-						<Stat name="atk" value={pkmnGeneral.stats[1].base_stat} />
-						<Stat name="def" value={pkmnGeneral.stats[2].base_stat} />
-						<Stat name="sp-atk" value={pkmnGeneral.stats[3].base_stat} />
-						<Stat name="sp-def" value={pkmnGeneral.stats[4].base_stat} />
-						<Stat name="spd" value={pkmnGeneral.stats[5].base_stat} />
-						</>
-						) : (
-							<>
-							<Stat name="hp" value={0} />
-						<Stat name="atk" value={0} />
-						<Stat name="def" value={0} />
-						<Stat name="sp-atk" value={0} />
-						<Stat name="sp-def" value={0} />
-						<Stat name="spd" value={0} /></>
-						)}
+						{pkmnGeneral.stats &&
+							pkmnGeneral!.stats.map((item: Stats) => (
+								<Stat name={item.stat.name} value={item.base_stat} />
+							))}
 					</>
 				)}
 			</PokemonContext.Provider>

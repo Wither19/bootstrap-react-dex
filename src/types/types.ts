@@ -12,6 +12,15 @@ export type PokemonGeneral = {
 	// Add other properties as needed
 };
 
+type Stats = {
+      "base_stat": number,
+      "effort": number,
+      "stat": {
+        "name": string,
+        "url": string
+      }
+    };
+
 export type PokemonSpecies = {
 	genus: string;
 };

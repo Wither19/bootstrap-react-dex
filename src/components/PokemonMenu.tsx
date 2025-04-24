@@ -64,10 +64,11 @@ function PokemonMenu() {
 								className={`artwork ${isShiny ? "shiny" : "regular"}`}
 							/>
 						</div>
-						{pkmnGeneral.stats ?
+						{pkmnGeneral.stats ? (
 							pkmnGeneral!.stats.map((item: Stats) => (
 								<Stat name={item.stat.name} value={item.base_stat} />
-							)) : (
+							))
+						) : (
 							<>
 								<Stat name="HP" value={0} />
 								<Stat name="Attack" value={0} />
@@ -75,8 +76,8 @@ function PokemonMenu() {
 								<Stat name="Special Attack" value={0} />
 								<Stat name="Special Defense" value={0} />
 								<Stat name="Speed" value={0} />
-								</>
-							)}
+							</>
+						)}
 					</>
 				)}
 			</PokemonContext.Provider>

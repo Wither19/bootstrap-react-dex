@@ -74,7 +74,7 @@ function PokemonMenu() {
 								<Stat name="Defense" value={0} />
 								<Stat name="Special Attack" value={0} />
 								<Stat name="Special Defense" value={0} />
-								<Stat name="Speed" value="0" />
+								<Stat name="Speed" value={0} />
 								</>
 							)}
 					</>

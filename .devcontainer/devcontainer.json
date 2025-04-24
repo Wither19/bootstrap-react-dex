@@ -5,10 +5,10 @@
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	"image": "mcr.microsoft.com/devcontainers/base:jammy",
 	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {},
 		"ghcr.io/devcontainers/features/node:1": {},
-		"ghcr.io/michidk/devcontainers-features/bun:1": {},
-		"ghcr.io/devcontainers-community/npm-features/typescript:1": {},
-		"ghcr.io/devcontainers-extra/features/corepack:1": {}
+		"ghcr.io/shyim/devcontainers-features/bun:0": {},
+		"ghcr.io/devcontainers-extra/features/apt-packages:1": {}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.

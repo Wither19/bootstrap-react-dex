@@ -15,7 +15,13 @@ const getStatColors = (stat: number) => {};
 
 const getStatName = (stat: string) => {
 	let n = stat.replace("-", " ");
-	n = n.charAt(0).toUpperCase() + n.slice(1);
+	
+	if (n == "hp") {
+		n =  "HP"
+	}
+	else {
+		n = n.charAt(0).toUpperCase() + n.slice(1);
+	}
 	return n;
 };
 
@@ -48,12 +54,12 @@ function iterateComparison<T>(
 
 function Stat({ name, value }: { name: string; value: number }) {
 	return (
-		<>
+		<div className="stat-title">
 			{getStatName(name)}
 			<div className="bar" style={{}}>
 				{value == 0 ? "Loading..." : value}
 			</div>
-		</>
+		</div>
 	);
 }
 

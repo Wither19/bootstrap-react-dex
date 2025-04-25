@@ -5,6 +5,7 @@ import path from "path";
 // https://vite.dev/config/
 export default defineConfig({
 	plugins: [react()],
+	base: "/bootstrap-react-dex/",
 	resolve: {
 		alias: {
 			"~bootstrap": path.resolve(__dirname, "node_modules/bootstrap"),

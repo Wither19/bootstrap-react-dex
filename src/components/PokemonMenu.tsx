@@ -48,36 +48,40 @@ function PokemonMenu() {
 		 */}
 				{pkmnGeneral && (
 					<>
-						<div
-							className={`display-5 pkmn-name-header ${
-								isShiny ? "shiny" : "regular"
-							}`}>
-							#{pkmnGeneral.id?.toString().padStart(4, "0")}
-							{" - "}
-							{pkmnGeneral.name?.replace("-", " ")}
+						<div>
+							<div
+								className={`display-5 pkmn-name-header ${
+									isShiny ? "shiny" : "regular"
+								}`}>
+								#{pkmnGeneral.id?.toString().padStart(4, "0")}
+								{" - "}
+								{pkmnGeneral.name?.replace("-", " ")}
+							</div>
+							<div
+								onClick={() => setShinyState((prev) => !prev)}
+								style={{ textAlign: "center" }}>
+								<img
+									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
+									className={`artwork ${isShiny ? "shiny" : "regular"}`}
+								/>
+							</div>
+							<div className="stats">
+								{pkmnGeneral.stats ? (
+									pkmnGeneral!.stats.map((item: Stats) => (
+										<Stat name={item.stat.name} value={item.base_stat} />
+									))
+								) : (
+									<>
+										<Stat name="HP" value={0} />
+										<Stat name="Attack" value={0} />
+										<Stat name="Defense" value={0} />
+										<Stat name="Special Attack" value={0} />
+										<Stat name="Special Defense" value={0} />
+										<Stat name="Speed" value={0} />
+									</>
+								)}
+							</div>
 						</div>
-						<div
-							onClick={() => setShinyState((prev) => !prev)}
-							style={{ textAlign: "center" }}>
-							<img
-								src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
-								className={`artwork ${isShiny ? "shiny" : "regular"}`}
-							/>
-						</div>
-						{pkmnGeneral.stats ? (
-							pkmnGeneral!.stats.map((item: Stats) => (
-								<Stat name={item.stat.name} value={item.base_stat} />
-							))
-						) : (
-							<>
-								<Stat name="HP" value={0} />
-								<Stat name="Attack" value={0} />
-								<Stat name="Defense" value={0} />
-								<Stat name="Special Attack" value={0} />
-								<Stat name="Special Defense" value={0} />
-								<Stat name="Speed" value={0} />
-							</>
-						)}
 					</>
 				)}
 			</PokemonContext.Provider>

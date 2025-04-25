@@ -9,7 +9,7 @@ import PokedexItem from "./PokedexItem";
 
 import { PokemonProvider } from "../contexts/PokemonContext";
 
-import { PokedexEntry } from "../types/types";
+import type { PokedexEntry } from "../types/types";
 
 import { start } from "@popperjs/core";
 
@@ -84,7 +84,7 @@ function PokedexApp() {
 	 * @param id {number} The National Pokédex number to filter by.
 	 * @returns {boolean} A boolean for if the Dex number given is in 'currentRegion'.
 	 */
-	const isInRegion = (id) => {
+	const isInRegion = (id: number) => {
 		var retValue = false;
 		const currentRegion: any = regions?.find(
 			(r) => r.name.toLowerCase() == regionDropdown
@@ -108,7 +108,7 @@ function PokedexApp() {
 	return (
 		<>
 			<div className="d-flex flex-wrap flex-row">
-				<div style={{ flexBasis: "40%" }}>
+				<div style={{ flexBasis: "25%" }}>
 					<div className="m-1">
 						<div className="input-group">
 							<button
@@ -204,7 +204,7 @@ function PokedexApp() {
 						</div>
 					</div>
 				</div>
-				<div style={{ flexBasis: "60%" }} className="my-3">
+				<div style={{ flexBasis: "75%" }} className="my-3">
 					<PokemonProvider val={selectedName}>
 						<PokemonMenu />
 					</PokemonProvider>

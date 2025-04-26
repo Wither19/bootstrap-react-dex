@@ -10,6 +10,7 @@ import PokedexItem from "./PokedexItem";
 import { PokemonProvider } from "../contexts/PokemonContext";
 
 import type { PokedexEntry } from "../types/types";
+import { Region } from "../types/types";
 
 import { start } from "@popperjs/core";
 
@@ -47,7 +48,7 @@ function PokedexApp() {
 	}, []);
 
 	// The value for the dropdown (select element) that determines the region to filter. This further filters results with search.
-	const [regionDropdown, setRegionDropdown] = useState<string>("");
+	const [regionDropdown, setRegionDropdown] = useState<Region>(Region.None);
 	// The text for the search bar.
 	const [searchText, setSearchText] = useState<string>("");
 

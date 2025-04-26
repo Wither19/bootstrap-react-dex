@@ -33,3 +33,18 @@ type PokemonStat = {
 		url: string;
 	};
 };
+
+export enum Region {
+	None = "",
+	Kanto = "kanto",
+	Johto = "johto",
+	Hoenn = "hoenn",
+	Sinnoh = "sinnoh",
+	Unova = "unova",
+	Kalos = "kalos",
+	Alola = "alola",
+	Galar = "galar",
+	Hisui = "hisui",
+	Paldea = "paldea",
+	Unknown = "unknown",
+}

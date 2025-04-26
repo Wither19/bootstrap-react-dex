@@ -2,11 +2,9 @@ import React, { createContext } from "react";
 
 export const PokemonContext = createContext<null | string>(null);
 
-function PokemonProvider(props) {
+function PokemonProvider({ val, children }: { val: string; children: any }) {
 	return (
-		<PokemonContext.Provider value={props.val}>
-			{props.children}
-		</PokemonContext.Provider>
+		<PokemonContext.Provider value={val}>{children}</PokemonContext.Provider>
 	);
 }
 

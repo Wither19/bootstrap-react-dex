@@ -6,6 +6,7 @@ import Stat from "./Stat";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import type { PokemonGeneral, PokemonSpecies, Stats } from "../types/types";
+import { resolve } from "bun";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
@@ -20,14 +21,20 @@ function PokemonMenu() {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
 			.then((response) => {
-				setGeneralData(response.data);
+				setGeneralData({
+					id: response.data.id,
+					name: response.data.name,
+					stats: response.data.stats,
+				});
 			})
 			.catch(() => {});
 
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
-				setGeneralData(response.data);
+				setSpeciesData({
+					genus: response.data.genus,
+				});
 			})
 			.catch(() => {});
 	}, [pokemon]);

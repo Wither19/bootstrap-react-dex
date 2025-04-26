@@ -29,6 +29,7 @@ img.artwork {
 
 .stats {
 	margin: 10px 8%;
+	font-size: 0.9em;
 }
 
 .stat-title {
@@ -37,12 +38,12 @@ img.artwork {
 
 .stat-bar {
 	text-align: right;
-	text-shadow: 1px 1px 2px black;
+	text-shadow: 1px 1px 3px black;
+	box-shadow: 2px 2px 7px black;
 	transition: 450ms;
 	min-width: 25px;
 	margin: 4px 0px 4px 12px;
 	padding: 2px 5px 2px 0px;
 	border-radius: 3px;
-	width: 100px;
 	color: whitesmoke;
 }

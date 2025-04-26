@@ -6,7 +6,6 @@ import Stat from "./Stat";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import type { PokemonGeneral, PokemonSpecies, Stats } from "../types/types";
-import { resolve } from "bun";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);

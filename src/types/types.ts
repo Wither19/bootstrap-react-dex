@@ -21,14 +21,27 @@ export type Stats = {
 	};
 };
 
-export type PokemonSpecies = {
-	genus: string;
-};
-
 type PokemonStat = {
 	base_stat: number;
 	effort: 0;
 	stat: {
+		name: string;
+		url: string;
+	};
+};
+
+export type PokemonSpecies = {
+	genus: string;
+	dex_entries: DexEntry[];
+};
+
+export type DexEntry = {
+	flavor_text: string;
+	language: {
+		name: string;
+		url: string;
+	};
+	version: {
 		name: string;
 		url: string;
 	};

@@ -1,11 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import _ from "lodash";
 
 import Stat from "./Stat";
+import PokedexEntry from "./PokedexEntry";
 
 import { PokemonContext } from "../contexts/PokemonContext";
 
-import type { PokemonGeneral, PokemonSpecies, Stats } from "../types/types";
+import type {
+	PokemonGeneral,
+	PokemonSpecies,
+	Stats,
+	DexEntry,
+} from "../types/types";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
@@ -15,6 +22,8 @@ function PokemonMenu() {
 
 	const [isShiny, setShinyState] = useState(false);
 	const artworkType = isShiny ? "shiny/" : "";
+
+	const [selectedEntry, setSelectedEntry] = useState();
 
 	useEffect(() => {
 		axios
@@ -33,6 +42,7 @@ function PokemonMenu() {
 			.then((response) => {
 				setSpeciesData({
 					genus: response.data.genus,
+					dex_entries: response.data.flavor_text_entries,
 				});
 			})
 			.catch(() => {});
@@ -71,21 +81,31 @@ function PokemonMenu() {
 									className={`artwork ${isShiny ? "shiny" : "regular"}`}
 								/>
 							</div>
-							<div className="stats">
-								{pkmnGeneral.stats ? (
-									pkmnGeneral!.stats.map((item: Stats) => (
-										<Stat name={item.stat.name} value={item.base_stat} />
-									))
-								) : (
-									<>
-										<Stat name="HP" value={0} />
-										<Stat name="Attack" value={0} />
-										<Stat name="Defense" value={0} />
-										<Stat name="Special Attack" value={0} />
-										<Stat name="Special Defense" value={0} />
-										<Stat name="Speed" value={0} />
-									</>
-								)}
+							<div className="d-flex flex-evenly">
+								<div className="stats">
+									{pkmnGeneral.stats ? (
+										pkmnGeneral!.stats.map((item: Stats) => (
+											<Stat name={item.stat.name} value={item.base_stat} />
+										))
+									) : (
+										<>
+											<Stat name="HP" value={0} />
+											<Stat name="Attack" value={0} />
+											<Stat name="Defense" value={0} />
+											<Stat name="Special Attack" value={0} />
+											<Stat name="Special Defense" value={0} />
+											<Stat name="Speed" value={0} />
+										</>
+									)}
+								</div>
+								<div className="dex-entries">
+									<PokedexEntry
+										game={
+											pkmnSpecies!.dex_entries[selectedEntry]?.version.name
+										}>
+										{pkmnSpecies!.dex_entries[selectedEntry]?.flavor_text}
+									</PokedexEntry>
+								</div>
 							</div>
 						</div>
 					</>

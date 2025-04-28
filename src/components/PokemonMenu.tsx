@@ -67,7 +67,7 @@ function PokemonMenu() {
 	}
 
 	function fancifyGameName(name: string): Name {
-		return Name[name];
+		return Name[name as keyof typeof Name];
 	}
 
 	useEffect(() => {

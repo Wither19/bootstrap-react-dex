@@ -28,8 +28,9 @@ img.artwork {
 }
 
 .stats {
-	margin: 10px 8%;
+	margin: 20px 8%;
 	font-size: 0.9em;
+	min-width: 350px;
 }
 
 .stat-title {
@@ -46,4 +47,21 @@ img.artwork {
 	padding: 2px 5px 2px 0px;
 	border-radius: 3px;
 	color: whitesmoke;
+}
+
+.entry-buttons {
+	text-transform: capitalize;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+
+	button {
+		// 1em = 150px
+		$entry-btn-text-size: 1em;
+		$entry-btn-size: (150 / ($entry-btn-text-size / 1em)) * 1px;
+
+		font-size: $entry-btn-text-size;
+		min-width: $entry-btn-size;
+		max-width: $entry-btn-size;
+	}
 }

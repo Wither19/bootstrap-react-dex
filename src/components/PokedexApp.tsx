@@ -12,8 +12,6 @@ import { PokemonProvider } from "../contexts/PokemonContext";
 import type { PokedexEntry } from "../types/types";
 import { Region } from "../types/types";
 
-import { start } from "@popperjs/core";
-
 // List of regions with start and end IDs
 const regions = [
 	{ name: "", start: 1, end: 1025 },

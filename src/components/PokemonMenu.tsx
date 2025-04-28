@@ -18,12 +18,31 @@ function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
 
 	const [pkmnGeneral, setGeneralData] = useState<PokemonGeneral | null>(null);
-	const [pkmnSpecies, setSpeciesData] = useState<PokemonSpecies | null>(null);
+	const [genus, setGenus] = useState<string>("");
+	const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
 
-	const [isShiny, setShinyState] = useState(false);
+	const [isShiny, setShinyState] = useState<boolean>(false);
 	const artworkType = isShiny ? "shiny/" : "";
 
-	const [selectedEntry, setSelectedEntry] = useState();
+	const [selectedEntry, setSelectedEntry] = useState<number>(0);
+
+	function fancifyGameName(name: string) {
+		const names = {
+			firered: "Fire Red",
+			leafgreen: "Leaf Green",
+			heartgold: "Heart Gold",
+			soulsilver: "Soul Silver",
+			x: "X",
+			y: "Y",
+			"omega-ruby": "Omega Ruby",
+			"alpha-sapphire": "Alpha Sapphire",
+		};
+		if (names[name]) {
+			return names[name];
+		} else {
+			return name.charAt(0).toUpperCase() + name.slice(1).replace("-", " ");
+		}
+	}
 
 	useEffect(() => {
 		axios
@@ -40,10 +59,11 @@ function PokemonMenu() {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
-				setSpeciesData({
-					genus: response.data.genus,
-					dex_entries: response.data.flavor_text_entries,
-				});
+				setGenus(response.data.genus);
+				setDexEntries(response.data.flavor_text_entries);
+				setDexEntries((prev) =>
+					_.values(_.pickBy(prev, (item) => item.language.name == "en"))
+				);
 			})
 			.catch(() => {});
 	}, [pokemon]);
@@ -99,12 +119,20 @@ function PokemonMenu() {
 									)}
 								</div>
 								<div className="dex-entries">
-									<PokedexEntry
-										game={
-											pkmnSpecies!.dex_entries[selectedEntry]?.version.name
-										}>
-										{pkmnSpecies!.dex_entries[selectedEntry]?.flavor_text}
+									<PokedexEntry game={dexEntries![selectedEntry]!.version.name}>
+										{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
 									</PokedexEntry>
+									<div className="entry-buttons">
+										{dexEntries!.map((entry: DexEntry, i: number) => (
+											<button
+												key={i}
+												onClick={() => {
+													setSelectedEntry(i);
+												}}>
+												{entry.version.name}
+											</button>
+										))}
+									</div>
 								</div>
 							</div>
 						</div>

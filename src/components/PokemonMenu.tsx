@@ -27,22 +27,47 @@ function PokemonMenu() {
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
 	const names = {
+		red: "Red",
+		blue: "Blue",
+		yellow: "Yellow",
+		gold: "Gold",
+		silver: "Silver",
+		crystal: "Crystal",
+		ruby: "Ruby",
+		sapphire: "Sapphire",
+		emerald: "Emerald",
 		firered: "Fire Red",
 		leafgreen: "Leaf Green",
+		diamond: "Diamond",
+		pearl: "Pearl",
+		platinum: "Platinum",
 		heartgold: "Heart Gold",
 		soulsilver: "Soul Silver",
+		black: "Black",
+		white: "White",
+		"black-2": "Black 2",
+		"white-2": "White 2",
 		x: "X",
 		y: "Y",
 		"omega-ruby": "Omega Ruby",
 		"alpha-sapphire": "Alpha Sapphire",
+		sun: "Sun",
+		moon: "Moon",
+		"ultra-sun": "Ultra Sun",
+		"ultra-moon": "Ultra Moon",
+		"lets-go-pikachu": "Let's Go Pikachu!",
+		"lets-go-eevee": "Let's Go Eevee!",
+		sword: "Sword",
+		shield: "Shield",
+		"brilliant-diamond": "Brilliant Diamond",
+		"shining-pearl": "Shining Pearl",
+		"legends-arceus": "Legends: Arceus",
+		scarlet: "Scarlet",
+		violet: "Violet",
 	};
 
 	function fancifyGameName(name: keyof typeof names) {
-		if (names[name]) {
-			return names[name];
-		} else {
-			return name.charAt(0).toUpperCase() + name.slice(1).replace("-", " ");
-		}
+		return names[name];
 	}
 
 	useEffect(() => {
@@ -60,6 +85,7 @@ function PokemonMenu() {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
+				setSelectedEntry(0);
 				setGenus(response.data.genus);
 				setDexEntries(
 					_.values(
@@ -134,7 +160,7 @@ function PokemonMenu() {
 												onClick={() => {
 													setSelectedEntry(i);
 												}}>
-												{entry.version.name}
+												{fancifyGameName(entry.version.name)}
 											</button>
 										))}
 									</div>

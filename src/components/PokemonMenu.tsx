@@ -26,48 +26,48 @@ function PokemonMenu() {
 
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
-	const names = {
-		red: "Red",
-		blue: "Blue",
-		yellow: "Yellow",
-		gold: "Gold",
-		silver: "Silver",
-		crystal: "Crystal",
-		ruby: "Ruby",
-		sapphire: "Sapphire",
-		emerald: "Emerald",
-		firered: "Fire Red",
-		leafgreen: "Leaf Green",
-		diamond: "Diamond",
-		pearl: "Pearl",
-		platinum: "Platinum",
-		heartgold: "Heart Gold",
-		soulsilver: "Soul Silver",
-		black: "Black",
-		white: "White",
-		"black-2": "Black 2",
-		"white-2": "White 2",
-		x: "X",
-		y: "Y",
-		"omega-ruby": "Omega Ruby",
-		"alpha-sapphire": "Alpha Sapphire",
-		sun: "Sun",
-		moon: "Moon",
-		"ultra-sun": "Ultra Sun",
-		"ultra-moon": "Ultra Moon",
-		"lets-go-pikachu": "Let's Go Pikachu!",
-		"lets-go-eevee": "Let's Go Eevee!",
-		sword: "Sword",
-		shield: "Shield",
-		"brilliant-diamond": "Brilliant Diamond",
-		"shining-pearl": "Shining Pearl",
-		"legends-arceus": "Legends: Arceus",
-		scarlet: "Scarlet",
-		violet: "Violet",
-	};
+	enum Name {
+		"red" = "Red",
+		"blue" = "Blue",
+		"yellow" = "Yellow",
+		"gold" = "Gold",
+		"silver" = "Silver",
+		"crystal" = "Crystal",
+		"ruby" = "Ruby",
+		"sapphire" = "Sapphire",
+		"emerald" = "Emerald",
+		"firered" = "Fire Red",
+		"leafgreen" = "Leaf Green",
+		"diamond" = "Diamond",
+		"pearl" = "Pearl",
+		"platinum" = "Platinum",
+		"heartgold" = "Heart Gold",
+		"soulsilver" = "Soul Silver",
+		"black" = "Black",
+		"white" = "White",
+		"black-2" = "Black 2",
+		"white-2" = "White 2",
+		"x" = "X",
+		"y" = "Y",
+		"omega-ruby" = "Omega Ruby",
+		"alpha-sapphire" = "Alpha Sapphire",
+		"sun" = "Sun",
+		"moon" = "Moon",
+		"ultra-sun" = "Ultra Sun",
+		"ultra-moon" = "Ultra Moon",
+		"lets-go-pikachu" = "Let's Go Pikachu",
+		"lets-go-eevee" = "Let's Go Eevee",
+		"sword" = "Sword",
+		"shield" = "Shield",
+		"brilliant-diamond" = "Brilliant Diamond",
+		"shining-pearl" = "Shining Pearl",
+		"legends-arceus" = "Legends: Arceus",
+		"scarlet" = "Scarlet",
+		"violet" = "Violet",
+	}
 
-	function fancifyGameName(name: keyof typeof names) {
-		return names[name];
+	function fancifyGameName(name: string): Name {
+		return Name[name];
 	}
 
 	useEffect(() => {
@@ -136,7 +136,11 @@ function PokemonMenu() {
 								<div className="stats">
 									{pkmnGeneral.stats ? (
 										pkmnGeneral!.stats.map((item: Stats) => (
-											<Stat name={item.stat.name} value={item.base_stat} />
+											<Stat
+												key={`stat-${item.stat.name}`}
+												name={item.stat.name}
+												value={item.base_stat}
+											/>
 										))
 									) : (
 										<>
@@ -150,8 +154,21 @@ function PokemonMenu() {
 									)}
 								</div>
 								<div className="dex-entries">
-									<PokedexEntry game={dexEntries![selectedEntry]!.version.name}>
-										{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
+									<PokedexEntry
+										game={
+											dexEntries[selectedEntry]
+												? fancifyGameName(
+														dexEntries[selectedEntry]!.version?.name
+												  )
+												: ""
+										}
+										showGame>
+										{dexEntries[selectedEntry]
+											? dexEntries![selectedEntry]!.flavor_text.replace(
+													"\f",
+													" "
+											  )
+											: ""}
 									</PokedexEntry>
 									<div className="entry-buttons">
 										{dexEntries!.map((entry: DexEntry, i: number) => (

@@ -174,6 +174,7 @@ function PokemonMenu() {
 										{dexEntries!.map((entry: DexEntry, i: number) => (
 											<button
 												key={i}
+												className={selectedEntry == i ? "highlight" : ""}
 												onClick={() => {
 													setSelectedEntry(i);
 												}}>

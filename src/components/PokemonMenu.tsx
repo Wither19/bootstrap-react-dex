@@ -26,17 +26,18 @@ function PokemonMenu() {
 
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
-	function fancifyGameName(name: string) {
-		const names = {
-			firered: "Fire Red",
-			leafgreen: "Leaf Green",
-			heartgold: "Heart Gold",
-			soulsilver: "Soul Silver",
-			x: "X",
-			y: "Y",
-			"omega-ruby": "Omega Ruby",
-			"alpha-sapphire": "Alpha Sapphire",
-		};
+	const names = {
+		firered: "Fire Red",
+		leafgreen: "Leaf Green",
+		heartgold: "Heart Gold",
+		soulsilver: "Soul Silver",
+		x: "X",
+		y: "Y",
+		"omega-ruby": "Omega Ruby",
+		"alpha-sapphire": "Alpha Sapphire",
+	};
+
+	function fancifyGameName(name: keyof typeof names) {
 		if (names[name]) {
 			return names[name];
 		} else {
@@ -60,9 +61,13 @@ function PokemonMenu() {
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
 				setGenus(response.data.genus);
-				setDexEntries(response.data.flavor_text_entries);
-				setDexEntries((prev) =>
-					_.values(_.pickBy(prev, (item) => item.language.name == "en"))
+				setDexEntries(
+					_.values(
+						_.pickBy(
+							response.data.flavor_text_entries,
+							(item) => item.language.name == "en"
+						)
+					)
 				);
 			})
 			.catch(() => {});

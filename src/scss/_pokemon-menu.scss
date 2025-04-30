@@ -35,11 +35,6 @@ img.artwork {
 	min-width: 350px;
 }
 
-.dex-entries {
-	margin-top: 5%;
-	margin-left: 20%;
-}
-
 .stat-title {
 	text-transform: capitalize;
 	font-family: $text-font;
@@ -50,16 +45,21 @@ img.artwork {
 	text-shadow: 1px 1px 3px black;
 	box-shadow: 2px 2px 7px black;
 	transition: 450ms;
-	min-width: 25px;
+	min-width: 30px;
 	margin: 6px 0px 6px 12px;
 	padding: 2px 5px 2px 0px;
 	border-radius: 3px;
 	color: whitesmoke;
 }
 
-.dex-entries p {
-	min-height: 60px;
-	max-height: 120px;
+.dex-entries {
+	margin-top: 5%;
+	margin-left: 20%;
+
+	p {
+		min-height: 60px;
+		max-height: 120px;
+	}
 }
 
 .entry-buttons {

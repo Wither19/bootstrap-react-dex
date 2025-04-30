@@ -132,7 +132,7 @@ function PokemonMenu() {
 									className={`artwork ${isShiny ? "shiny" : "regular"}`}
 								/>
 							</div>
-							<div className="d-flex flex-evenly">
+							<div className="d-flex justify-content-evenly">
 								<div className="stats">
 									{pkmnGeneral.stats ? (
 										pkmnGeneral!.stats.map((item: Stats) => (

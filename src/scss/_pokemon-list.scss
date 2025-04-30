@@ -1,5 +1,5 @@
 .list-group {
-	height: 80vh;
+	height: 100dvh;
 	overflow-y: scroll;
 }
 
@@ -7,14 +7,6 @@
 	cursor: pointer;
 	user-select: none;
 	text-transform: capitalize;
-
-	&:not(.active):hover {
-		filter: brightness(0.8);
-	}
-
-	img.sprite {
-		width: 70px;
-	}
 
 	h5 {
 		transition: color 200ms;

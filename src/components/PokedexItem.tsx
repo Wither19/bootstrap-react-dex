@@ -2,8 +2,6 @@ import { useState } from "react";
 
 import capitalize from "capitalize";
 
-import { motion } from "motion/react";
-
 // Function to capitalize the first letter of a string
 
 // Adds leading zeroes to a number until it is four digits long
@@ -25,19 +23,15 @@ function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
 
 	return (
 		<>
-			<motion.div
+			<div
 				key={name}
 				className={`list-group-item ${
 					selected ? "active" : ""
 				} pokemon-list-item`}
 				onClick={click}>
-				<motion.img
+				<img
 					src={`https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`}
 					className="sprite"
-					whileHover={{
-						scale: 1.1,
-						transition: { duration: 0.55 },
-					}}
 				/>
 				<div className="card-body">
 					<b>#{leadingZeroes(num, 4)}</b> -{" "}
@@ -45,7 +39,7 @@ function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
 						{capitalize(name.replace("-", " "))}
 					</span>
 				</div>
-			</motion.div>
+			</div>
 		</>
 	);
 }

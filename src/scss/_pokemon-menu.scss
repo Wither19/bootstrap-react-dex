@@ -56,7 +56,7 @@ img.artwork {
 	margin-left: 20%;
 
 	p {
-		min-height: 60px;
+		min-height: 120px;
 		max-height: 120px;
 	}
 }
@@ -71,9 +71,9 @@ img.artwork {
 	width: 500px;
 
 	button {
-		// 1em = 150px
+		// 1em = 175px
 		$entry-btn-text-size: 1em;
-		$entry-btn-size: (150 / ($entry-btn-text-size / 1em)) * 1px;
+		$entry-btn-size: (175 / ($entry-btn-text-size / 1em)) * 1px;
 
 		font-size: $entry-btn-text-size;
 		min-width: $entry-btn-size;

@@ -17,7 +17,7 @@ $header-elems: (
 	'[class^="display-"]'
 );
 
-$text-elems: ("p", "sub", "sup", "a", "span", "li", "b");
+$text-elems: ("p", "sub", "sup", "a", "span", "li", "b", ".stat-title");
 
 $types: (
 	"bug": "#92bc2c",

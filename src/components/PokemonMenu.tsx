@@ -109,17 +109,6 @@ function PokemonMenu() {
 	return (
 		<>
 			<PokemonContext.Provider value={pokemon}>
-				{/* 
-	    • Core information
-        ◦ Name
-        ◦ Genus
-        ◦ Types
-				{pkmnGeneral !== null && (
-    • All available Dex entries for the Pokémon
-    • In the interest of condensing the menu, only feature Pokémon HOME artwork
-    • Click Sprite to toggle shiny
-    • Make Pokémon name header turn gold with shiny toggle (Framer Motion animated shiny icon)
-		 */}
 				{pkmnGeneral && (
 					<>
 						<div>
@@ -131,6 +120,7 @@ function PokemonMenu() {
 								{" - "}
 								{pkmnGeneral.name?.replace("-", " ")}
 							</div>
+
 							<div
 								onClick={() => setShinyState((prev) => !prev)}
 								style={{ textAlign: "center" }}>
@@ -139,27 +129,19 @@ function PokemonMenu() {
 									className={`artwork ${isShiny ? "shiny" : "regular"}`}
 								/>
 							</div>
+
 							<div className="d-flex justify-content-evenly">
 								<div className="stats">
-									{pkmnGeneral.stats ? (
+									{pkmnGeneral.stats &&
 										pkmnGeneral!.stats.map((item: Stats) => (
 											<Stat
 												key={`stat-${item.stat.name}`}
 												name={item.stat.name}
 												value={item.base_stat}
 											/>
-										))
-									) : (
-										<>
-											<Stat name="HP" value={0} />
-											<Stat name="Attack" value={0} />
-											<Stat name="Defense" value={0} />
-											<Stat name="Special Attack" value={0} />
-											<Stat name="Special Defense" value={0} />
-											<Stat name="Speed" value={0} />
-										</>
-									)}
+										))}
 								</div>
+
 								<div className="dex-entries">
 									<PokedexEntry
 										game={
@@ -177,6 +159,7 @@ function PokemonMenu() {
 											  )
 											: ""}
 									</PokedexEntry>
+
 									<div className="entry-buttons">
 										{dexEntries!.map((entry: DexEntry, i: number) => (
 											<button

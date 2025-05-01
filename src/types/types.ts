@@ -61,3 +61,11 @@ export enum Region {
 	Paldea = "paldea",
 	Unknown = "unknown",
 }
+
+export type Genus = {
+	genus: string;
+	language: {
+		name: string;
+		url: string;
+	};
+};

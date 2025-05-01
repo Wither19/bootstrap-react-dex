@@ -12,6 +12,7 @@ import type {
 	PokemonSpecies,
 	Stats,
 	DexEntry,
+	Genus,
 } from "../types/types";
 
 function PokemonMenu() {
@@ -86,7 +87,13 @@ function PokemonMenu() {
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
 				setSelectedEntry(0);
-				setGenus(response.data.genus);
+				setGenus(
+					response.data.genera[
+						response.data.genera.indexOf(
+							(genus: Genus) => genus.language.name == "en"
+						)
+					].genus
+				);
 				setDexEntries(
 					_.values(
 						_.pickBy(

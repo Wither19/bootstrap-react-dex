@@ -204,7 +204,7 @@ function PokedexApp() {
 					</div>
 				</div>
 				<div style={{ flexBasis: "75%" }} className="my-3">
-					<PokemonProvider val={selectedName}>
+					<PokemonProvider val={selectedNumber.toString()}>
 						<PokemonMenu />
 					</PokemonProvider>
 				</div>

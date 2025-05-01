@@ -19,8 +19,10 @@ function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
 
 	const [pkmnGeneral, setGeneralData] = useState<PokemonGeneral | null>(null);
-	const [genus, setGenus] = useState<string>("");
+	const [genus, setGenus] = useState<Genus | null>(null);
+
 	const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
+	const [showAllBtns, setShowAll] = useState<boolean>(false);
 
 	const [isShiny, setShinyState] = useState<boolean>(false);
 	const artworkType = isShiny ? "shiny/" : "";
@@ -88,11 +90,7 @@ function PokemonMenu() {
 			.then((response) => {
 				setSelectedEntry(0);
 				setGenus(
-					response.data.genera[
-						response.data.genera.indexOf(
-							(genus: Genus) => genus.language.name == "en"
-						)
-					].genus
+					response.data.genera.find((item: Genus) => item.language.name == "en")
 				);
 				setDexEntries(
 					_.values(
@@ -119,6 +117,10 @@ function PokemonMenu() {
 								#{pkmnGeneral.id?.toString().padStart(4, "0")}
 								{" - "}
 								{pkmnGeneral.name?.replace("-", " ")}
+							</div>
+
+							<div className="pkmn-genus-header">
+								<sub>The {genus?.genus}</sub>
 							</div>
 
 							<div
@@ -160,7 +162,13 @@ function PokemonMenu() {
 											: ""}
 									</PokedexEntry>
 
-									<div className="entry-buttons">
+									<button onClick={() => setShowAll((prev) => !prev)}>
+										<i
+											className={`bi bi-caret-${
+												showAllBtns ? "down" : "up"
+											}`}></i>
+									</button>
+									<div className={`entry-buttons ${showAllBtns ? "" : "hide"}`}>
 										{dexEntries!.map((entry: DexEntry, i: number) => (
 											<button
 												key={i}

@@ -72,15 +72,12 @@ img.artwork {
 .entry-buttons {
 	text-transform: capitalize;
 	display: flex;
-	flex-wrap: wrap;
 	justify-content: space-evenly;
 	width: 500px;
-
-	&.hide {
-		overflow-x: scroll;
-		scroll-snap-type: x mandatory;
-		flex-wrap: nowrap;
-	}
+	overflow-x: scroll;
+	scroll-snap-type: x mandatory;
+	flex-wrap: nowrap;
+	
 
 	button {
 		// 1em = 175px

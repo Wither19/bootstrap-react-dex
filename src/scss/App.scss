@@ -1,11 +1,11 @@
 @use "sass:list";
 @use "sass:color";
 
-@import "_variables";
+@use "_variables";
 
-@import "_general";
-@import "_pokemon-list";
-@import "_pokemon-menu";
-@import "_type-icons";
+@use "_general";
+@use "_pokemon-list";
+@use "_pokemon-menu";
+@use "_type-icons";
 
-@import "~bootstrap/scss/bootstrap";
+@use "~bootstrap/scss/bootstrap";

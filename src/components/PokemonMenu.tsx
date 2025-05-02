@@ -22,7 +22,6 @@ function PokemonMenu() {
 	const [genus, setGenus] = useState<Genus | null>(null);
 
 	const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
-	const [showAllBtns, setShowAll] = useState<boolean>(false);
 
 	const [isShiny, setShinyState] = useState<boolean>(false);
 	const artworkType = isShiny ? "shiny/" : "";
@@ -88,17 +87,14 @@ function PokemonMenu() {
 		axios
 			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
 			.then((response) => {
+				const flavors = response.data.flavor_text_entries;
+
 				setSelectedEntry(0);
 				setGenus(
 					response.data.genera.find((item: Genus) => item.language.name == "en")
 				);
 				setDexEntries(
-					_.values(
-						_.pickBy(
-							response.data.flavor_text_entries,
-							(item) => item.language.name == "en"
-						)
-					)
+					_.values(_.pickBy(flavors, (item) => item.language.name == "en"))
 				);
 			})
 			.catch(() => {});
@@ -162,13 +158,7 @@ function PokemonMenu() {
 											: ""}
 									</PokedexEntry>
 
-									<button onClick={() => setShowAll((prev) => !prev)}>
-										<i
-											className={`bi bi-caret-${
-												showAllBtns ? "down" : "up"
-											}`}></i>
-									</button>
-									<div className={`entry-buttons ${showAllBtns ? "" : "hide"}`}>
+									<div className="entry-buttons">
 										{dexEntries!.map((entry: DexEntry, i: number) => (
 											<button
 												key={i}

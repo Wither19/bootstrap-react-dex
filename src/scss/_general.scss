@@ -1,16 +1,18 @@
+@use "variables";
+
 :root {
 	font-size: 20px;
 }
 
-@each $elem in $header-elems {
+@each $elem in variables.$header-elems {
 	#{$elem} {
-		font-family: $header-font;
+		font-family: variables.$header-font;
 	}
 }
 
-@each $elem in $text-elems {
+@each $elem in variables.$text-elems {
 	#{$elem} {
-		font-family: $text-font;
+		font-family: variables.$text-font;
 	}
 }
 

@@ -21,13 +21,15 @@ function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
 	const [pkmn, setPkmn] = useState({});
 	const [itemShiny, setShinyState] = useState(false);
 
+	const dexItemStyles = `list-group-item ${
+		selected ? "active" : ""
+	} pokemon-list-item`;
+
 	return (
 		<>
 			<div
 				key={name}
-				className={`list-group-item ${
-					selected ? "active" : ""
-				} pokemon-list-item`}
+				className={dexItemStyles}
 				onClick={click}>
 				<img
 					src={`https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`}

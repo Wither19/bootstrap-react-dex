@@ -60,6 +60,9 @@ function PokedexApp() {
 	// The Dex # is also passed to the menu.
 	const [selectedNumber, setNumber] = useState<number>(1);
 
+	const [lowerLimit, setLowerLimit] = useState<number>(0);
+	const [upperLimit, setUpperLimit] = useState<number>(99);
+
 	// Ternary to decide sort type based on dropdown selection
 	const pokedexSort: string =
 		sortType == "dex" ? "entry_number" : "pokemon_species.name";

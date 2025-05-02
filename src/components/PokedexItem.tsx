@@ -2,10 +2,7 @@ import { useState } from "react";
 
 import capitalize from "capitalize";
 
-// Function to capitalize the first letter of a string
-
 // Adds leading zeroes to a number until it is four digits long
-
 const leadingZeroes = (num: number, size: number) => {
 	return num.toString().padStart(size, "0");
 };
@@ -25,18 +22,15 @@ function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
 		selected ? "active" : ""
 	} pokemon-list-item`;
 
+	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`;
+
 	return (
 		<>
-			<div
-				key={name}
-				className={dexItemStyles}
-				onClick={click}>
-				<img
-					src={`https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`}
-					className="sprite"
-				/>
+			<div key={name} className={dexItemStyles} onClick={click}>
+				<img src={pkmnSprite} className="sprite" />
+
 				<div className="card-body">
-					<b>#{leadingZeroes(num, 4)}</b> -{" "}
+					<b>#{leadingZeroes(num, 4)}</b> -
 					<span className="card-title text-nowrap">
 						{capitalize(name.replace("-", " "))}
 					</span>

@@ -1,27 +1,23 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import _ from "lodash";
+import _, { type NumericDictionary } from "lodash";
 
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
 
 import { PokemonContext } from "../contexts/PokemonContext";
 
-import type {
-	PokemonGeneral,
-	PokemonSpecies,
-	Stats,
-	DexEntry,
-	Genus,
-} from "../types/types";
+import { PokeAPI } from "pokeapi-typescript";
+import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
+import type { HasLang } from "../types/types";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
 
-	const [pkmnGeneral, setGeneralData] = useState<PokemonGeneral | null>(null);
-	const [genus, setGenus] = useState<Genus | null>(null);
+	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
+	const [genus, setGenus] = useState<Genus | undefined>();
 
-	const [dexEntries, setDexEntries] = useState<DexEntry[]>([]);
+	const [dexEntries, setDexEntries] = useState<FlavorText[]>([]);
 
 	const [isShiny, setShinyState] = useState<boolean>(false);
 	const artworkType = isShiny ? "shiny/" : "";
@@ -72,32 +68,38 @@ function PokemonMenu() {
 		return Name[name as keyof typeof Name];
 	}
 
+
+	/**
+	 * A function that had smoke coming out of my ears while I tried to make it, isolates the entries from PokeAPI flavor text, genuses, etc that are of a given language. If there is only one entry in the language, returns the index out of the array. 
+	 * @param [arr] The array to filter through. Must have the PokeAPI language object.
+	 * @param [lang="en"] The language to check for, by an abbreviation.
+	 * @returns 
+	 */
+	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] | T {
+		let newArr = _.values(_.pickBy(arr, (item: T) => item.language.name == lang));
+		
+		if (newArr.length == 1) {
+			return newArr[0]!;
+		}
+		else {
+			return newArr;
+		}
+	}
+
 	useEffect(() => {
-		axios
-			.get(`https://pokeapi.co/api/v2/pokemon/${pokemon}`)
-			.then((response) => {
-				setGeneralData({
-					id: response.data.id,
-					name: response.data.name,
-					stats: response.data.stats,
-				});
-			})
-			.catch(() => {});
+		PokeAPI.Pokemon.fetch(pokemon as string).then((res) => setGeneralData(res));
+		
+		PokeAPI.PokemonSpecies.fetch(pokemon as string).then((res) => {
+			const flavors = res.flavor_text_entries;
 
-		axios
-			.get(`https://pokeapi.co/api/v2/pokemon-species/${pokemon}`)
-			.then((response) => {
-				const flavors = response.data.flavor_text_entries;
-
-				setSelectedEntry(0);
-				setGenus(
-					response.data.genera.find((item: Genus) => item.language.name == "en")
-				);
-				setDexEntries(
+			setSelectedEntry(0);
+			setGenus(
+					res.genera.find((item: Genus) => item.language.name == "en")
+			);
+			setDexEntries(
 					_.values(_.pickBy(flavors, (item) => item.language.name == "en"))
-				);
-			})
-			.catch(() => {});
+			);
+		});
 	}, [pokemon]);
 
 	return (
@@ -131,7 +133,7 @@ function PokemonMenu() {
 							<div className="d-flex justify-content-evenly">
 								<div className="stats">
 									{pkmnGeneral.stats &&
-										pkmnGeneral!.stats.map((item: Stats) => (
+										pkmnGeneral!.stats.map((item: PokemonStat) => (
 											<Stat
 												key={`stat-${item.stat.name}`}
 												name={item.stat.name}
@@ -159,7 +161,7 @@ function PokemonMenu() {
 									</PokedexEntry>
 
 									<div className="entry-buttons">
-										{dexEntries!.map((entry: DexEntry, i: number) => (
+										{dexEntries!.map((entry: FlavorText, i: number) => (
 											<button
 												key={i}
 												className={selectedEntry == i ? "highlight" : ""}

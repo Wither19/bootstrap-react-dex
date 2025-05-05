@@ -60,8 +60,6 @@ function PokedexApp() {
 	// The Dex # is also passed to the menu.
 	const [selectedNumber, setNumber] = useState<number>(1);
 
-	const [lowerLimit, setLowerLimit] = useState<number>(0);
-	const [upperLimit, setUpperLimit] = useState<number>(99);
 
 	// Ternary to decide sort type based on dropdown selection
 	const pokedexSort: string =
@@ -164,19 +162,23 @@ function PokedexApp() {
 					</div>
 					<div>
 						<div className="list-group">
-							{pokedex
-								.filter((pokemon, index) => {
-									var retValue = false;
+							{
+								_.filter(pokedex, (pokemon, index) => {
+									let retValue = false;
+
 									// When search terms are active WITHOUT region filtering:
 									if (searchText != "" && regionDropdown == "") {
 										retValue = nameIdSearch(
 											pokemon.pokemon_species.name,
 											pokemon.entry_number
 										);
-										// When region filtering is active WITHOUT search terms:
-									} else if (searchText == "" && regionDropdown != "") {
+									} 
+
+									// When region filtering is active WITHOUT search terms:
+									else if (searchText == "" && regionDropdown != "") {
 										retValue = isInRegion(pokemon.entry_number);
 									}
+
 									// When both search terms and region filtering are active:
 									else if (searchText != "" && regionDropdown != "") {
 										retValue =
@@ -184,9 +186,12 @@ function PokedexApp() {
 												pokemon.pokemon_species.name,
 												pokemon.entry_number
 											) && isInRegion(pokemon.entry_number);
-									} else {
+									} 
+									
+									else {
 										retValue = true;
 									}
+
 									return retValue;
 								})
 								.map((pokemon, index) => (

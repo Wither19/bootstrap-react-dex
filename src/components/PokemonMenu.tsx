@@ -75,14 +75,14 @@ function PokemonMenu() {
 	 * @param [lang="en"] The language to check for, by an abbreviation.
 	 * @returns 
 	 */
-	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] | T {
+	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T | T[] {
 		let newArr = _.values(_.pickBy(arr, (item: T) => item.language.name == lang));
 		
 		if (newArr.length == 1) {
-			return newArr[0]!;
+			return newArr[0]! as T;
 		}
 		else {
-			return newArr;
+			return newArr as T[];
 		}
 	}
 
@@ -90,14 +90,13 @@ function PokemonMenu() {
 		PokeAPI.Pokemon.fetch(pokemon as string).then((res) => setGeneralData(res));
 		
 		PokeAPI.PokemonSpecies.fetch(pokemon as string).then((res) => {
-			const flavors = res.flavor_text_entries;
 
 			setSelectedEntry(0);
 			setGenus(
-					res.genera.find((item: Genus) => item.language.name == "en")
+					getLangEntries(res.genera) as Genus
 			);
 			setDexEntries(
-					_.values(_.pickBy(flavors, (item) => item.language.name == "en"))
+					getLangEntries(res.flavor_text_entries) as FlavorText[]
 			);
 		});
 	}, [pokemon]);

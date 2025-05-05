@@ -75,7 +75,7 @@ function PokemonMenu() {
 	 * @param [lang="en"] The language to check for, by an abbreviation.
 	 * @returns 
 	 */
-	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T | T[] {
+	function getLangEntries(arr: T[], lang: string = "en"): T | T[] {
 		let newArr = _.values(_.pickBy(arr, (item: T) => item.language.name == lang));
 		
 		if (newArr.length == 1) {
@@ -93,10 +93,10 @@ function PokemonMenu() {
 
 			setSelectedEntry(0);
 			setGenus(
-					getLangEntries(res.genera) as Genus
+					getLangEntries(res.genera)
 			);
 			setDexEntries(
-					getLangEntries(res.flavor_text_entries) as FlavorText[]
+					getLangEntries(res.flavor_text_entries)
 			);
 		});
 	}, [pokemon]);

@@ -32,13 +32,15 @@ function Stat({
 	statType?: string;
 }) {
 	const findStat = (): number => {
+
 		let colorIndex: number = 0;
+		
 		for (let s of statThresholds) {
 			if (value > s) {
 				colorIndex += 1;
 			}
 		}
-		return colorIndex;
+		return Math.min(colorIndex, 4);
 	};
 
 	return (

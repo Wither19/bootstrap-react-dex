@@ -74,14 +74,6 @@ function PokemonMenu() {
 		return Name[name as keyof typeof Name];
 	}
 
-
-	/**
-	 * A function that had smoke coming out of my ears while I tried to make it, isolates the entries from PokeAPI flavor text, genuses, etc that are of a given language. If there is only one entry in the language, returns the index out of the array. 
-	 * @param [arr] The array to filter through. Must have the PokeAPI language object.
-	 * @param [lang="en"] The language to check for, by an abbreviation.
-	 * @returns 
-	 */
-
 	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
 		let newArr = _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
 		return newArr;

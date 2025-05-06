@@ -15,7 +15,13 @@ function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
 
 	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
-	const [genus, setGenus] = useState<Genus | undefined>();
+	const [genus, setGenus] = useState<Genus>({
+		genus: "Seed Pokémon",
+		language: {
+			name: "en",
+			"url": ""
+		}
+	});
 
 	const [dexEntries, setDexEntries] = useState<FlavorText[]>([]);
 
@@ -76,14 +82,14 @@ function PokemonMenu() {
 	 * @returns 
 	 */
 
-	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T | T[] {
+	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
 		let newArr = _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
+		return newArr;
+	}
 
-		if (newArr.length == 1) {
-			return newArr[0]! as T;
-		} else {
-			return newArr as T[];
-		}
+	function getSingleLangEntry(arr: Genus[], lang: string = "en"): Genus {
+		let newArr = getLangEntries(arr, lang);
+		return newArr[0]!;
 	}
 
 	useEffect(() => {
@@ -93,8 +99,8 @@ function PokemonMenu() {
 
 			setSelectedEntry(0);
 			
-			let g = getLangEntries(res.genera) as Genus;
-			let d = getLangEntries(res.flavor_text_entries) as FlavorText[];
+			let g = getSingleLangEntry(res.genera);
+			let d = getLangEntries(res.flavor_text_entries);
 
 			setGenus(g);
 			setDexEntries(d);

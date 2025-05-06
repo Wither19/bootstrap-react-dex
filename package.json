@@ -18,7 +18,7 @@
 		"@number-flow/react": "^0.5.9",
 		"@popperjs/core": "^2.11.8",
 		"axios": "^1.9.0",
-		"bootstrap": "^5.3.5",
+		"bootstrap": "^5.3.6",
 		"bootstrap-icons": "^1.12.1",
 		"capitalize": "^2.0.4",
 		"jquery": "^3.7.1",

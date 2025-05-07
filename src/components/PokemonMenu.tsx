@@ -83,9 +83,9 @@ function PokemonMenu() {
 	}
 
 	useEffect(() => {
-		PokeAPI.Pokemon.fetch(pokemon as string).then((res) => setGeneralData(res))
+		PokeAPI.Pokemon.fetch(pokemon!).then((res) => setGeneralData(res))
 		
-		PokeAPI.PokemonSpecies.fetch(pokemon as string).then((res) => {
+		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
 
 			setSelectedEntry(0);
 			

@@ -8,7 +8,7 @@ import PokedexEntry from "./PokedexEntry";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
+import type { Pokemon, PokemonStat, PokemonSpecies, FlavorText, Genus } from "pokeapi-typescript";
 import type { HasLang } from "../types/types";
 
 function PokemonMenu() {

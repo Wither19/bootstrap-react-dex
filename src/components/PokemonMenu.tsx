@@ -97,7 +97,14 @@ function PokemonMenu() {
 	}
 
 	useEffect(() => {
-		PokeAPI.Pokemon.fetch(pokemon!).then((res) => setGeneralData(res));
+		PokeAPI.Pokemon.fetch(pokemon!).then((res) => {
+			setGeneralData(res);
+			setStatTotal(
+				res!
+					.stats!.map((stat, i) => stat.base_stat)
+					.reduce((sum, num) => sum + num)
+			);
+		});
 
 		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
 			setSelectedEntry(0);
@@ -107,12 +114,6 @@ function PokemonMenu() {
 
 			setGenus(g);
 			setDexEntries(d);
-
-			setStatTotal(
-				pkmnGeneral!
-					.stats!.map((stat, i) => stat.base_stat)
-					.reduce((sum, num) => sum + num)
-			);
 		});
 	}, [pokemon]);
 

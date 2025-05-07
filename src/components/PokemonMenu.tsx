@@ -71,7 +71,8 @@ function PokemonMenu() {
 	}
 
 	function fancifyGameName(name: string): Name {
-		return Name[name as keyof typeof Name]
+		type NameCode = (keyof typeof Name); 
+		return Name[name as NameCode]
 	}
 
 	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {

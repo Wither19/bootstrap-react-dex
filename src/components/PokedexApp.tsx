@@ -1,15 +1,15 @@
 import React, { useEffect, useState, useMemo } from "react";
 
-import axios from "axios";
-
 import _ from "lodash";
+
+import PokeAPI from "pokeapi-typescript";
 
 import PokemonMenu from "./PokemonMenu";
 import PokedexItem from "./PokedexItem";
 
 import { PokemonProvider } from "../contexts/PokemonContext";
 
-import type { PokedexEntry } from "../types/types";
+import type { FlavorText } from "pokeapi-typescript";
 import { Region } from "../types/types";
 
 // List of regions with start and end IDs
@@ -33,15 +33,12 @@ const regions = [
 */
 
 function PokedexApp() {
-	const [pokedex, setPokedex] = useState<PokedexEntry[]>([]);
+	const [pokedex, setPokedex] = useState<FlavorText[]>([]);
 
 	// Fetches the pokedex data from PokeAPI, and sets the state to a lodash ordered array of the pokemon entries
 	useEffect(() => {
-		const url = "https://pokeapi.co/api/v2/pokedex/1";
-		axios.get(url).then((response) => {
-			setPokedex(
-				_.orderBy(response.data.pokemon_entries, [pokedexSort], sortOrder)
-			);
+		PokeAPI.Pokedex.fetch(1).then((res) => {
+			setPokedex(_.orderBy(res.pokemon_entries, [pokedexSort], sortOrder));
 		});
 	}, []);
 
@@ -59,7 +56,6 @@ function PokedexApp() {
 	const [selectedName, setName] = useState<string>("bulbasaur");
 	// The Dex # is also passed to the menu.
 	const [selectedNumber, setNumber] = useState<number>(1);
-
 
 	// Ternary to decide sort type based on dropdown selection
 	const pokedexSort: string =
@@ -162,52 +158,48 @@ function PokedexApp() {
 					</div>
 					<div>
 						<div className="list-group">
-							{
-								_.filter(pokedex, (pokemon, index) => {
-									let retValue = false;
+							{_.filter(pokedex, (pokemon, index) => {
+								let retValue = false;
 
-									// When search terms are active WITHOUT region filtering:
-									if (searchText != "" && regionDropdown == "") {
-										retValue = nameIdSearch(
+								// When search terms are active WITHOUT region filtering:
+								if (searchText != "" && regionDropdown == "") {
+									retValue = nameIdSearch(
+										pokemon.pokemon_species.name,
+										pokemon.entry_number
+									);
+								}
+
+								// When region filtering is active WITHOUT search terms:
+								else if (searchText == "" && regionDropdown != "") {
+									retValue = isInRegion(pokemon.entry_number);
+								}
+
+								// When both search terms and region filtering are active:
+								else if (searchText != "" && regionDropdown != "") {
+									retValue =
+										nameIdSearch(
 											pokemon.pokemon_species.name,
 											pokemon.entry_number
-										);
-									} 
+										) && isInRegion(pokemon.entry_number);
+								} else {
+									retValue = true;
+								}
 
-									// When region filtering is active WITHOUT search terms:
-									else if (searchText == "" && regionDropdown != "") {
-										retValue = isInRegion(pokemon.entry_number);
+								return retValue;
+							}).map((pokemon, index) => (
+								<PokedexItem
+									key={pokemon.pokemon_species.name}
+									num={pokemon.entry_number}
+									name={pokemon.pokemon_species.name}
+									selected={
+										selectedNumber == pokemon.entry_number ? true : false
 									}
-
-									// When both search terms and region filtering are active:
-									else if (searchText != "" && regionDropdown != "") {
-										retValue =
-											nameIdSearch(
-												pokemon.pokemon_species.name,
-												pokemon.entry_number
-											) && isInRegion(pokemon.entry_number);
-									} 
-									
-									else {
-										retValue = true;
-									}
-
-									return retValue;
-								})
-								.map((pokemon, index) => (
-									<PokedexItem
-										key={pokemon.pokemon_species.name}
-										num={pokemon.entry_number}
-										name={pokemon.pokemon_species.name}
-										selected={
-											selectedNumber == pokemon.entry_number ? true : false
-										}
-										click={() => {
-											setName(pokemon.pokemon_species.name);
-											setNumber(pokemon.entry_number);
-										}}
-									/>
-								))}
+									click={() => {
+										setName(pokemon.pokemon_species.name);
+										setNumber(pokemon.entry_number);
+									}}
+								/>
+							))}
 						</div>
 					</div>
 				</div>

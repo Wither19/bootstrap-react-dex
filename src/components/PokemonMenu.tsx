@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
-import _, { type NumericDictionary } from "lodash";
+import _ from "lodash";
 
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
@@ -8,7 +7,13 @@ import PokedexEntry from "./PokedexEntry";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type { Pokemon, PokemonStat, PokemonSpecies, FlavorText, Genus } from "pokeapi-typescript";
+import type {
+	Pokemon,
+	PokemonStat,
+	PokemonSpecies,
+	FlavorText,
+	Genus,
+} from "pokeapi-typescript";
 import type { HasLang } from "../types/types";
 
 function PokemonMenu() {
@@ -19,8 +24,8 @@ function PokemonMenu() {
 		genus: "Seed Pokémon",
 		language: {
 			name: "en",
-			"url": ""
-		}
+			url: "",
+		},
 	});
 
 	const [dexEntries, setDexEntries] = useState<FlavorText[]>([]);
@@ -71,32 +76,37 @@ function PokemonMenu() {
 	}
 
 	function fancifyGameName(name: string): Name {
-		type NameCode = (keyof typeof Name); 
-		return Name[name as NameCode]
+		type NameCode = keyof typeof Name;
+		return Name[name as NameCode];
 	}
 
-	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
-		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang))
+	function getLangEntries<T extends HasLang>(
+		arr: T[],
+		lang: string = "en"
+	): T[] {
+		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
 	}
 
-	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {
-		return getLangEntries(arr, lang)[0]!
+	function getSingleLangEntry<T extends HasLang>(
+		arr: T[],
+		lang: string = "en"
+	): T {
+		return getLangEntries(arr, lang)[0]!;
 	}
 
 	useEffect(() => {
-		PokeAPI.Pokemon.fetch(pokemon!).then((res) => setGeneralData(res))
-		
-		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
+		PokeAPI.Pokemon.fetch(pokemon!).then((res) => setGeneralData(res));
 
+		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
 			setSelectedEntry(0);
-			
+
 			let g = getSingleLangEntry(res.genera);
 			let d = getLangEntries(res.flavor_text_entries);
 
 			setGenus(g);
 			setDexEntries(d);
-		})
-	}, [pokemon])
+		});
+	}, [pokemon]);
 
 	return (
 		<>

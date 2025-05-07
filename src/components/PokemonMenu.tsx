@@ -76,7 +76,7 @@ function PokemonMenu() {
 	}
 
 	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
-		return _.values(_.pickBy(arr, item: T => item.language.name === lang))
+		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang))
 	}
 
 	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {

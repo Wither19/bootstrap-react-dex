@@ -97,9 +97,7 @@ function PokemonMenu() {
 	}
 
 	function getStatTotal(stats: PokemonStat[]): number {
-		return stats
-			.map((stat, i) => stat.base_stat)
-			.reduce((sum, num) => sum + num);
+		return stats.map((stat) => stat.base_stat).reduce((sum, num) => sum + num);
 	}
 
 	useEffect(() => {

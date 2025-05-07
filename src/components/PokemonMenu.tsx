@@ -105,7 +105,7 @@ function PokemonMenu() {
 	useEffect(() => {
 		PokeAPI.Pokemon.fetch(pokemon!).then((res) => {
 			setGeneralData(res);
-			setStatTotal(getStatTotal(res!.stats!));
+			setStatTotal(getStatTotal(res.stats));
 		});
 
 		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {

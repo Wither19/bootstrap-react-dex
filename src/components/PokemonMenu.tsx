@@ -74,9 +74,13 @@ function PokemonMenu() {
 		return Name[name as keyof typeof Name]
 	}
 
-	const getLangEntries = <T extends HasLang>(arr: T[], lang: string = "en"): T[] => _.values(_.pickBy(arr, (item: T) => item.language.name === lang))
+	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
+		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang))
+	}
 
-	const getSingleLangEntry = <T extends HasLang>(arr: T[], lang: string = "en"): T => getLangEntries(arr, lang)[0]!
+	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {
+		return getLangEntries(arr, lang)[0]!
+	}
 
 	useEffect(() => {
 		PokeAPI.Pokemon.fetch(pokemon as string).then((res) => setGeneralData(res))

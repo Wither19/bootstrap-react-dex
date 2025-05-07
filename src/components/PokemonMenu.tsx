@@ -71,15 +71,15 @@ function PokemonMenu() {
 	}
 
 	function fancifyGameName(name: string): Name {
-		return Name[name as keyof typeof Name];
+		return Name[name as keyof typeof Name]
 	}
 
 	const getLangEntries = <T extends HasLang>(arr: T[], lang: string = "en"): T[] => _.values(_.pickBy(arr, (item: T) => item.language.name === lang))
 
-	const getSingleLangEntry = (arr: Genus[], lang: string = "en"): Genus => getLangEntries(arr, lang)[0]!
+	const getSingleLangEntry = <T extends HasLang>(arr: T[], lang: string = "en"): T => getLangEntries(arr, lang)[0]!
 
 	useEffect(() => {
-		PokeAPI.Pokemon.fetch(pokemon as string).then((res) => setGeneralData(res));
+		PokeAPI.Pokemon.fetch(pokemon as string).then((res) => setGeneralData(res))
 		
 		PokeAPI.PokemonSpecies.fetch(pokemon as string).then((res) => {
 
@@ -90,8 +90,8 @@ function PokemonMenu() {
 
 			setGenus(g);
 			setDexEntries(d);
-		});
-	}, [pokemon]);
+		})
+	}, [pokemon])
 
 	return (
 		<>

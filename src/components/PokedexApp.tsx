@@ -12,8 +12,16 @@ import { PokemonProvider } from "../contexts/PokemonContext";
 import type { PokemonEntry } from "pokeapi-typescript";
 import { Region } from "../types/types";
 
+type RegionObj = {
+	name: string;
+	start: number;
+	end: number;
+};
+
+type Undef<T> = T | undefined;
+
 // List of regions with start and end IDs
-const regions = [
+const regions: RegionObj[] = [
 	{ name: "", start: 1, end: 1025 },
 	{ name: "Kanto", start: 1, end: 151 },
 	{ name: "Johto", start: 152, end: 251 },
@@ -82,11 +90,11 @@ function PokedexApp() {
 	 */
 	const isInRegion = (id: number) => {
 		var retValue = false;
-		const currentRegion: any = regions?.find(
+		const currentRegion: Undef<RegionObj> = regions!.find(
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
 
-		if (id >= currentRegion.start && id <= currentRegion.end) {
+		if (id >= currentRegion!.start && id <= currentRegion!.end) {
 			retValue = true;
 		}
 

@@ -18,8 +18,6 @@ type RegionObj = {
 	end: number;
 };
 
-type Undef<T> = T | undefined;
-
 // List of regions with start and end IDs
 const regions: RegionObj[] = [
 	{ name: "", start: 1, end: 1025 },
@@ -90,7 +88,7 @@ function PokedexApp() {
 	 */
 	const isInRegion = (id: number) => {
 		var retValue = false;
-		const currentRegion: Undef<RegionObj> = regions!.find(
+		const currentRegion: RegionObj | undefined = regions!.find(
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
 

@@ -2,14 +2,14 @@ import React, { useEffect, useState, useMemo } from "react";
 
 import _ from "lodash";
 
-import PokeAPI from "pokeapi-typescript";
+import { PokeAPI } from "pokeapi-typescript";
 
 import PokemonMenu from "./PokemonMenu";
 import PokedexItem from "./PokedexItem";
 
 import { PokemonProvider } from "../contexts/PokemonContext";
 
-import type { FlavorText } from "pokeapi-typescript";
+import type { PokemonEntry } from "pokeapi-typescript";
 import { Region } from "../types/types";
 
 // List of regions with start and end IDs
@@ -33,7 +33,7 @@ const regions = [
 */
 
 function PokedexApp() {
-	const [pokedex, setPokedex] = useState<FlavorText[]>([]);
+	const [pokedex, setPokedex] = useState<PokemonEntry[]>([]);
 
 	// Fetches the pokedex data from PokeAPI, and sets the state to a lodash ordered array of the pokemon entries
 	useEffect(() => {

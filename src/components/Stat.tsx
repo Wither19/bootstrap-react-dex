@@ -23,15 +23,15 @@ const getStatName = (stat: string) => {
 };
 
 function Stat({ name, value }: { name: string; value: number }) {
-	if (name == "Base Stat Total") {
-		value = Math.round(value / 6);
-	}
+	let isBst = name == "Base Stat Total";
+
+	let colorValue: number = isBst ? value / 6 : value;
 
 	const findStat = (): number => {
 		let colorIndex: number = 0;
 
 		for (let s of statThresholds) {
-			if (value > s) {
+			if (colorValue > s) {
 				colorIndex += 1;
 			}
 		}
@@ -44,7 +44,7 @@ function Stat({ name, value }: { name: string; value: number }) {
 			<div
 				className="stat-bar"
 				style={{
-					width: (value / 255) * 500,
+					width: (colorValue / 255) * 500,
 					backgroundColor: statColors[findStat()],
 				}}>
 				{value == 0 ? "Loading..." : value}

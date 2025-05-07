@@ -96,14 +96,16 @@ function PokemonMenu() {
 		return getLangEntries(arr, lang)[0]!;
 	}
 
+	function getStatTotal(stats: PokemonStat[]): number {
+		return stats
+			.map((stat, i) => stat.base_stat)
+			.reduce((sum, num) => sum + num);
+	}
+
 	useEffect(() => {
 		PokeAPI.Pokemon.fetch(pokemon!).then((res) => {
 			setGeneralData(res);
-			setStatTotal(
-				res!
-					.stats!.map((stat, i) => stat.base_stat)
-					.reduce((sum, num) => sum + num)
-			);
+			setStatTotal(getStatTotal(res!.stats!));
 		});
 
 		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {

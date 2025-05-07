@@ -28,6 +28,8 @@ function PokemonMenu() {
 		},
 	});
 
+	const [bst, setStatTotal] = useState<number>(0);
+
 	const [dexEntries, setDexEntries] = useState<FlavorText[]>([]);
 
 	const [isShiny, setShinyState] = useState<boolean>(false);
@@ -105,6 +107,12 @@ function PokemonMenu() {
 
 			setGenus(g);
 			setDexEntries(d);
+
+			setStatTotal(
+				pkmnGeneral!
+					.stats!.map((stat, i) => stat.base_stat)
+					.reduce((sum, num) => sum + num)
+			);
 		});
 	}, [pokemon]);
 
@@ -146,6 +154,7 @@ function PokemonMenu() {
 												value={item.base_stat}
 											/>
 										))}
+									<Stat name="Base Stat Total" value={bst} />
 								</div>
 
 								<div className="dex-entries">

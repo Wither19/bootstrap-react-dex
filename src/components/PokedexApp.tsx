@@ -39,7 +39,7 @@ const regions: RegionObj[] = [
 */
 
 function PokedexApp() {
-	const [pokedex, setPokedex] = useState<PokemonEntry[]>([]);
+	const [pokedex, setPokedex] = useState<Array<PokemonEntry>>([]);
 
 	// Fetches the pokedex data from PokeAPI, and sets the state to a lodash ordered array of the pokemon entries
 	useEffect(() => {

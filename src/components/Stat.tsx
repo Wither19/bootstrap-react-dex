@@ -22,19 +22,14 @@ const getStatName = (stat: string) => {
 	return n;
 };
 
-function Stat({
-	name,
-	value,
-	statType,
-}: {
-	name: string;
-	value: number;
-	statType?: string;
-}) {
-	const findStat = (): number => {
+function Stat({ name, value }: { name: string; value: number }) {
+	if (name == "Base Stat Total") {
+		value = Math.round(value / 6);
+	}
 
+	const findStat = (): number => {
 		let colorIndex: number = 0;
-		
+
 		for (let s of statThresholds) {
 			if (value > s) {
 				colorIndex += 1;

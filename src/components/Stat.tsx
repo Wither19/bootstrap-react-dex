@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { NumberFlowElement } from "@number-flow/react";
+import NumberFlow from "@number-flow/react";
 
 const statColors: string[] = [
 	"#FF0000",
@@ -44,10 +44,10 @@ function Stat({ name, value }: { name: string; value: number }) {
 			<div
 				className="stat-bar"
 				style={{
-					width: (colorValue / 255) * 500,
+					width: (colorValue / 255) * 300,
 					backgroundColor: statColors[findStat()],
 				}}>
-				{value == 0 ? "Loading..." : value}
+				<NumberFlow value={value}></NumberFlow>
 			</div>
 		</div>
 	);

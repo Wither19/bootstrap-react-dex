@@ -80,12 +80,13 @@ img.artwork {
 
 .entry-buttons {
 	text-transform: capitalize;
+	height: 275px;
+	width: 400px;
+	overflow: hidden scroll;
 	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-evenly;
-	width: 500px;
-	overflow-x: scroll;
-	scroll-snap-type: x mandatory;
-	flex-wrap: nowrap;
+	background: rgba(164, 168, 199, 0.15);
 
 	button {
 		// 1em = 175px

@@ -96,6 +96,10 @@ function PokemonMenu() {
 		return getLangEntries(arr, lang)[0]!;
 	}
 
+	function omitVersionEntries<T extends HasLang & HasVersion>() {
+		
+	}
+
 	function getStatTotal(stats: PokemonStat[]): number {
 		return stats.map((stat) => stat.base_stat).reduce((sum, num) => sum + num);
 	}

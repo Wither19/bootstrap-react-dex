@@ -87,16 +87,21 @@ function PokemonMenu() {
 		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
 	}
 
-	const gbGames = Object.keys(Name).slice(0, 6);
-	const gbaGames = Object.keys(Name).slice(6, 11);
-	const gbAndGba = gbGames.concat(gbaGames);
-
-	function removeVersions<T extends HasVersion>(arr: T[], omissions: string[] = gbAndGba): T[] {
-		return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
-	}
-
 	function getSingleLangEntry<T extends HasLanguage>(arr: T[], lang: string = "en"): T {
 		return getLangEntries(arr, lang)[0]!;
+	}
+
+	// ["red", "blue", "yellow", "gold", "silver", "crystal"]
+	const gbGames = Object.keys(Name).slice(0, 6);
+
+	// ["ruby", "sapphire", "emerald", "firered", "leafgreen"]
+	const gbaGames = Object.keys(Name).slice(6, 11);
+
+	// ["red", "blue", "yellow", "gold", "silver", "crystal", "ruby", "sapphire", "emerald", "firered", "leafgreen"]
+	const gbAndGba = gbGames.concat(gbaGames);
+
+	function removeVersions<T extends HasVersion>(arr: T[], omissions: string[]): T[] {
+		return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
 	}
 
 	function getStatTotal(stats: PokemonStat[]): number {
@@ -114,7 +119,7 @@ function PokemonMenu() {
 
 			let g = getSingleLangEntry(res.genera);
 			let d = getLangEntries(res.flavor_text_entries);
-			d = removeVersions(d);
+			d = removeVersions(d, gbAndGba);
 
 			setGenus(g);
 			setDexEntries(d);

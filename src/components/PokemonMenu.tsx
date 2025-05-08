@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useReducer } from "react";
+import { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 
 import Stat from "./Stat";
@@ -160,15 +160,9 @@ function PokemonMenu() {
 
 								<div className="dex-entries">
 									<PokedexEntry
-										game={
-											dexEntries[selectedEntry]
-												? fancifyGameName(dexEntries[selectedEntry]!.version?.name)
-												: ""
-										}
+										game={fancifyGameName(dexEntries[selectedEntry]!.version?.name)}
 										showGame>
-										{dexEntries[selectedEntry]
-											? dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")
-											: ""}
+										{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
 									</PokedexEntry>
 
 									<div className="entry-buttons">

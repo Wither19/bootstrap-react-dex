@@ -77,16 +77,19 @@ function PokemonMenu() {
 	}
 
 	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
-		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
+		return _.pickBy(arr, (item: T) => item.language.name === lang) as T[];
 	}
 
-	const gbGames = Object.keys(Name).slice(0, 5);
+	const gbGames = Object.keys(Name).slice(0, 6);
+	const gbaGames = Object.keys(Name).slice(6, 11);
+	const gbAndGba = gbGames.concat(gbaGames);
 
 	function getLangEntriesWithoutVersions<T extends HasLang & HasVersion>(
 		arr: T[],
-		omissions: string[] = gbGames
-	) {
-		return _.omitBy(getLangEntries(arr), (item: T) => omissions.includes(item.version.name)) as T[];
+		omissions: string[] = gbAndGba
+	): T[] {
+		let newArr = getLangEntries(arr);
+		return _.omitBy(newArr, (item) => omissions.includes(item.version.name)) as T[];
 	}
 
 	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {
@@ -107,14 +110,7 @@ function PokemonMenu() {
 			setSelectedEntry(0);
 
 			let g = getSingleLangEntry(res.genera);
-			let d = getLangEntriesWithoutVersions(res.flavor_text_entries, [
-				"red",
-				"blue",
-				"yellow",
-				"gold",
-				"silver",
-				"crystal",
-			]);
+			let d = getLangEntriesWithoutVersions(res.flavor_text_entries);
 
 			setGenus(g);
 			setDexEntries(d);

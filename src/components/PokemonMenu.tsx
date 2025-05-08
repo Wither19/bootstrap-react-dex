@@ -86,7 +86,7 @@ function PokemonMenu() {
 		arr: T[],
 		omissions: string[] = gbGames
 	) {
-		return _.omitBy(arr, (item: T) => omissions.includes(item.version.name)) as T[];
+		return _.omitBy(getLangEntries(arr), (item: T) => omissions.includes(item.version.name)) as T[];
 	}
 
 	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {

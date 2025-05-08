@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useReducer } from "react";
 import _ from "lodash";
 
 import Stat from "./Stat";
@@ -182,9 +182,7 @@ function PokemonMenu() {
 											<button
 												key={i}
 												className={selectedEntry == i ? "highlight" : ""}
-												onClick={() => {
-													setSelectedEntry(i);
-												}}>
+												onClick={() => setSelectedEntry(i)}>
 												{fancifyGameName(entry.version.name)}
 											</button>
 										))}

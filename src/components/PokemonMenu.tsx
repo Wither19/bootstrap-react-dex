@@ -124,7 +124,7 @@ function PokemonMenu() {
 					<>
 						<div>
 							<div
-								className={`display-5 pkmn-name-header ${
+								className={`display-6 pkmn-name-header ${
 									isShiny ? "shiny" : "regular"
 								}`}>
 								#{pkmnGeneral.id?.toString().padStart(4, "0")}
@@ -155,6 +155,7 @@ function PokemonMenu() {
 												value={item.base_stat}
 											/>
 										))}
+									<br />
 									<Stat name="Base Stat Total" value={bst} />
 								</div>
 

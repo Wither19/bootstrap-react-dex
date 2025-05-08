@@ -16,21 +16,29 @@
 }
 
 img.artwork {
-	width: 400px;
+	width: 17.5vw;
 	margin: 10px auto;
 	text-align: center;
 	transition: 300ms;
 
 	&.regular {
-		filter: drop-shadow(variables.$shadow-resting variables.$shadow-color-regular);
+		filter: drop-shadow(
+			variables.$shadow-resting variables.$shadow-color-regular
+		);
 		&:hover {
-			filter: drop-shadow(variables.$shadow-expanded variables.$shadow-color-regular);
+			filter: drop-shadow(
+				variables.$shadow-expanded variables.$shadow-color-regular
+			);
 		}
 	}
 	&.shiny {
-		filter: drop-shadow(variables.$shadow-resting variables.$shadow-color-shiny);
+		filter: drop-shadow(
+			variables.$shadow-resting variables.$shadow-color-shiny
+		);
 		&:hover {
-			filter: drop-shadow(variables.$shadow-expanded variables.$shadow-color-shiny);
+			filter: drop-shadow(
+				variables.$shadow-expanded variables.$shadow-color-shiny
+			);
 		}
 	}
 }
@@ -53,6 +61,7 @@ img.artwork {
 	box-shadow: 2px 2px 7px black;
 	transition: 450ms;
 	min-width: 30px;
+	max-width: 450px;
 	margin: 6px 0px 6px 12px;
 	padding: 2px 5px 2px 0px;
 	border-radius: 3px;
@@ -77,7 +86,6 @@ img.artwork {
 	overflow-x: scroll;
 	scroll-snap-type: x mandatory;
 	flex-wrap: nowrap;
-	
 
 	button {
 		// 1em = 175px

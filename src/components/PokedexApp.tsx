@@ -113,7 +113,7 @@ function PokedexApp() {
 				<div style={{ flexBasis: "25%" }}>
 					<div className="m-1">
 						<div className="input-group">
-							<button
+							{/* {<button
 								type="button"
 								className="btn btn-outline-secondary"
 								onClick={() => {
@@ -123,7 +123,7 @@ function PokedexApp() {
 									className={`bi bi-sort-${
 										sortType == "dex" ? "numeric" : "alpha"
 									}-${sortOrder ? "down" : "up"}`}></i>
-							</button>
+							</button>} */}
 
 							<input
 								className="pokemon-searchbar"

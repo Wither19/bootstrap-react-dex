@@ -114,7 +114,7 @@ function PokemonMenu() {
 
 			let g = getSingleLangEntry(res.genera);
 			let d = getLangEntries(res.flavor_text_entries);
-			// d = removeVersions(d);
+			d = removeVersions(d);
 
 			setGenus(g);
 			setDexEntries(d);

@@ -14,7 +14,7 @@ import type {
 	FlavorText,
 	Genus,
 } from "pokeapi-typescript";
-import type { HasLang } from "../types/types";
+import type { HasLang, HasVersion } from "../types/types";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);

@@ -1,4 +1,4 @@
-import type { NamedApiResource, Language } from "pokeapi-typescript";
+import type { NamedApiResource, Language, Version } from "pokeapi-typescript";
 
 export enum Region {
 	None = "",
@@ -13,8 +13,12 @@ export enum Region {
 	Hisui = "hisui",
 	Paldea = "paldea",
 	Unknown = "unknown",
-};
+}
 
 export type HasLang = {
-	language: NamedApiResource<Language>
+	language: NamedApiResource<Language>;
+};
+
+export type HasVersion = {
+	version: NamedApiResource<Version>;
 };

@@ -7,8 +7,15 @@ import PokedexEntry from "./PokedexEntry";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type { Pokemon, PokemonStat, PokemonSpecies, FlavorText, Genus } from "pokeapi-typescript";
-import type { HasLang, HasVersion } from "../types/types";
+import type {
+	Pokemon,
+	PokemonStat,
+	FlavorText,
+	Genus,
+	Language,
+	Version,
+} from "pokeapi-typescript";
+import type { HasLanguage, HasVersion } from "../types/types";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
@@ -76,7 +83,7 @@ function PokemonMenu() {
 		return Name[name as NameCode];
 	}
 
-	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
+	function getLangEntries<T extends HasLanguage>(arr: T[], lang: string = "en"): T[] {
 		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
 	}
 
@@ -84,14 +91,11 @@ function PokemonMenu() {
 	const gbaGames = Object.keys(Name).slice(6, 11);
 	const gbAndGba = gbGames.concat(gbaGames);
 
-	function removeVersions<T extends HasLang & HasVersion>(
-		arr: T[],
-		omissions: string[] = gbAndGba
-	): T[] {
-		return _.values(_.omitBy(arr, (item) => omissions.includes(item.version.name)));
+	function removeVersions<T extends HasVersion>(arr: T[], omissions: string[] = gbAndGba): T[] {
+		return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
 	}
 
-	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {
+	function getSingleLangEntry<T extends HasLanguage>(arr: T[], lang: string = "en"): T {
 		return getLangEntries(arr, lang)[0]!;
 	}
 

@@ -15,7 +15,7 @@ export enum Region {
 	Unknown = "unknown",
 }
 
-export type HasLang = {
+export type HasLanguage = {
 	language: NamedApiResource<Language>;
 };
 

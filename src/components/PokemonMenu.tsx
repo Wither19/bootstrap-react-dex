@@ -7,13 +7,7 @@ import PokedexEntry from "./PokedexEntry";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type {
-	Pokemon,
-	PokemonStat,
-	PokemonSpecies,
-	FlavorText,
-	Genus,
-} from "pokeapi-typescript";
+import type { Pokemon, PokemonStat, PokemonSpecies, FlavorText, Genus } from "pokeapi-typescript";
 import type { HasLang, HasVersion } from "../types/types";
 
 function PokemonMenu() {
@@ -82,28 +76,21 @@ function PokemonMenu() {
 		return Name[name as NameCode];
 	}
 
-	function getLangEntries<T extends HasLang>(
-		arr: T[],
-		lang: string = "en"
-	): T[] {
+	function getLangEntries<T extends HasLang>(arr: T[], lang: string = "en"): T[] {
 		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
 	}
 
-	function getSingleLangEntry<T extends HasLang>(
+	const gbGames = Object.keys(Name).slice(0, 5);
+
+	function getLangEntriesWithoutVersions<T extends HasLang & HasVersion>(
 		arr: T[],
-		lang: string = "en"
-	): T {
-		return getLangEntries(arr, lang)[0]!;
+		omissions: string[] = gbGames
+	) {
+		return _.omitBy(arr, (item: T) => omissions.includes(item.version.name)) as T[];
 	}
 
-	function omitVersionEntries<T extends HasLang & HasVersion>(
-		arr: T[],
-		omissions: string[]
-	) {
-		return _.omitBy(
-			arr,
-			(item: T, index: number) => item.version.name === omissions[index]
-		);
+	function getSingleLangEntry<T extends HasLang>(arr: T[], lang: string = "en"): T {
+		return getLangEntries(arr, lang)[0]!;
 	}
 
 	function getStatTotal(stats: PokemonStat[]): number {
@@ -120,7 +107,14 @@ function PokemonMenu() {
 			setSelectedEntry(0);
 
 			let g = getSingleLangEntry(res.genera);
-			let d = getLangEntries(res.flavor_text_entries);
+			let d = getLangEntriesWithoutVersions(res.flavor_text_entries, [
+				"red",
+				"blue",
+				"yellow",
+				"gold",
+				"silver",
+				"crystal",
+			]);
 
 			setGenus(g);
 			setDexEntries(d);
@@ -133,10 +127,7 @@ function PokemonMenu() {
 				{pkmnGeneral && (
 					<>
 						<div>
-							<div
-								className={`display-6 pkmn-name-header ${
-									isShiny ? "shiny" : "regular"
-								}`}>
+							<div className={`display-6 pkmn-name-header ${isShiny ? "shiny" : "regular"}`}>
 								#{pkmnGeneral.id?.toString().padStart(4, "0")}
 								{" - "}
 								{pkmnGeneral.name?.replace("-", " ")}
@@ -146,9 +137,7 @@ function PokemonMenu() {
 								<sub>The {genus?.genus}</sub>
 							</div>
 
-							<div
-								onClick={() => setShinyState((prev) => !prev)}
-								style={{ textAlign: "center" }}>
+							<div onClick={() => setShinyState((prev) => !prev)} style={{ textAlign: "center" }}>
 								<img
 									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
 									className={`artwork ${isShiny ? "shiny" : "regular"}`}
@@ -173,17 +162,12 @@ function PokemonMenu() {
 									<PokedexEntry
 										game={
 											dexEntries[selectedEntry]
-												? fancifyGameName(
-														dexEntries[selectedEntry]!.version?.name
-												  )
+												? fancifyGameName(dexEntries[selectedEntry]!.version?.name)
 												: ""
 										}
 										showGame>
 										{dexEntries[selectedEntry]
-											? dexEntries![selectedEntry]!.flavor_text.replace(
-													"\f",
-													" "
-											  )
+											? dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")
 											: ""}
 									</PokedexEntry>
 

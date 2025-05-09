@@ -3,6 +3,7 @@ import _ from "lodash";
 
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
+import OptionCheck from "./OptionCheck";
 
 import { PokemonContext } from "../contexts/PokemonContext";
 
@@ -38,7 +39,7 @@ function PokemonMenu() {
 
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
-	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
+	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(true);
 
 	enum Name {
 		"red" = "Red",
@@ -132,6 +133,8 @@ function PokemonMenu() {
 		return d;
 	}
 
+	var currentDexEntry = dexEntries[selectedEntry];
+
 	useEffect(() => {
 		PokeAPI.Pokemon.fetch(pokemon!).then((res) => {
 			setGeneralData(res);
@@ -193,9 +196,7 @@ function PokemonMenu() {
 								</div>
 
 								<div className="dex-entries">
-									<PokedexEntry
-										game={fancifyGameName(dexEntries[selectedEntry]!.version?.name)}
-										showGame>
+									<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)} showGame>
 										{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
 									</PokedexEntry>
 
@@ -210,14 +211,17 @@ function PokemonMenu() {
 										))}
 									</div>
 									<div className="entry-options">
-										<label>
+										{/* {<label>
 											<input
 												type="checkbox"
 												checked={seeDuplicateEntries}
 												onChange={() => setDupeEntriesOption((prev) => !prev)}
-											/>
-											 Show duplicate entries
-										</label>
+											/>{" "}
+											Show duplicate entries
+										</label>} */}
+										<OptionCheck option={seeDuplicateEntries} setOption={setDupeEntriesOption}>
+											Show duplicate entries
+										</OptionCheck>
 									</div>
 								</div>
 							</div>

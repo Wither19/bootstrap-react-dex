@@ -22,23 +22,15 @@ img.artwork {
 	transition: 300ms;
 
 	&.regular {
-		filter: drop-shadow(
-			variables.$shadow-resting variables.$shadow-color-regular
-		);
+		filter: drop-shadow(variables.$shadow-resting variables.$shadow-color-regular);
 		&:hover {
-			filter: drop-shadow(
-				variables.$shadow-expanded variables.$shadow-color-regular
-			);
+			filter: drop-shadow(variables.$shadow-expanded variables.$shadow-color-regular);
 		}
 	}
 	&.shiny {
-		filter: drop-shadow(
-			variables.$shadow-resting variables.$shadow-color-shiny
-		);
+		filter: drop-shadow(variables.$shadow-resting variables.$shadow-color-shiny);
 		&:hover {
-			filter: drop-shadow(
-				variables.$shadow-expanded variables.$shadow-color-shiny
-			);
+			filter: drop-shadow(variables.$shadow-expanded variables.$shadow-color-shiny);
 		}
 	}
 }

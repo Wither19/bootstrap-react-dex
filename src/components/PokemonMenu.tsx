@@ -216,7 +216,7 @@ function PokemonMenu() {
 												checked={seeDuplicateEntries}
 												onChange={() => setDupeEntriesOption((prev) => !prev)}
 											/>
-											Show duplicate entries
+											 Show duplicate entries
 										</label>
 									</div>
 								</div>

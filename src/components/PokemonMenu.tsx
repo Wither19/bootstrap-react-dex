@@ -38,6 +38,8 @@ function PokemonMenu() {
 
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
+	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
+
 	enum Name {
 		"red" = "Red",
 		"blue" = "Blue",
@@ -97,15 +99,37 @@ function PokemonMenu() {
 	// ["ruby", "sapphire", "emerald", "firered", "leafgreen"]
 	const gbaGames = Object.keys(Name).slice(6, 11);
 
-	// ["red", "blue", "yellow", "gold", "silver", "crystal", "ruby", "sapphire", "emerald", "firered", "leafgreen"]
-	const gbAndGba = gbGames.concat(gbaGames);
+	// ["diamond", "pearl", "platinum", "heartgold", "soulsilver", "black", "white", "black-2", "white-2"]
+	const dsGames = Object.keys(Name).slice(11, 20);
+
+	const twoDGames = gbGames.concat(gbaGames).concat(dsGames);
 
 	function removeVersions<T extends HasLanguage & HasVersion>(arr: T[], omissions: string[]): T[] {
 		return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
 	}
 
+	function stripDuplicateEntries(arr: FlavorText[]): typeof arr {
+		return _.uniqBy(arr, (item) => item.flavor_text);
+	}
+
 	function getStatTotal(stats: PokemonStat[]): number {
 		return stats.map((stat) => stat.base_stat).reduce((sum, num) => sum + num);
+	}
+
+	function genusHandle<T extends HasLanguage>(genus: Genus[]): Genus {
+		return getSingleLangEntry(genus);
+	}
+
+	function flavorTextHandle(flavorText: FlavorText[], omissions: string[]): FlavorText[] {
+		let d = getLangEntries(flavorText);
+
+		d = removeVersions(d, omissions);
+
+		if (!seeDuplicateEntries) {
+			d = stripDuplicateEntries(d);
+		}
+
+		return d;
 	}
 
 	useEffect(() => {
@@ -117,14 +141,19 @@ function PokemonMenu() {
 		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
 			setSelectedEntry(0);
 
-			let g = getSingleLangEntry(res.genera);
-			let d = getLangEntries(res.flavor_text_entries);
-			d = removeVersions(d, gbAndGba);
+			setGenus(genusHandle(res.genera));
 
-			setGenus(g);
-			setDexEntries(d);
+			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames));
 		});
 	}, [pokemon]);
+
+	useEffect(() => {
+		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
+			setSelectedEntry(0);
+
+			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames));
+		});
+	}, [seeDuplicateEntries]);
 
 	return (
 		<>
@@ -179,6 +208,16 @@ function PokemonMenu() {
 												{fancifyGameName(entry.version.name)}
 											</button>
 										))}
+									</div>
+									<div className="entry-options">
+										<label>
+											<input
+												type="checkbox"
+												checked={seeDuplicateEntries}
+												onChange={() => setDupeEntriesOption((prev) => !prev)}
+											/>
+											Show duplicate entries
+										</label>
 									</div>
 								</div>
 							</div>

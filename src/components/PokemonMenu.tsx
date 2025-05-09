@@ -15,7 +15,7 @@ import type {
 	Language,
 	Version,
 } from "pokeapi-typescript";
-import type { HasLanguage, HasVersion, InfoEntry } from "../types/types";
+import type { HasLanguage, HasVersion } from "../types/types";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
@@ -100,7 +100,7 @@ function PokemonMenu() {
 	// ["red", "blue", "yellow", "gold", "silver", "crystal", "ruby", "sapphire", "emerald", "firered", "leafgreen"]
 	const gbAndGba = gbGames.concat(gbaGames);
 
-	function removeVersions<T extends InfoEntry>(arr: T[], omissions: string[]): T[] {
+	function removeVersions<T extends HasLanguage & HasVersion>(arr: T[], omissions: string[]): T[] {
 		return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
 	}
 

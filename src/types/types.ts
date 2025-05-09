@@ -22,5 +22,3 @@ export type HasLanguage = {
 export type HasVersion = {
 	version: NamedApiResource<Version>;
 };
-
-export type InfoEntry = HasLanguage & HasVersion;

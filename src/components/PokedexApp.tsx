@@ -64,8 +64,7 @@ function PokedexApp() {
 	const [selectedNumber, setNumber] = useState<number>(1);
 
 	// Ternary to decide sort type based on dropdown selection
-	const pokedexSort: string =
-		sortType == "dex" ? "entry_number" : "pokemon_species.name";
+	const pokedexSort: string = sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
 	/**
 	 * Searches for a string based upon a string name and/or a number ID.
@@ -152,9 +151,7 @@ function PokedexApp() {
 									{regions
 										.filter((_, index) => index != 0)
 										.map((region) => (
-											<option
-												key={region.name}
-												value={region.name.toLowerCase()}>
+											<option key={region.name} value={region.name.toLowerCase()}>
 												{region.name}
 											</option>
 										))}
@@ -169,10 +166,7 @@ function PokedexApp() {
 
 								// When search terms are active WITHOUT region filtering:
 								if (searchText != "" && regionDropdown == "") {
-									retValue = nameIdSearch(
-										pokemon.pokemon_species.name,
-										pokemon.entry_number
-									);
+									retValue = nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number);
 								}
 
 								// When region filtering is active WITHOUT search terms:
@@ -183,10 +177,8 @@ function PokedexApp() {
 								// When both search terms and region filtering are active:
 								else if (searchText != "" && regionDropdown != "") {
 									retValue =
-										nameIdSearch(
-											pokemon.pokemon_species.name,
-											pokemon.entry_number
-										) && isInRegion(pokemon.entry_number);
+										nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number) &&
+										isInRegion(pokemon.entry_number);
 								} else {
 									retValue = true;
 								}
@@ -197,9 +189,7 @@ function PokedexApp() {
 									key={pokemon.pokemon_species.name}
 									num={pokemon.entry_number}
 									name={pokemon.pokemon_species.name}
-									selected={
-										selectedNumber == pokemon.entry_number ? true : false
-									}
+									selected={selectedNumber == pokemon.entry_number ? true : false}
 									click={() => {
 										setName(pokemon.pokemon_species.name);
 										setNumber(pokemon.entry_number);

@@ -1,40 +1,38 @@
 {
-	"name": "bootstrap-react-dex-svelte",
-	"private": true,
-	"version": "0.0.0",
-	"type": "module",
-	"scripts": {
-		"predeploy": "bun run build",
-		"deploy": "gh-pages -d dist",
-		"dev": "vite",
-		"build": "vite build",
-		"preview": "vite preview",
-		"check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"
-	},
-	"devDependencies": {
-		"@sveltejs/vite-plugin-svelte": "^5.0.3",
-		"@tsconfig/svelte": "^5.0.4",
-		"@types/bun": "^1.2.12",
-		"@types/capitalize": "^2.0.2",
-		"@types/lodash": "^4.17.16",
-		"gh-pages": "^6.3.0",
-		"svelte": "^5.28.2",
-		"svelte-check": "^4.1.7",
-		"typescript": "~5.8.3",
-		"vite": "^6.3.5"
-	},
-	"dependencies": {
-		"@fontsource/inter": "^5.2.5",
-		"@fontsource/roboto": "^5.2.5",
-		"@fontsource/ubuntu-sans": "^5.2.7",
-		"@number-flow/react": "^0.5.9",
-		"@popperjs/core": "^2.11.8",
-		"bootstrap": "^5.3.6",
-		"bootstrap-icons": "^1.13.1",
-		"capitalize": "^2.0.4",
-		"lodash": "^4.17.21",
-		"motion": "^12.10.5",
-		"pokeapi-typescript": "^3.0.3",
-		"sass": "^1.87.0"
-	}
+  "name": "bootstrap-react-dex-svelte",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check": "svelte-check --tsconfig ./tsconfig.app.json && tsc -p tsconfig.node.json"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^5.0.3",
+    "@tsconfig/svelte": "^5.0.4",
+    "@types/bun": "^1.2.12",
+    "@types/capitalize": "^2.0.2",
+    "@types/lodash": "^4.17.16",
+    "gh-pages": "^6.3.0",
+    "svelte": "^5.28.1",
+    "svelte-check": "^4.1.6",
+    "typescript": "~5.8.3",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "@fontsource/inter": "^5.2.5",
+    "@fontsource/roboto": "^5.2.5",
+    "@fontsource/ubuntu-sans": "^5.2.7",
+    "@number-flow/react": "^0.5.9",
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.6",
+    "bootstrap-icons": "^1.13.1",
+    "capitalize": "^2.0.4",
+    "lodash": "^4.17.21",
+    "motion": "^12.10.5",
+    "pokeapi-typescript": "^3.0.3",
+    "sass": "^1.87.0"
+  }
 }

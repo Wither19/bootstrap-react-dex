@@ -30,6 +30,49 @@
 		{ name: "Paldea", start: 906, end: 1025 },
 		{ name: "Unknown", start: 808, end: 809 },
 	];
+
+	var pokedex = $state<PokemonEntry[]>([]);
+	var currentRegion = $state<Region>(Region.None);
+	var searchString = $state<string>("");
+	// var sortType = $state<string>("dex")
+	var sortOrder = $state<boolean>(false);
+
+	var selectedName = $state<string>("bulbasaur");
+	var selectedNum = $state<number>(1);
+
+	// const dexSort = $derived(sortType == "dex" ? "entry_number" : "pokemon_species.name");
+
+	/**
+	 * Searches for a string based upon a string name and/or a number ID.
+	 * @param name {string}
+	 * @param id {number}
+	 * @returns {boolean} A boolean for if either a string or number was found.
+	 */
+	const nameIdSearch = (name: string, id: number) => {
+		var retValue = false;
+		if (name.includes(searchString) || id.toString().includes(searchString)) {
+			retValue = true;
+		}
+		return retValue;
+	};
+
+	/**
+	 * An abstracted function for region filtering in the Pokédex list.
+	 * @param id {number} The National Pokédex number to filter by.
+	 * @returns {boolean} A boolean for if the Dex number given is in 'currentRegion'.
+	 */
+	const isInRegion = (id: number) => {
+		var retValue = false;
+		const thisRegion: RegionObj | undefined = regions!.find(
+			(r) => r.name.toLowerCase() == currentRegion
+		);
+
+		if (id >= thisRegion!.start && id <= thisRegion!.end) {
+			retValue = true;
+		}
+
+		return retValue;
+	};
 </script>
 
 <div class="container-md"></div>

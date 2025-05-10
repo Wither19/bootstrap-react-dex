@@ -1,18 +1,13 @@
-import type { JSX, Dispatch, SetStateAction } from "react";
-
 type OptionCheckProps = {
 	children: string;
-	option: Dispatch<SetStateAction<boolean>>;
-	setOption: Dispatch<SetStateAction<boolean>>;
+	option: boolean;
+	setOption: () => void;
 };
 
 function OptionCheck({ children, option, setOption }: OptionCheckProps) {
-	let checkValue = option as unknown as boolean;
 	return (
-		<label>
-			<input type="checkbox" checked={checkValue} onChange={() => setOption((prev) => !prev)} />{" "}
-			Show
-			{children}
+		<label style={{ userSelect: "none" }}>
+			<input type="checkbox" checked={option} onChange={setOption} /> {children}
 		</label>
 	);
 }

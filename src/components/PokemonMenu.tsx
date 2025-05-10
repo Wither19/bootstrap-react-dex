@@ -176,7 +176,7 @@ function PokemonMenu() {
 
 							<div onClick={() => setShinyState((prev) => !prev)} style={{ textAlign: "center" }}>
 								<img
-									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${artworkType}${pkmnGeneral?.id}.png`}
+									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${artworkType}${pkmnGeneral?.id}.png`}
 									className={`artwork ${isShiny ? "shiny" : "regular"}`}
 								/>
 							</div>
@@ -219,7 +219,9 @@ function PokemonMenu() {
 											/>{" "}
 											Show duplicate entries
 										</label>} */}
-										<OptionCheck option={seeDuplicateEntries} setOption={setDupeEntriesOption}>
+										<OptionCheck
+											option={seeDuplicateEntries}
+											setOption={() => setDupeEntriesOption((prev) => !prev)}>
 											Show duplicate entries
 										</OptionCheck>
 									</div>

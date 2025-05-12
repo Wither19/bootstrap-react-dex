@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 
+import PkmnNameHeader from "./PkmnNameHeader";
+import PkmnGenusHeader from "./PkmnGenusHeader";
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
 import OptionCheck from "./OptionCheck";
@@ -39,7 +41,7 @@ function PokemonMenu() {
 
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
-	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(true);
+	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
 
 	enum Name {
 		"red" = "Red",
@@ -164,15 +166,9 @@ function PokemonMenu() {
 				{pkmnGeneral && (
 					<>
 						<div>
-							<div className={`display-6 pkmn-name-header ${isShiny ? "shiny" : "regular"}`}>
-								#{pkmnGeneral.id?.toString().padStart(4, "0")}
-								{" - "}
-								{pkmnGeneral.name?.replace("-", " ")}
-							</div>
+							<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
 
-							<div className="pkmn-genus-header">
-								<sub>The {genus?.genus}</sub>
-							</div>
+							<PkmnGenusHeader genus={genus?.genus} />
 
 							<div onClick={() => setShinyState((prev) => !prev)} style={{ textAlign: "center" }}>
 								<img

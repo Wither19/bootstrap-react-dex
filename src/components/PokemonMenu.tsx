@@ -3,8 +3,10 @@ import _ from "lodash";
 
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
+import PkmnSprite from "./PkmnSprite";
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
+import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
 
 import { PokemonContext } from "../contexts/PokemonContext";
@@ -170,12 +172,11 @@ function PokemonMenu() {
 
 							<PkmnGenusHeader genus={genus?.genus} />
 
-							<div onClick={() => setShinyState((prev) => !prev)} style={{ textAlign: "center" }}>
-								<img
-									src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${artworkType}${pkmnGeneral?.id}.png`}
-									className={`artwork ${isShiny ? "shiny" : "regular"}`}
-								/>
-							</div>
+							<PkmnSprite
+								id={pkmnGeneral?.id}
+								shiny={isShiny}
+								click={() => setShinyState((prev) => !prev)}
+							/>
 
 							<div className="d-flex justify-content-evenly">
 								<div className="stats">
@@ -198,23 +199,15 @@ function PokemonMenu() {
 
 									<div className="entry-buttons">
 										{dexEntries!.map((entry: FlavorText, i: number) => (
-											<button
+											<EntryBtn
 												key={i}
-												className={selectedEntry == i ? "highlight" : ""}
-												onClick={() => setSelectedEntry(i)}>
+												highlight={selectedEntry == i}
+												click={() => setSelectedEntry(i)}>
 												{fancifyGameName(entry.version.name)}
-											</button>
+											</EntryBtn>
 										))}
 									</div>
 									<div className="entry-options">
-										{/* {<label>
-											<input
-												type="checkbox"
-												checked={seeDuplicateEntries}
-												onChange={() => setDupeEntriesOption((prev) => !prev)}
-											/>{" "}
-											Show duplicate entries
-										</label>} */}
 										<OptionCheck
 											option={seeDuplicateEntries}
 											setOption={() => setDupeEntriesOption((prev) => !prev)}>

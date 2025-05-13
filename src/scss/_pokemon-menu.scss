@@ -1,5 +1,6 @@
 @use "sass:color";
 @use "variables";
+@use "functions";
 
 .pkmn-name-header {
 	text-align: center;
@@ -20,21 +21,6 @@ img.artwork {
 	margin: 10px auto;
 	text-align: center;
 	transition: 300ms;
-
-	@function shadow($expanded, $shiny) {
-		$shadow: variables.$shadow-resting;
-		$color: variables.$shadow-color-regular;
-
-		@if ($expanded) {
-			$shadow: variables.$shadow-expanded;
-		}
-
-		@if ($shiny) {
-			$color: variables.$shadow-color-shiny;
-		}
-
-		@return drop-shadow($shadow $color);
-	}
 
 	&.regular {
 		filter: shadow(false, false);
@@ -98,10 +84,6 @@ img.artwork {
 	background: rgba(164, 168, 199, 0.15);
 
 	button {
-		@function convertFontSize($text-size, $scale) {
-			@return ($scale / ($text-size / 1em)) * 1px;
-		}
-
 		$entry-btn-text-size: 1em;
 		$entry-btn-size: convertFontSize($entry-btn-text-size, 170);
 

@@ -1,0 +1,18 @@
+@function shadow($expanded, $shiny) {
+	$shadow: variables.$shadow-resting;
+	$color: variables.$shadow-color-regular;
+
+	@if ($expanded) {
+		$shadow: variables.$shadow-expanded;
+	}
+
+	@if ($shiny) {
+		$color: variables.$shadow-color-shiny;
+	}
+
+	@return drop-shadow($shadow $color);
+}
+
+@function convertFontSize($text-size, $scale) {
+	@return ($scale / ($text-size / 1em)) * 1px;
+}

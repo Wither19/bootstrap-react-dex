@@ -65,8 +65,10 @@ img.artwork {
 	margin-left: 20%;
 
 	p {
-		min-height: 120px;
-		max-height: 120px;
+		$dex-entry-height: 120px;
+
+		min-height: $dex-entry-height;
+		max-height: $dex-entry-height;
 	}
 }
 

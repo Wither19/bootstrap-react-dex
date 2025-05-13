@@ -23,15 +23,18 @@ img.artwork {
 	transition: 300ms;
 
 	&.regular {
-		filter: functions.shadow(false, false);
+		$shadows: $shadow-resting, $shadow-expanded;
+		$shadow-colors: $shadow-color-regular, $shadow-color-shiny;
+
+		filter: functions.shadow(false, false, $shadows, $shadow-colors);
 		&:hover {
-			filter: functions.shadow(true, false);
+			filter: functions.shadow(true, false, $shadows, $shadow-colors);
 		}
 	}
 	&.shiny {
-		filter: functions.shadow(false, true);
+		filter: functions.shadow(false, true, $shadows, $shadow-colors);
 		&:hover {
-			filter: functions.shadow(true, true);
+			filter: functions.shadow(true, true, $shadows, $shadow-colors);
 		}
 	}
 }

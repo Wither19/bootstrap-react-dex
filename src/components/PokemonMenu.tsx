@@ -14,7 +14,14 @@ import { PokemonContext } from "../contexts/PokemonContext";
 import { PokeAPI } from "pokeapi-typescript";
 import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
 
-import { getLangEntries, removeVersions, stripDuplicateEntries, twoDGames } from "../functions.ts";
+import {
+	getLangEntries,
+	removeVersions,
+	stripDuplicateEntries,
+	twoDGames,
+	getStatTotal,
+	fancifyGameName,
+} from "../functions.ts";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);

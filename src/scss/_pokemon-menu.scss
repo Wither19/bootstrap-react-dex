@@ -23,15 +23,15 @@ img.artwork {
 	transition: 300ms;
 
 	&.regular {
-		filter: shadow(false, false);
+		filter: functions.shadow(false, false);
 		&:hover {
-			filter: shadow(true, false);
+			filter: functions.shadow(true, false);
 		}
 	}
 	&.shiny {
-		filter: shadow(false, true);
+		filter: functions.shadow(false, true);
 		&:hover {
-			filter: shadow(true, true);
+			filter: functions.shadow(true, true);
 		}
 	}
 }
@@ -85,7 +85,7 @@ img.artwork {
 
 	button {
 		$entry-btn-text-size: 1em;
-		$entry-btn-size: convertFontSize($entry-btn-text-size, 170);
+		$entry-btn-size: functions.convertFontSize($entry-btn-text-size, 170);
 
 		font-size: $entry-btn-text-size;
 		min-width: $entry-btn-size;

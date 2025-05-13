@@ -22,19 +22,19 @@ img.artwork {
 	text-align: center;
 	transition: 300ms;
 
-	&.regular {
-		$shadows: $shadow-resting, $shadow-expanded;
-		$shadow-colors: $shadow-color-regular, $shadow-color-shiny;
+	$shadows: variables.$shadow-resting, variables.$shadow-expanded;
+	$shadow-colors: variables.$shadow-color-regular, variables.$shadow-color-shiny;
 
-		filter: functions.shadow(false, false, $shadows, $shadow-colors);
+	&.regular {
+		filter: functions.shadow();
 		&:hover {
-			filter: functions.shadow(true, false, $shadows, $shadow-colors);
+			filter: functions.shadow(true);
 		}
 	}
 	&.shiny {
-		filter: functions.shadow(false, true, $shadows, $shadow-colors);
+		filter: functions.shadow(false, true);
 		&:hover {
-			filter: functions.shadow(true, true, $shadows, $shadow-colors);
+			filter: functions.shadow(true, true);
 		}
 	}
 }

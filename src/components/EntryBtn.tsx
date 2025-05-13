@@ -11,3 +11,5 @@ function EntryBtn({ children, highlight, click }: EntryBtnProps) {
 		</button>
 	);
 }
+
+export default EntryBtn;

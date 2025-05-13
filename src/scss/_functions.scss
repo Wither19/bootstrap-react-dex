@@ -1,15 +1,16 @@
+@use "variables";
 @use "sass:list";
 
-@function shadow($expanded, $shiny, $shadows, $colors) {
-	$shadow: list.nth($shadows, 1);
-	$color: list.nth($colors, 1);
+@function shadow($expanded: false, $shiny: false) {
+	$shadow: variables.$shadow-resting;
+	$color: variables.$shadow-color-regular;
 
 	@if ($expanded) {
-		$shadow: list.nth($shadows, 2);
+		$shadow: variables.$shadow-expanded;
 	}
 
 	@if ($shiny) {
-		$color: list.nth($colors, 2);
+		$color: variables.$shadow-color-shiny;
 	}
 
 	@return drop-shadow($shadow $color);

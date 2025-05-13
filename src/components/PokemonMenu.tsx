@@ -12,15 +12,9 @@ import OptionCheck from "./OptionCheck";
 import { PokemonContext } from "../contexts/PokemonContext";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type {
-	Pokemon,
-	PokemonStat,
-	FlavorText,
-	Genus,
-	Language,
-	Version,
-} from "pokeapi-typescript";
-import type { HasLanguage, HasVersion } from "../types/types";
+import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
+
+import { getLangEntries, removeVersions, stripDuplicateEntries, twoDGames } from "../functions.ts";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
@@ -44,82 +38,6 @@ function PokemonMenu() {
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 
 	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
-
-	enum Name {
-		"red" = "Red",
-		"blue" = "Blue",
-		"yellow" = "Yellow",
-		"gold" = "Gold",
-		"silver" = "Silver",
-		"crystal" = "Crystal",
-		"ruby" = "Ruby",
-		"sapphire" = "Sapphire",
-		"emerald" = "Emerald",
-		"firered" = "Fire Red",
-		"leafgreen" = "Leaf Green",
-		"diamond" = "Diamond",
-		"pearl" = "Pearl",
-		"platinum" = "Platinum",
-		"heartgold" = "Heart Gold",
-		"soulsilver" = "Soul Silver",
-		"black" = "Black",
-		"white" = "White",
-		"black-2" = "Black 2",
-		"white-2" = "White 2",
-		"x" = "X",
-		"y" = "Y",
-		"omega-ruby" = "Omega Ruby",
-		"alpha-sapphire" = "Alpha Sapphire",
-		"sun" = "Sun",
-		"moon" = "Moon",
-		"ultra-sun" = "Ultra Sun",
-		"ultra-moon" = "Ultra Moon",
-		"lets-go-pikachu" = "Let's Go Pikachu",
-		"lets-go-eevee" = "Let's Go Eevee",
-		"sword" = "Sword",
-		"shield" = "Shield",
-		"brilliant-diamond" = "Brilliant Diamond",
-		"shining-pearl" = "Shining Pearl",
-		"legends-arceus" = "Legends: Arceus",
-		"scarlet" = "Scarlet",
-		"violet" = "Violet",
-	}
-
-	function fancifyGameName(name: string): Name {
-		type NameCode = keyof typeof Name;
-		return Name[name as NameCode];
-	}
-
-	function getLangEntries<T extends HasLanguage>(arr: T[], lang: string = "en"): T[] {
-		return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
-	}
-
-	function getSingleLangEntry<T extends HasLanguage>(arr: T[], lang: string = "en"): T {
-		return getLangEntries(arr, lang)[0]!;
-	}
-
-	// ["red", "blue", "yellow", "gold", "silver", "crystal"]
-	const gbGames = Object.keys(Name).slice(0, 6);
-
-	// ["ruby", "sapphire", "emerald", "firered", "leafgreen"]
-	const gbaGames = Object.keys(Name).slice(6, 11);
-
-	// ["diamond", "pearl", "platinum", "heartgold", "soulsilver", "black", "white", "black-2", "white-2"]
-	const dsGames = Object.keys(Name).slice(11, 20);
-
-	const twoDGames = gbGames.concat(gbaGames).concat(dsGames);
-
-	function removeVersions<T extends HasLanguage & HasVersion>(arr: T[], omissions: string[]): T[] {
-		return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
-	}
-
-	function stripDuplicateEntries(arr: FlavorText[]): typeof arr {
-		return _.uniqBy(arr, (item) => item.flavor_text);
-	}
-
-	function getStatTotal(stats: PokemonStat[]): number {
-		return stats.map((stat) => stat.base_stat).reduce((sum, num) => sum + num);
-	}
 
 	function genusHandle<T extends HasLanguage>(genus: Genus[]): Genus {
 		return getSingleLangEntry(genus);

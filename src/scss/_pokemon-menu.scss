@@ -21,16 +21,31 @@ img.artwork {
 	text-align: center;
 	transition: 300ms;
 
+	@function shadow($expanded, $shiny) {
+		$shadow: variables.$shadow-resting;
+		$color: variables.$shadow-color-regular;
+
+		@if ($expanded) {
+			$shadow: variables.$shadow-expanded;
+		}
+
+		@if ($shiny) {
+			$color: variables.$shadow-color-shiny;
+		}
+
+		@return drop-shadow($shadow $color);
+	}
+
 	&.regular {
-		filter: drop-shadow(variables.$shadow-resting variables.$shadow-color-regular);
+		filter: shadow(false, false);
 		&:hover {
-			filter: drop-shadow(variables.$shadow-expanded variables.$shadow-color-regular);
+			filter: shadow(true, false);
 		}
 	}
 	&.shiny {
-		filter: drop-shadow(variables.$shadow-resting variables.$shadow-color-shiny);
+		filter: shadow(false, true);
 		&:hover {
-			filter: drop-shadow(variables.$shadow-expanded variables.$shadow-color-shiny);
+			filter: shadow(true, true);
 		}
 	}
 }

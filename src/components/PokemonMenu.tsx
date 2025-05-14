@@ -15,17 +15,15 @@ import { PokeAPI } from "pokeapi-typescript";
 import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
 
 import {
-	getLangEntries,
-	removeVersions,
-	stripDuplicateEntries,
 	twoDGames,
 	getStatTotal,
 	fancifyGameName,
+	genusHandle,
+	flavorTextHandle,
 } from "../functions.ts";
 
 function PokemonMenu() {
 	const pokemon = useContext(PokemonContext);
-
 	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
 	const [genus, setGenus] = useState<Genus>({
 		genus: "Seed Pokémon",
@@ -34,33 +32,13 @@ function PokemonMenu() {
 			url: "",
 		},
 	});
-
 	const [bst, setStatTotal] = useState<number>(0);
-
 	const [dexEntries, setDexEntries] = useState<FlavorText[]>([]);
 
 	const [isShiny, setShinyState] = useState<boolean>(false);
-	const artworkType = isShiny ? "shiny/" : "";
 
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
-
 	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
-
-	function genusHandle<T extends HasLanguage>(genus: Genus[]): Genus {
-		return getSingleLangEntry(genus);
-	}
-
-	function flavorTextHandle(flavorText: FlavorText[], omissions: string[]): FlavorText[] {
-		let d = getLangEntries(flavorText);
-
-		d = removeVersions(d, omissions);
-
-		if (!seeDuplicateEntries) {
-			d = stripDuplicateEntries(d);
-		}
-
-		return d;
-	}
 
 	var currentDexEntry = dexEntries[selectedEntry];
 
@@ -83,69 +61,65 @@ function PokemonMenu() {
 		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
 			setSelectedEntry(0);
 
-			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames));
+			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames, seeDuplicateEntries));
 		});
 	}, [seeDuplicateEntries]);
 
 	return (
-		<>
-			<PokemonContext.Provider value={pokemon}>
-				{pkmnGeneral && (
-					<>
-						<div>
-							<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
+		<PokemonContext.Provider value={pokemon}>
+			{pkmnGeneral && (
+				<>
+					<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
 
-							<PkmnGenusHeader genus={genus?.genus} />
+					<PkmnGenusHeader genus={genus?.genus} />
 
-							<PkmnSprite
-								id={pkmnGeneral?.id}
-								shiny={isShiny}
-								click={() => setShinyState((prev) => !prev)}
-							/>
+					<PkmnSprite
+						id={pkmnGeneral?.id}
+						shiny={isShiny}
+						click={() => setShinyState((prev) => !prev)}
+					/>
 
-							<div className="d-flex justify-content-evenly">
-								<div className="stats">
-									{pkmnGeneral.stats &&
-										pkmnGeneral!.stats.map((item: PokemonStat) => (
-											<Stat
-												key={`stat-${item.stat.name}`}
-												name={item.stat.name}
-												value={item.base_stat}
-											/>
-										))}
-									<br />
-									<Stat name="Base Stat Total" value={bst} />
-								</div>
+					<div className="d-flex justify-content-evenly">
+						<div className="stats">
+							{pkmnGeneral.stats &&
+								pkmnGeneral!.stats.map((item: PokemonStat) => (
+									<Stat
+										key={`stat-${item.stat.name}`}
+										name={item.stat.name}
+										value={item.base_stat}
+									/>
+								))}
+							<br />
+							<Stat name="Base Stat Total" value={bst} />
+						</div>
 
-								<div className="dex-entries">
-									<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)} showGame>
-										{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
-									</PokedexEntry>
+						<div className="dex-entries">
+							<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)} showGame>
+								{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
+							</PokedexEntry>
 
-									<div className="entry-buttons">
-										{dexEntries!.map((entry: FlavorText, i: number) => (
-											<EntryBtn
-												key={i}
-												highlight={selectedEntry == i}
-												click={() => setSelectedEntry(i)}>
-												{fancifyGameName(entry.version.name)}
-											</EntryBtn>
-										))}
-									</div>
-									<div className="entry-options">
-										<OptionCheck
-											option={seeDuplicateEntries}
-											setOption={() => setDupeEntriesOption((prev) => !prev)}>
-											Show duplicate entries
-										</OptionCheck>
-									</div>
-								</div>
+							<div className="entry-buttons">
+								{dexEntries!.map((entry: FlavorText, i: number) => (
+									<EntryBtn
+										key={i}
+										highlight={selectedEntry == i}
+										click={() => setSelectedEntry(i)}>
+										{fancifyGameName(entry.version.name)}
+									</EntryBtn>
+								))}
+							</div>
+							<div className="entry-options">
+								<OptionCheck
+									option={seeDuplicateEntries}
+									setOption={() => setDupeEntriesOption((prev) => !prev)}>
+									Show duplicate entries
+								</OptionCheck>
 							</div>
 						</div>
-					</>
-				)}
-			</PokemonContext.Provider>
-		</>
+					</div>
+				</>
+			)}
+		</PokemonContext.Provider>
 	);
 }
 

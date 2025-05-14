@@ -29,7 +29,10 @@ export const dsGames = Object.keys(GameName).slice(11, 20);
 
 export const twoDGames = gbGames.concat(gbaGames).concat(dsGames);
 
-export function removeVersions<T extends HasLanguage & HasVersion>(arr: T[], omissions: string[]): T[] {
+export function removeVersions<T extends HasLanguage & HasVersion>(
+	arr: T[],
+	omissions: string[]
+): T[] {
 	return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
 }
 
@@ -39,4 +42,24 @@ export function stripDuplicateEntries(arr: FlavorText[]): typeof arr {
 
 export function getStatTotal(stats: PokemonStat[]): number {
 	return stats.map((stat) => stat.base_stat).reduce((sum, num) => sum + num);
+}
+
+export function genusHandle(genus: Genus[]) {
+	return getSingleLangEntry(genus);
+}
+
+export function flavorTextHandle(
+	flavorText: FlavorText[],
+	omissions: string[],
+	dupes?: boolean
+): FlavorText[] {
+	let d = getLangEntries(flavorText);
+
+	d = removeVersions(d, omissions);
+
+	if (!dupes) {
+		d = stripDuplicateEntries(d);
+	}
+
+	return d;
 }

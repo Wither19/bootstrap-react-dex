@@ -1,6 +1,24 @@
 @use "sass:color";
 @use "variables";
-@use "functions";
+
+@function shadow($expanded: false, $shiny: false) {
+	$shadow: variables.$shadow-resting;
+	$color: variables.$shadow-color-regular;
+
+	@if ($expanded) {
+		$shadow: variables.$shadow-expanded;
+	}
+
+	@if ($shiny) {
+		$color: variables.$shadow-color-shiny;
+	}
+
+	@return drop-shadow($shadow $color);
+}
+
+@function convertFontSize($text-size, $scale) {
+	@return calc(($scale / ($text-size / 1em)) * 1px);
+}
 
 .pkmn-name-header {
 	text-align: center;
@@ -22,19 +40,16 @@ img.artwork {
 	text-align: center;
 	transition: 300ms;
 
-	$shadows: variables.$shadow-resting, variables.$shadow-expanded;
-	$shadow-colors: variables.$shadow-color-regular, variables.$shadow-color-shiny;
-
 	&.regular {
-		filter: functions.shadow();
+		filter: shadow();
 		&:hover {
-			filter: functions.shadow(true);
+			filter: shadow(true);
 		}
 	}
 	&.shiny {
-		filter: functions.shadow(false, true);
+		filter: shadow(false, true);
 		&:hover {
-			filter: functions.shadow(true, true);
+			filter: shadow(true, true);
 		}
 	}
 }
@@ -88,7 +103,7 @@ img.artwork {
 
 	button {
 		$entry-btn-text-size: 1em;
-		$entry-btn-size: functions.convertFontSize($entry-btn-text-size, 170);
+		$entry-btn-size: convertFontSize($entry-btn-text-size, 170);
 
 		font-size: $entry-btn-text-size;
 		min-width: $entry-btn-size;

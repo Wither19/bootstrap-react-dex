@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 
 import _ from "lodash";
 
@@ -112,18 +112,6 @@ function PokedexApp() {
 				<div style={{ flexBasis: "25%" }}>
 					<div className="m-1">
 						<div className="input-group">
-							{/* {<button
-								type="button"
-								className="btn btn-outline-secondary"
-								onClick={() => {
-									setSortOrder((prev) => !prev);
-								}}>
-								<i
-									className={`bi bi-sort-${
-										sortType == "dex" ? "numeric" : "alpha"
-									}-${sortOrder ? "down" : "up"}`}></i>
-							</button>} */}
-
 							<input
 								className="pokemon-searchbar"
 								type="text"

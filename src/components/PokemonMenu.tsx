@@ -94,7 +94,7 @@ function PokemonMenu() {
 						</div>
 
 						<div className="dex-entries">
-							<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)} showGame>
+							<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)}>
 								{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
 							</PokedexEntry>
 

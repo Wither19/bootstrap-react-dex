@@ -17,7 +17,7 @@
 }
 
 @function convertFontSize($text-size, $scale) {
-	@return calc(($scale / ($text-size / unit($text-size))) * 1px);
+	@return calc(($scale / ($text-size / 1em)) * 1px);
 }
 
 .pkmn-name-header {

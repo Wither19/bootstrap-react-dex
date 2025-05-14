@@ -80,13 +80,15 @@ function PokedexApp() {
 		return false;
 	}
 
+	type TypeOrNah<T> = T | undefined;
+
 	/**
 	 * An abstracted function for region filtering in the Pokédex list.
 	 * @param id {number} The National Pokédex number to filter by.
 	 * @returns {boolean} A boolean for if the Dex number given is in 'currentRegion'.
 	 */
 	function isInRegion(id: number) {
-		const currentRegion: RegionObj | undefined = regions!.find(
+		const currentRegion: TypeOrNah<RegionObj> = regions!.find(
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
 
@@ -143,7 +145,7 @@ function PokedexApp() {
 					</div>
 					<div>
 						<div className="list-group">
-							{_.filter(pokedex, (pokemon, index) => {
+							{_.filter(pokedex, (pokemon) => {
 								let retValue = false;
 
 								// When search terms are active WITHOUT region filtering:
@@ -166,7 +168,7 @@ function PokedexApp() {
 								}
 
 								return retValue;
-							}).map((pokemon, index) => (
+							}).map((pokemon) => (
 								<PokedexItem
 									key={pokemon.pokemon_species.name}
 									num={pokemon.entry_number}

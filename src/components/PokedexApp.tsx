@@ -73,31 +73,29 @@ function PokedexApp() {
 	 * @param id {number}
 	 * @returns {boolean} A boolean for if either a string or number was found.
 	 */
-	const nameIdSearch = (name: string, id: number) => {
-		var retValue = false;
+	function nameIdSearch(name: string, id: number) {
 		if (name.includes(searchText) || id.toString().includes(searchText)) {
-			retValue = true;
+			return true;
 		}
-		return retValue;
-	};
+		return false;
+	}
 
 	/**
 	 * An abstracted function for region filtering in the Pokédex list.
 	 * @param id {number} The National Pokédex number to filter by.
 	 * @returns {boolean} A boolean for if the Dex number given is in 'currentRegion'.
 	 */
-	const isInRegion = (id: number) => {
-		var retValue = false;
+	function isInRegion(id: number) {
 		const currentRegion: RegionObj | undefined = regions!.find(
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
 
 		if (id >= currentRegion!.start && id <= currentRegion!.end) {
-			retValue = true;
+			return true;
 		}
 
-		return retValue;
-	};
+		return false;
+	}
 
 	// Updates the sorted dex state after a sort type or sort order change, as well as when region filters or search terms are used
 

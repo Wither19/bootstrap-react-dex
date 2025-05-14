@@ -6,6 +6,7 @@ import { PokeAPI } from "pokeapi-typescript";
 
 import PokemonMenu from "./PokemonMenu";
 import PokedexItem from "./PokedexItem";
+import PkmnSearchBar from "./PkmnSearchBar";
 
 import { PokemonProvider } from "../contexts/PokemonContext";
 
@@ -111,18 +112,13 @@ function PokedexApp() {
 			<div className="d-flex flex-wrap flex-row">
 				<div style={{ flexBasis: "25%" }}>
 					<div className="m-1">
-						<div className="input-group">
-							<input
-								className="pokemon-searchbar"
-								type="text"
-								placeholder="Search to filter Pokémon"
-								onKeyUp={(e: any) => {
-									if (e.which == 13 || e.target.value == "") {
-										setSearchText(e.target.value.toLowerCase());
-									}
-								}}
-							/>
-						</div>
+						<PkmnSearchBar
+							typing={(e: any) => {
+								if (e.which == 13 || e.target.value == "") {
+									setSearchText(e.target.value.toLowerCase());
+								}
+							}}
+						/>
 					</div>
 					<div>
 						<div>

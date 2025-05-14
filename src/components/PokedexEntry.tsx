@@ -1,4 +1,4 @@
-function PokedexEntry({ children, game }: { children: any; game: string }) {
+function PokedexEntry({ children, game }: { children: string; game: string }) {
 	return (
 		<>
 			<div style={{ textAlign: "center", margin: "1em" }}>

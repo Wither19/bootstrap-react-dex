@@ -168,9 +168,7 @@ function PokedexApp() {
 					</div>
 					<div>
 						<div className="list-group">
-							{_.filter(pokedex, (pokemon) => {
-								dexFilter(pokemon);
-							}).map((pokemon: any) => (
+							{_.filter(pokedex, (pokemon) => dexFilter(pokemon)).map((pokemon: any) => (
 								<PokedexItem
 									key={pokemon.pokemon_species.name}
 									num={pokemon.entry_number}

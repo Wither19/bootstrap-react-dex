@@ -13,14 +13,14 @@ import { PokemonProvider } from "../contexts/PokemonContext";
 import type { PokemonEntry } from "pokeapi-typescript";
 import { Region } from "../types/types";
 
-type RegionObj = {
+export type RegionObj = {
 	name: string;
 	start: number;
 	end: number;
 };
 
 // List of regions with start and end IDs
-const regions: RegionObj[] = [
+export const regions: RegionObj[] = [
 	{ name: "", start: 1, end: 1025 },
 	{ name: "Kanto", start: 1, end: 151 },
 	{ name: "Johto", start: 152, end: 251 },
@@ -59,9 +59,7 @@ function PokedexApp() {
 	// A boolean value as to whether sorting is ascending or descending.
 	const [sortOrder, setSortOrder] = useState<boolean>(false);
 
-	// The name of the Pokémon last clicked on, which is passed to the menu.
-	const [selectedName, setName] = useState<string>("bulbasaur");
-	// The Dex # is also passed to the menu.
+	// The Dex # is passed to the menu to load the Pokémon's Data.
 	const [selectedNumber, setNumber] = useState<number>(1);
 
 	// Ternary to decide sort type based on dropdown selection
@@ -175,7 +173,6 @@ function PokedexApp() {
 									name={pokemon.pokemon_species.name}
 									selected={selectedNumber == pokemon.entry_number ? true : false}
 									click={() => {
-										setName(pokemon.pokemon_species.name);
 										setNumber(pokemon.entry_number);
 									}}
 								/>

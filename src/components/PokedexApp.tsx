@@ -105,6 +105,31 @@ function PokedexApp() {
 
 	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
 
+	function dexFilter(pokemon: PokemonEntry) {
+		let retValue = false;
+
+		// When search terms are active WITHOUT region filtering:
+		if (searchText != "" && regionDropdown == "") {
+			retValue = nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number);
+		}
+
+		// When region filtering is active WITHOUT search terms:
+		else if (searchText == "" && regionDropdown != "") {
+			retValue = isInRegion(pokemon.entry_number);
+		}
+
+		// When both search terms and region filtering are active:
+		else if (searchText != "" && regionDropdown != "") {
+			retValue =
+				nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number) &&
+				isInRegion(pokemon.entry_number);
+		} else {
+			retValue = true;
+		}
+
+		return retValue;
+	}
+
 	return (
 		<>
 			<div className="d-flex flex-wrap flex-row">
@@ -144,29 +169,8 @@ function PokedexApp() {
 					<div>
 						<div className="list-group">
 							{_.filter(pokedex, (pokemon) => {
-								let retValue = false;
-
-								// When search terms are active WITHOUT region filtering:
-								if (searchText != "" && regionDropdown == "") {
-									retValue = nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number);
-								}
-
-								// When region filtering is active WITHOUT search terms:
-								else if (searchText == "" && regionDropdown != "") {
-									retValue = isInRegion(pokemon.entry_number);
-								}
-
-								// When both search terms and region filtering are active:
-								else if (searchText != "" && regionDropdown != "") {
-									retValue =
-										nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number) &&
-										isInRegion(pokemon.entry_number);
-								} else {
-									retValue = true;
-								}
-
-								return retValue;
-							}).map((pokemon) => (
+								dexFilter(pokemon);
+							}).map((pokemon: any) => (
 								<PokedexItem
 									key={pokemon.pokemon_species.name}
 									num={pokemon.entry_number}

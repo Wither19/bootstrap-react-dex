@@ -37,7 +37,7 @@ export function removeVersions<T extends HasLanguage & HasVersion>(
 }
 
 export function stripDuplicateEntries(arr: FlavorText[]): typeof arr {
-	return _.uniqBy(arr, (item) => item.flavor_text);
+	return _.uniqBy(arr, (item) => item.flavor_text.replace("\n", ""));
 }
 
 export function getStatTotal(stats: PokemonStat[]): number {

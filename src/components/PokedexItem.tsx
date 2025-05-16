@@ -18,9 +18,7 @@ function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
 	const [pkmn, setPkmn] = useState({});
 	const [itemShiny, setShinyState] = useState(false);
 
-	const dexItemStyles = `list-group-item ${
-		selected ? "active" : ""
-	} pokemon-list-item`;
+	const dexItemStyles = `list-group-item ${selected ? "active" : ""} pokemon-list-item`;
 
 	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`;
 
@@ -30,10 +28,8 @@ function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
 				<img src={pkmnSprite} className="sprite" />
 
 				<div className="card-body">
-					<b>#{leadingZeroes(num, 4)}</b> -
-					<span className="card-title text-nowrap">
-						{capitalize(name.replace("-", " "))}
-					</span>
+					<b>#{leadingZeroes(num, 4)}</b> -{" "}
+					<span className="card-title text-nowrap">{capitalize(name.replace("-", " "))}</span>
 				</div>
 			</div>
 		</>

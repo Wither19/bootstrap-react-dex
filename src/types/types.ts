@@ -15,6 +15,12 @@ export enum Region {
 	Unknown = "unknown",
 }
 
+export type RegionObj = {
+	name: string;
+	start: number;
+	end: number;
+};
+
 export enum GameName {
 	"red" = "Red",
 	"blue" = "Blue",

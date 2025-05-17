@@ -5,7 +5,7 @@ import PokedexApp from "./components/PokedexApp";
 function App() {
 	return (
 		<>
-			<div className="container-md">
+			<div className="container">
 				<PokedexApp />
 			</div>
 		</>

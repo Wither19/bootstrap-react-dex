@@ -20,6 +20,18 @@
 	@return calc(($scale / ($text-size / 1em)) * 1px);
 }
 
+@mixin lock-width($w) {
+	width: $w;
+	max-width: $w;
+	min-width: $w;
+}
+
+@mixin lock-height($h) {
+	height: $h;
+	max-height: $h;
+	min-width: $h;
+}
+
 .pkmn-name-header {
 	text-align: center;
 	text-transform: capitalize;
@@ -80,21 +92,22 @@ img.artwork {
 }
 
 .dex-entries {
-	margin-top: 5%;
-	margin-left: 20%;
+	margin: 10px auto;
 
 	p {
-		$dex-entry-height: 120px;
-
-		min-height: $dex-entry-height;
-		max-height: $dex-entry-height;
+		@include lock-height(120px);
+		@include lock-width(1000px);
+		line-height: 1.35em;
 	}
 }
 
+
+
 .entry-buttons {
 	text-transform: capitalize;
-	height: 275px;
-	width: 400px;
+	height: 200px;
+	@include lock-width(950px);
+	margin: 5px 5%;
 	overflow: hidden scroll;
 	display: flex;
 	flex-wrap: wrap;
@@ -119,4 +132,9 @@ img.artwork {
 			border-color: color.scale($color: $highlight-color, $lightness: 80%);
 		}
 	}
+}
+
+
+.entry-options {
+	text-align: center;
 }

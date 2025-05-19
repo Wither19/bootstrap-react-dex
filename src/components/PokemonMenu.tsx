@@ -79,7 +79,7 @@ function PokemonMenu() {
 						click={() => setShinyState((prev) => !prev)}
 					/>
 
-					<div className="">
+					<div style={{ display: "flex", justifyContent: "space-evenly"}}>
 						<div className="stats">
 							{pkmnGeneral.stats &&
 								pkmnGeneral!.stats.map((item: PokemonStat) => (

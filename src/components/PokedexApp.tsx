@@ -120,7 +120,7 @@ function PokedexApp() {
 	return (
 		<>
 			<div style={{ margin: "2% 5%" }}>
-				<div style={{ flexBasis: "25%" }}>
+				<div>
 					<div style={{ margin: "24px auto" }}>
 						<PkmnSearchBar
 							typing={(e: any) => {
@@ -152,7 +152,7 @@ function PokedexApp() {
 						</div>
 					</div>
 					<div>
-						<div className="list-group">
+						<div className="pokemon-list">
 							{_.filter(pokedex, (pokemon) => dexFilter(pokemon)).map((pokemon: any) => (
 								<PokedexItem
 									key={pokemon.pokemon_species.name}

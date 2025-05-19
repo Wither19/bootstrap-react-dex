@@ -63,13 +63,8 @@ function PokedexApp() {
 		return name.includes(searchText) || id.toString().includes(searchText);
 	}
 
-	type TypeOrNah<T> = T | undefined;
-
 	function getCurrentRegion() {
-		const currentRegion: TypeOrNah<RegionObj> = regions!.find(
-			(r) => r.name.toLowerCase() == regionDropdown
-		);
-		return currentRegion as RegionObj;
+		return regions!.find((r) => r.name.toLowerCase() == regionDropdown) as RegionObj;
 	}
 
 	function isInRegion(id: number) {
@@ -84,9 +79,7 @@ function PokedexApp() {
 		setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder));
 	};
 
-	useEffect(() => {
-		setNumber(getCurrentRegion().start);
-	}, [regionDropdown]);
+	useEffect(() => setNumber(getCurrentRegion().start), [regionDropdown]);
 
 	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
 

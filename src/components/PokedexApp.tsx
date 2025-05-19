@@ -47,6 +47,11 @@ function PokedexApp() {
 
 	// The value for the dropdown (select element) that determines the region to filter. This further filters results with search.
 	const [regionDropdown, setRegionDropdown] = useState<Region>(Region.None);
+
+	const selectRegionValue = (e: SelectChangeEvent) => {
+		setRegionDropdown(e.target.value as Region);
+	}
+
 	// The text for the search bar.
 	const [searchText, setSearchText] = useState<string>("");
 
@@ -110,9 +115,7 @@ function PokedexApp() {
 		return retValue;
 	}
 
-	const selectRegionValue = (e: SelectChangeEvent) => {
-		setRegionDropdown(e.target.value as Region);
-	}
+
 
 	return (
 		<>
@@ -141,7 +144,7 @@ function PokedexApp() {
 									{regions
 										.filter((_, index) => index != 0)
 										.map((region) => (
-											<RegionOption key={region.name} name={region.name} />
+											<RegionOption key={region.name} name={region.name.toLowerCase()} />
 										))}
 								</Select>
 								</FormControl>

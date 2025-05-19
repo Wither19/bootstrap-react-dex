@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import capitalize from "capitalize";
+import capitalize from "lodash";
 
 // Adds leading zeroes to a number until it is four digits long
 const leadingZeroes = (num: number, size: number) => {

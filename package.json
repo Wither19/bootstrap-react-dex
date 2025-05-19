@@ -19,7 +19,6 @@
 		"@fontsource/ubuntu-sans": "^5.2.7",
 		"@mui/material": "^7.1.0",
 		"@number-flow/react": "^0.5.9",
-		"capitalize": "^2.0.4",
 		"jquery": "^3.7.1",
 		"lodash": "^4.17.21",
 		"lucide-react": "^0.511.0",
@@ -33,7 +32,6 @@
 	"devDependencies": {
 		"@eslint/js": "^9.27.0",
 		"@types/bun": "latest",
-		"@types/capitalize": "^2.0.2",
 		"@types/jquery": "^3.5.32",
 		"@types/lodash": "^4.17.16",
 		"@types/react": "^19.1.4",

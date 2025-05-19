@@ -59,27 +59,21 @@ function PokedexApp() {
 	// Ternary to decide sort type based on dropdown selection
 	const pokedexSort: string = sortType == "dex" ? "entry_number" : "pokemon_species.name";
 
-	/**
-	 * Searches for a string based upon a string name and/or a number ID.
-	 * @param name {string}
-	 * @param id {number}
-	 * @returns {boolean} A boolean for if either a string or number was found.
-	 */
 	function nameIdSearch(name: string, id: number) {
 		return name.includes(searchText) || id.toString().includes(searchText);
 	}
 
 	type TypeOrNah<T> = T | undefined;
 
-	/**
-	 * An abstracted function for region filtering in the Pokédex list.
-	 * @param id {number} The National Pokédex number to filter by.
-	 * @returns {boolean} A boolean for if the Dex number given is in 'currentRegion'.
-	 */
-	function isInRegion(id: number) {
+	function getCurrentRegion() {
 		const currentRegion: TypeOrNah<RegionObj> = regions!.find(
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
+		return currentRegion as RegionObj;
+	}
+
+	function isInRegion(id: number) {
+		const currentRegion = getCurrentRegion();
 
 		return id >= currentRegion!.start && id <= currentRegion!.end;
 	}
@@ -89,6 +83,10 @@ function PokedexApp() {
 	const setSortedDex = () => {
 		setPokedex((prev) => _.orderBy(prev, [pokedexSort], sortOrder));
 	};
+
+	useEffect(() => {
+		setNumber(getCurrentRegion().start);
+	}, [regionDropdown]);
 
 	useEffect(setSortedDex, [sortType, sortOrder, regionDropdown, searchText]);
 

@@ -9,7 +9,7 @@ function PkmnSprite({ id, shiny, click }: PkmnSpriteProps) {
 		<div onClick={click} style={{ textAlign: "center" }}>
 			<img
 				className={`artwork ${shiny ? "shiny" : "regular"}`}
-				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${
+				src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
 					shiny ? "shiny/" : ""
 				}${id}.png`}
 			/>

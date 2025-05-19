@@ -22,7 +22,7 @@ import {
 	flavorTextHandle,
 } from "../functions.ts";
 
-function PokemonMenu() {
+function PkmnMenu() {
 	const pokemon = useContext(PokemonContext);
 	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
 	const [genus, setGenus] = useState<Genus>({
@@ -123,4 +123,4 @@ function PokemonMenu() {
 	);
 }
 
-export default PokemonMenu;
+export default PkmnMenu;

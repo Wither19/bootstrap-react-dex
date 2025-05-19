@@ -2,11 +2,6 @@ import { useState } from "react";
 
 import capitalize from "lodash";
 
-// Adds leading zeroes to a number until it is four digits long
-const leadingZeroes = (num: number, size: number) => {
-	return num.toString().padStart(size, "0");
-};
-
 type PokedexItemProps = {
 	num: number;
 	name: string;

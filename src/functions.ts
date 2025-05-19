@@ -1,9 +1,10 @@
 import _ from "lodash";
 
-import { GameName } from "./types/types.ts";
-import type { HasLanguage, HasVersion } from "./types/types.ts";
+import { GameName, type HasLanguage, type HasVersion } from "./types.ts";
 
-import type { FlavorText, PokemonStat, Genus } from "pokeapi-typescript";
+import { PokeAPI, type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
+
+import { type SelectChangeEvent } from "@mui/material";
 
 export function fancifyGameName(name: string): GameName {
 	type NameCode = keyof typeof GameName;
@@ -62,4 +63,16 @@ export function flavorTextHandle(
 	}
 
 	return d;
+}
+
+export function getDex() {
+	PokeAPI.Pokedex.fetch(1).then((res) => res.pokemon_entries);
+}
+
+export function selectRegionValue<T>(e: SelectChangeEvent) {
+	return e.target.value as T;
+}
+
+export function leadingZeroes(num: number, size: number = 4) {
+	return num.toString().padStart(size, "0");
 }

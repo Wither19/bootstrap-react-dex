@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 
-import _ from "lodash";
+import _, { capitalize } from "lodash";
 
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
 
 import PokemonMenu from "./PokemonMenu";
 import PokedexItem from "./PokedexItem";
 import PkmnSearchBar from "./PkmnSearchBar";
-import RegionOption from "./RegionOption";
 
 import { PokemonProvider } from "../contexts/PokemonContext";
 
 import { Region, type RegionObj } from "../types/types";
 
-import { FormControl, InputLabel, Select, type SelectChangeEvent } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
+
 
 // List of regions with start and end IDs
 export const regions: RegionObj[] = [
@@ -140,11 +140,11 @@ function PokedexApp() {
 									id="region-select"
 									value={regionDropdown}
 									onChange={selectRegionValue}>
-									<RegionOption />
+									<MenuItem value="">All Regions</MenuItem>
 									{regions
 										.filter((_, index) => index != 0)
 										.map((region) => (
-											<RegionOption key={region.name} name={region.name.toLowerCase()} />
+											 <MenuItem value={region.name.toLowerCase()}>{region.name}</MenuItem>
 										))}
 								</Select>
 								</FormControl>

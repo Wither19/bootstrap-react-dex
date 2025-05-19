@@ -110,9 +110,9 @@ function PokedexApp() {
 
 	return (
 		<>
-			<div className="">
+			<div style={{ margin: "2% 5%" }}>
 				<div style={{ flexBasis: "25%" }}>
-					<div className="">
+					<div style={{ margin: "24px auto" }}>
 						<PkmnSearchBar
 							typing={(e: any) => {
 								if (e.which == 13 || e.target.value == "") {

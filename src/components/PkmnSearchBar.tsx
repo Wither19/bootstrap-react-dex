@@ -1,17 +1,27 @@
+import TextField from "@mui/material/TextField";
+
+import { Search } from "lucide-react";
+
 type PkmnSearchBarProps = {
 	typing: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
 function PkmnSearchBar({ typing }: PkmnSearchBarProps) {
 	return (
-		<div className="">
-			<input
-				className="pokemon-searchbar"
-				type="text"
-				placeholder="Search to filter Pokémon"
-				onKeyUp={typing}
-			/>
-		</div>
+		<TextField
+			label="Search for Pokémon..."
+			variant="standard"
+			onKeyUp={typing}
+			slotProps={{
+				input: {
+					startAdornment: (
+						<div style={{ margin: "4px 5px 0px 5px" }}>
+							<Search />
+						</div>
+					),
+				},
+			}}
+		/>
 	);
 }
 

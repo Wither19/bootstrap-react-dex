@@ -4,11 +4,9 @@ import PokedexApp from "./components/PokedexApp";
 
 function App() {
 	return (
-		<>
-			<div className="container">
-				<PokedexApp />
-			</div>
-		</>
+		<div>
+			<PokedexApp />
+		</div>
 	);
 }
 

@@ -110,9 +110,9 @@ function PokedexApp() {
 
 	return (
 		<>
-			<div className="d-flex flex-wrap flex-row">
+			<div className="">
 				<div style={{ flexBasis: "25%" }}>
-					<div className="m-1">
+					<div className="">
 						<PkmnSearchBar
 							typing={(e: any) => {
 								if (e.which == 13 || e.target.value == "") {
@@ -123,10 +123,10 @@ function PokedexApp() {
 					</div>
 					<div>
 						<div>
-							<div className="form-group mb-4">
+							<div className="">
 								<label htmlFor="regionSelect">Select Region</label>
 								<select
-									className="form-control"
+									className=""
 									id="regionSelect"
 									value={regionDropdown}
 									onChange={(e: any) => {

@@ -4,7 +4,7 @@ type PkmnSearchBarProps = {
 
 function PkmnSearchBar({ typing }: PkmnSearchBarProps) {
 	return (
-		<div className="input-group">
+		<div className="">
 			<input
 				className="pokemon-searchbar"
 				type="text"

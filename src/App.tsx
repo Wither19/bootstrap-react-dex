@@ -34,11 +34,8 @@ function App() {
 	}
 
 	function dexFilter(pokemon: PokemonEntry) {
-		let pkmnName: string = pokemon.pokemon_species.name;
-		let pkmnNumber: number = pokemon.entry_number;
-
-		let searchExp = nameIdSearch(pkmnName, pkmnNumber);
-		let regionExp = isInRegion(pkmnNumber);
+		let searchExp = nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number);
+		let regionExp = isInRegion(pokemon.entry_number);
 
 		// True values mean no filtering
 		let searchFiltered: boolean = true;

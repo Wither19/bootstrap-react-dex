@@ -2,15 +2,7 @@ import _ from "lodash";
 
 import { GameName, type HasLanguage, type HasVersion } from "./types.ts";
 
-import {
-	PokeAPI,
-	type FlavorText,
-	type PokemonStat,
-	type Genus,
-	type PokemonEntry,
-} from "pokeapi-typescript";
-
-import { type SelectChangeEvent } from "@mui/material";
+import { type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
 
 export function fancifyGameName(name: string): GameName {
 	type NameCode = keyof typeof GameName;

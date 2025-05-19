@@ -13,6 +13,8 @@ import { PokemonProvider } from "../contexts/PokemonContext";
 
 import { Region, type RegionObj } from "../types/types";
 
+import { FormControl, InputLabel, Select, type SelectChangeEvent } from "@mui/material";
+
 // List of regions with start and end IDs
 export const regions: RegionObj[] = [
 	{ name: "", start: 1, end: 1025 },
@@ -108,6 +110,10 @@ function PokedexApp() {
 		return retValue;
 	}
 
+	const selectRegionValue = (e: SelectChangeEvent) => {
+		setRegionDropdown(e.target.value as Region);
+	}
+
 	return (
 		<>
 			<div style={{ margin: "2% 5%" }}>
@@ -123,22 +129,22 @@ function PokedexApp() {
 					</div>
 					<div>
 						<div>
-							<div className="">
-								<label htmlFor="regionSelect">Select Region</label>
-								<select
-									className=""
-									id="regionSelect"
+							<div>
+							<FormControl fullWidth>
+								<InputLabel id="region-select-label">Select Region</InputLabel>
+								<Select
+									labelId="region-select-label"
+									id="region-select"
 									value={regionDropdown}
-									onChange={(e: any) => {
-										setRegionDropdown(e.target.value);
-									}}>
+									onChange={selectRegionValue}>
 									<RegionOption />
 									{regions
 										.filter((_, index) => index != 0)
 										.map((region) => (
 											<RegionOption key={region.name} name={region.name} />
 										))}
-								</select>
+								</Select>
+								</FormControl>
 							</div>
 						</div>
 					</div>

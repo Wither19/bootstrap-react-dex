@@ -40,7 +40,7 @@ function PokemonMenu() {
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
 
-	var currentDexEntry = dexEntries[selectedEntry];
+	var currentDexEntry = dexEntries![selectedEntry];
 
 	useEffect(() => {
 		PokeAPI.Pokemon.fetch(pokemon!).then((res) => {
@@ -94,8 +94,8 @@ function PokemonMenu() {
 						</div>
 
 						<div className="dex-entries">
-							<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)}>
-								{dexEntries![selectedEntry]!.flavor_text.replace("\f", " ")}
+							<PokedexEntry game={currentDexEntry ? fancifyGameName(currentDexEntry!.version.name) : ""}>
+								{currentDexEntry ? currentDexEntry!.flavor_text.replace("\f", " ") : ""}
 							</PokedexEntry>
 
 							<div className="entry-buttons">

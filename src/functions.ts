@@ -2,7 +2,13 @@ import _ from "lodash";
 
 import { GameName, type HasLanguage, type HasVersion } from "./types.ts";
 
-import { PokeAPI, type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
+import {
+	PokeAPI,
+	type FlavorText,
+	type PokemonStat,
+	type Genus,
+	type PokemonEntry,
+} from "pokeapi-typescript";
 
 import { type SelectChangeEvent } from "@mui/material";
 
@@ -63,14 +69,6 @@ export function flavorTextHandle(
 	}
 
 	return d;
-}
-
-export function getDex() {
-	PokeAPI.Pokedex.fetch(1).then((res) => res.pokemon_entries);
-}
-
-export function selectRegionValue<T>(e: SelectChangeEvent) {
-	return e.target.value as T;
 }
 
 export function leadingZeroes(num: number, size: number = 4) {

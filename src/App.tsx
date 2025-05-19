@@ -1,37 +1,23 @@
-import "./scss/App.scss";
-
 import React, { useEffect, useState } from "react";
-
 import _, { capitalize } from "lodash";
 
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
+import { Region, type RegionObj } from "./types.ts";
+import { regions } from "./constants.ts";
 
 import PkmnMenu from "./components/PkmnMenu";
 import PokedexItem from "./components/PokedexItem";
 import PkmnSearchBar from "./components/PkmnSearchBar";
 
-import { Region, type RegionObj } from "./types.ts";
-
-import { regions } from "./constants.ts";
-
-import { getDex } from "./functions.ts";
-
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
-
-// List of regions with start and end IDs
-
-/*     
-		• Todos go here!
-*/
 
 function App() {
 	const [pokedex, setPokedex] = useState<PokemonEntry[]>([]);
 
-	const [regionDropdown, setRegionDropdown] = useState<Region>(Region.None);
-
-	const [searchText, setSearchText] = useState<string>("");
-
 	const [selectedNumber, setNumber] = useState<number>(1);
+
+	const [regionDropdown, setRegionDropdown] = useState<Region>(Region.None);
+	const [searchText, setSearchText] = useState<string>("");
 
 	function nameIdSearch(name: string, id: number) {
 		return name.includes(searchText) || id.toString().includes(searchText);
@@ -48,33 +34,65 @@ function App() {
 	}
 
 	function dexFilter(pokemon: PokemonEntry) {
-		let retValue = false;
+		let pkmnName: string = pokemon.pokemon_species.name;
+		let pkmnNumber: number = pokemon.entry_number;
 
-		// When search terms are active WITHOUT region filtering:
-		if (searchText != "" && regionDropdown == "") {
-			return nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number);
+		let searchExp = nameIdSearch(pkmnName, pkmnNumber);
+		let regionExp = isInRegion(pkmnNumber);
+
+		// True values mean no filtering
+		let searchFiltered: boolean = true;
+		let regionFiltered: boolean = true;
+
+		if (searchText) {
+			searchFiltered = searchExp;
 		}
 
-		// When region filtering is active WITHOUT search terms:
-		else if (searchText == "" && regionDropdown != "") {
-			return isInRegion(pokemon.entry_number);
+		if (regionDropdown) {
+			regionFiltered = regionExp;
 		}
 
-		// When both search terms and region filtering are active:
-		else if (searchText != "" && regionDropdown != "") {
-			return (
-				nameIdSearch(pokemon.pokemon_species.name, pokemon.entry_number) &&
-				isInRegion(pokemon.entry_number)
-			);
-		} else {
-			return true;
-		}
+		return searchFiltered && regionFiltered;
+	}
+
+	function getDex() {
+		PokeAPI.Pokedex.fetch(1).then((res) => setPokedex(res.pokemon_entries));
+	}
+
+	function resetStartingEntry() {
+		setNumber(getCurrentRegion().start);
+	}
+
+	function handleRegionChange(e: SelectChangeEvent) {
+		setRegionDropdown(e.target.value as Region);
 	}
 
 	useEffect(getDex, []);
-	useEffect(() => setNumber(getCurrentRegion().start), [regionDropdown]);
+	useEffect(resetStartingEntry, [regionDropdown]);
 
-	return <h1>Hello World!</h1>;
+	return (
+		<>
+			<FormControl fullWidth>
+				<InputLabel id="region-select-label">Region</InputLabel>
+				<Select
+					labelId="region-select-label"
+					id="region-select"
+					value={regionDropdown}
+					label="Region"
+					onChange={handleRegionChange}>
+					{regions.map((region) => (
+						<MenuItem value={region.name.toLowerCase()}>{region.name || "All"}</MenuItem>
+					))}
+				</Select>
+			</FormControl>
+			<ul>
+				{pokedex &&
+					_.filter(pokedex, (entry) => dexFilter(entry)).map((entry, index) => (
+						<li key={`pokemon-entry-${index}`}>{entry.pokemon_species.name}</li>
+					))}
+			</ul>
+		</>
+	);
 }
 
 export default App;

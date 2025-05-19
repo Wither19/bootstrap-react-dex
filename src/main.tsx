@@ -1,6 +1,7 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
+import "./scss/App.scss";
 
 import "@fontsource/ubuntu-sans/400.css";
 import "@fontsource/ubuntu-sans/400-italic.css";

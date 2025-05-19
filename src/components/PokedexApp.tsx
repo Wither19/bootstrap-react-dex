@@ -66,10 +66,7 @@ function PokedexApp() {
 	 * @returns {boolean} A boolean for if either a string or number was found.
 	 */
 	function nameIdSearch(name: string, id: number) {
-		if (name.includes(searchText) || id.toString().includes(searchText)) {
-			return true;
-		}
-		return false;
+		return name.includes(searchText) || id.toString().includes(searchText);
 	}
 
 	type TypeOrNah<T> = T | undefined;
@@ -84,11 +81,7 @@ function PokedexApp() {
 			(r) => r.name.toLowerCase() == regionDropdown
 		);
 
-		if (id >= currentRegion!.start && id <= currentRegion!.end) {
-			return true;
-		}
-
-		return false;
+		return id >= currentRegion!.start && id <= currentRegion!.end;
 	}
 
 	// Updates the sorted dex state after a sort type or sort order change, as well as when region filters or search terms are used

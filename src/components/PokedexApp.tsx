@@ -165,7 +165,7 @@ function PokedexApp() {
 									key={pokemon.pokemon_species.name}
 									num={pokemon.entry_number}
 									name={pokemon.pokemon_species.name}
-									selected={selectedNumber == pokemon.entry_number ? true : false}
+									selected={selectedNumber == pokemon.entry_number}
 									click={() => {
 										setNumber(pokemon.entry_number);
 									}}

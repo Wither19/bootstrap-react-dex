@@ -16,8 +16,10 @@ function App() {
 
 	const [selectedNumber, setNumber] = useState<number>(1);
 
-	const [regionDropdown, setRegionDropdown] = useState<Region>(Region.None);
+	const [regionDropdown, setRegionDropdown] = useState<Region>(Region.Kanto);
 	const [searchText, setSearchText] = useState<string>("");
+
+	const [displayList, setListDisplay] = useState<boolean>(true);
 
 	function nameIdSearch(name: string, id: number) {
 		return name.includes(searchText) || id.toString().includes(searchText);
@@ -74,6 +76,7 @@ function App() {
 
 	function handleClickPkmnEntry(num: number) {
 		setNumber(num);
+		setListDisplay(true);
 	}
 
 	useEffect(getDex, []);
@@ -81,6 +84,7 @@ function App() {
 
 	return (
 		<div className="pokedex-app-container">
+			{selectedNumber}
 			<PkmnSearchBar typing={handleSearchType} />
 			<div className="region-select">
 				<FormControl fullWidth>
@@ -92,7 +96,7 @@ function App() {
 						label="Region"
 						onChange={handleRegionChange}>
 						{regions.map((region) => (
-							<MenuItem value={region.name.toLowerCase()}>{region.name || "All"}</MenuItem>
+							<MenuItem value={region.name.toLowerCase()}>{region.name}</MenuItem>
 						))}
 					</Select>
 				</FormControl>

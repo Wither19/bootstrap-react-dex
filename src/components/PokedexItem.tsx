@@ -1,6 +1,8 @@
 import { useState } from "react";
 import _ from "lodash";
 
+import { leadingZeroes } from "../functions";
+
 import { Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/material";
 
 type PokedexItemProps = {
@@ -14,7 +16,10 @@ function PokedexItem({ num, name, click }: PokedexItemProps) {
 
 	return (
 		<Card sx={{ maxWidth: 300 }}>
-			<CardActionArea>
+			<CardActionArea onClick={click}>
+				<Typography gutterBottom variant="h6" component="h6">
+					#{leadingZeroes(num)}
+				</Typography>
 				<CardMedia
 					sx={{ objectFit: "contain" }}
 					component="img"

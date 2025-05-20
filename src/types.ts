@@ -1,7 +1,6 @@
 import type { NamedApiResource, Language, Version } from "pokeapi-typescript";
 
 export enum Region {
-	None = "",
 	Kanto = "kanto",
 	Johto = "johto",
 	Hoenn = "hoenn",

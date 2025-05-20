@@ -1,7 +1,6 @@
 import { type RegionObj } from "./types";
 
 export const regions: RegionObj[] = [
-	{ name: "", start: 1, end: 1025 },
 	{ name: "Kanto", start: 1, end: 151 },
 	{ name: "Johto", start: 152, end: 251 },
 	{ name: "Hoenn", start: 252, end: 386 },

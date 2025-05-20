@@ -60,35 +60,55 @@ function App() {
 		setNumber(getCurrentRegion().start);
 	}
 
+	function handleSearchType(
+		e: React.KeyboardEvent<HTMLInputElement> & React.ChangeEvent<HTMLInputElement>
+	) {
+		if (e.which == 13 || !e.target.value) {
+			setSearchText(e.target.value);
+		}
+	}
+
 	function handleRegionChange(e: SelectChangeEvent) {
 		setRegionDropdown(e.target.value as Region);
+	}
+
+	function handleClickPkmnEntry(num: number) {
+		setNumber(num);
 	}
 
 	useEffect(getDex, []);
 	useEffect(resetStartingEntry, [regionDropdown]);
 
 	return (
-		<>
-			<FormControl fullWidth>
-				<InputLabel id="region-select-label">Region</InputLabel>
-				<Select
-					labelId="region-select-label"
-					id="region-select"
-					value={regionDropdown}
-					label="Region"
-					onChange={handleRegionChange}>
-					{regions.map((region) => (
-						<MenuItem value={region.name.toLowerCase()}>{region.name || "All"}</MenuItem>
-					))}
-				</Select>
-			</FormControl>
-			<ul>
+		<div className="pokedex-app-container">
+			<PkmnSearchBar typing={handleSearchType} />
+			<div className="region-select">
+				<FormControl fullWidth>
+					<InputLabel id="region-select-label">Region</InputLabel>
+					<Select
+						labelId="region-select-label"
+						id="region-select"
+						value={regionDropdown}
+						label="Region"
+						onChange={handleRegionChange}>
+						{regions.map((region) => (
+							<MenuItem value={region.name.toLowerCase()}>{region.name || "All"}</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</div>
+			<div className="pkmn-list">
 				{pokedex &&
-					_.filter(pokedex, (entry) => dexFilter(entry)).map((entry, index) => (
-						<li key={`pokemon-entry-${index}`}>{entry.pokemon_species.name}</li>
+					_.filter(pokedex, (entry) => dexFilter(entry)).map((entry) => (
+						<PokedexItem
+							key={`pkmn-entry-${entry.entry_number}`}
+							num={entry.entry_number}
+							name={entry.pokemon_species.name}
+							click={() => handleClickPkmnEntry(entry.entry_number)}
+						/>
 					))}
-			</ul>
-		</>
+			</div>
+		</div>
 	);
 }
 

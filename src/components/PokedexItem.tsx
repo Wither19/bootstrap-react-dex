@@ -12,13 +12,16 @@ type PokedexItemProps = {
 };
 
 function PokedexItem({ num, name, click }: PokedexItemProps) {
+	const displayNum = leadingZeroes(num);
+	const displayName = name.replace("-", " ");
+
 	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`;
 
 	return (
 		<Card sx={{ maxWidth: 300 }}>
 			<CardActionArea onClick={click}>
 				<Typography gutterBottom variant="h6" component="h6">
-					#{leadingZeroes(num)}
+					#{displayNum}
 				</Typography>
 				<CardMedia
 					sx={{ objectFit: "contain" }}
@@ -28,8 +31,12 @@ function PokedexItem({ num, name, click }: PokedexItemProps) {
 					alt={name}
 				/>
 				<CardContent>
-					<Typography gutterBottom variant="h5" component="div">
-						{_.capitalize(name)}
+					<Typography
+						sx={{ textTransform: "capitalize" }}
+						gutterBottom
+						variant="h5"
+						component="div">
+						{displayName}
 					</Typography>
 				</CardContent>
 			</CardActionArea>

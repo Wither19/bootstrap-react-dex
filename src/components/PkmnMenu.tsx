@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import _ from "lodash";
 
 import { PokeAPI } from "pokeapi-typescript";
@@ -43,28 +43,29 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 
 	var currentDexEntry = dexEntries![selectedEntry];
 
-	useEffect(() => {
+	function pokemonGet() {
 		PokeAPI.Pokemon.fetch(pkmn!).then((res) => {
 			setGeneralData(res);
 			setStatTotal(getStatTotal(res.stats));
 		});
+	}
 
+	function pokemonSpeciesGet() {
 		PokeAPI.PokemonSpecies.fetch(pkmn!).then((res) => {
 			setSelectedEntry(0);
 
 			setGenus(genusHandle(res.genera));
 
-			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames));
-		});
-	}, [pkmn]);
-
-	useEffect(() => {
-		PokeAPI.PokemonSpecies.fetch(pkmn!).then((res) => {
-			setSelectedEntry(0);
-
 			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames, seeDuplicateEntries));
 		});
-	}, [seeDuplicateEntries]);
+	}
+
+	useEffect(() => {
+		pokemonGet();
+		pokemonSpeciesGet();
+	}, [pkmn]);
+
+	useEffect(() => pokemonSpeciesGet(), [seeDuplicateEntries]);
 
 	return (
 		<>
@@ -72,6 +73,7 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 				<>
 					<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
 					<PkmnGenusHeader genus={genus?.genus} />
+					
 					<PkmnSprite
 						id={pkmnGeneral?.id}
 						shiny={isShiny}

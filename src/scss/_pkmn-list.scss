@@ -22,12 +22,12 @@
 .pkmn-list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-evenly;
+	justify-content: space-between;
 	margin: 12px auto;
 
 	& > div {
-		margin: 20px 0px;
-		@include lock-width(200px);
+		margin: 20px 8px;
 		text-align: center;
+		flex-basis: 20%;
 	}
 }

@@ -2,16 +2,16 @@ import React, { useEffect, useState } from "react";
 import _, { capitalize } from "lodash";
 
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
+
 import { Region, type RegionObj } from "./types.ts";
 import { regions } from "./constants.ts";
-
 import { hideJSX } from "./functions.ts";
 
 import PkmnMenu from "./components/PkmnMenu";
 import PokedexItem from "./components/PokedexItem";
 import PkmnSearchBar from "./components/PkmnSearchBar";
 
-import { ArrowBigLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 import { FormControl, InputLabel, MenuItem, Select, type SelectChangeEvent } from "@mui/material";
 
@@ -35,9 +35,7 @@ function App() {
 	}
 
 	function isInRegion(id: number) {
-		const currentRegion = getCurrentRegion();
-
-		return id >= currentRegion!.start && id <= currentRegion!.end;
+		return id >= getCurrentRegion()!.start && id <= getCurrentRegion()!.end;
 	}
 
 	function dexFilter(pokemon: PokemonEntry) {
@@ -79,16 +77,9 @@ function App() {
 		setListDisplay(true);
 	}
 
-	function getDex() {
+	useEffect(() => {
 		PokeAPI.Pokedex.fetch(1).then((res) => setPokedex(res.pokemon_entries));
-	}
-
-	function resetStartingEntry() {
-		setNumber(getCurrentRegion().start);
-	}
-
-	useEffect(getDex, []);
-	useEffect(resetStartingEntry, [regionDropdown]);
+	}, []);
 
 	return (
 		<div className="pokedex-app-container">
@@ -122,7 +113,7 @@ function App() {
 				</div>
 			</div>
 			<div style={hideJSX(displayList, true)}>
-				<ArrowBigLeft
+				<ChevronLeft
 					style={{ cursor: "pointer" }}
 					size={72}
 					strokeWidth={0.9}

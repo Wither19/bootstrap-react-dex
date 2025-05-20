@@ -4,7 +4,7 @@ import _ from "lodash";
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
 
 import { Region, type RegionObj } from "./types.ts";
-import { regions } from "./constants.ts";
+import { regions, legendariesAndMythicals } from "./constants.ts";
 import { hideJSX } from "./functions.ts";
 
 import PkmnMenu from "./components/PkmnMenu";
@@ -75,7 +75,8 @@ function App() {
 
 	useEffect(() => {
 		setSearchText("");
-		document.querySelector("#pkmn-search").value = "";
+		const searchBar = document!.querySelector("#pkmn-search") as HTMLInputElement;
+		searchBar!.value = "";
 	}, [selectedNumber]);
 
 	return (
@@ -105,6 +106,11 @@ function App() {
 								num={entry.entry_number}
 								name={entry.pokemon_species.name}
 								click={() => handleClickPkmnEntry(entry.entry_number)}
+								bgColor={
+									legendariesAndMythicals.includes(entry.entry_number)
+										? "rgb(250, 225, 235)"
+										: "rgb(213, 232, 245)"
+								}
 							/>
 						))}
 				</div>

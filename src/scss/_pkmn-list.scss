@@ -10,7 +10,7 @@
 .pkmn-list {
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: flex-start;
 	margin: 12px auto;
 
 	& > div {

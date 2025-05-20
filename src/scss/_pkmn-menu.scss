@@ -101,7 +101,7 @@ img.artwork {
 	overflow: hidden scroll;
 	display: flex;
 	flex-wrap: wrap;
-	justify-content: space-between;
+	justify-content: flex-start;
 	background: rgba(164, 168, 199, 0.15);
 
 	button {

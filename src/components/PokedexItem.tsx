@@ -8,17 +8,18 @@ import { Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/m
 type PokedexItemProps = {
 	num: number;
 	name: string;
+	bgColor: string;
 	click: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
-function PokedexItem({ num, name, click }: PokedexItemProps) {
+function PokedexItem({ num, name, bgColor, click }: PokedexItemProps) {
 	const displayNum = leadingZeroes(num);
 	const displayName = name.replace("-", " ");
 
 	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`;
 
 	return (
-		<Card sx={{ maxWidth: 300 }}>
+		<Card sx={{ maxWidth: 300, backgroundColor: bgColor }}>
 			<CardActionArea onClick={click}>
 				<Typography gutterBottom variant="h6" component="h6">
 					#{displayNum}

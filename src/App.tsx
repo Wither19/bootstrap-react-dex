@@ -34,7 +34,7 @@ function App() {
 		return regions!.find((r) => r.name.toLowerCase() == regionDropdown) as RegionObj;
 	}
 
-	function isInRegion(id: number) {
+	function isInRegion(id: number): boolean {
 		return id >= getCurrentRegion()!.start && id <= getCurrentRegion()!.end;
 	}
 

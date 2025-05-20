@@ -1,9 +1,8 @@
 import _ from "lodash";
 
-import { GameName } from "./types/types.ts";
-import type { HasLanguage, HasVersion } from "./types/types.ts";
+import { GameName, type HasLanguage, type HasVersion } from "./types.ts";
 
-import type { FlavorText, PokemonStat, Genus } from "pokeapi-typescript";
+import { type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
 
 export function fancifyGameName(name: string): GameName {
 	type NameCode = keyof typeof GameName;
@@ -62,4 +61,8 @@ export function flavorTextHandle(
 	}
 
 	return d;
+}
+
+export function leadingZeroes(num: number, size: number = 4) {
+	return num.toString().padStart(size, "0");
 }

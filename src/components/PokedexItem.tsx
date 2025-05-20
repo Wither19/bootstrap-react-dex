@@ -1,38 +1,39 @@
 import { useState } from "react";
+import _ from "lodash";
 
-import capitalize from "lodash";
+import { leadingZeroes } from "../functions";
 
-// Adds leading zeroes to a number until it is four digits long
-const leadingZeroes = (num: number, size: number) => {
-	return num.toString().padStart(size, "0");
-};
+import { Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/material";
 
 type PokedexItemProps = {
 	num: number;
 	name: string;
-	selected: boolean;
 	click: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
-function PokedexItem({ num, name, selected, click }: PokedexItemProps) {
-	const [pkmn, setPkmn] = useState({});
-	const [itemShiny, setShinyState] = useState(false);
-
-	const dexItemStyles = `list-group-item ${selected ? "active" : ""} pokemon-list-item`;
-
+function PokedexItem({ num, name, click }: PokedexItemProps) {
 	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`;
 
 	return (
-		<>
-			<div key={name} className={dexItemStyles} onClick={click}>
-				<img src={pkmnSprite} className="sprite" />
-
-				<div className="card-body">
-					<b>#{leadingZeroes(num, 4)}</b> -{" "}
-					<span className="card-title text-nowrap">{capitalize(name.replace("-", " "))}</span>
-				</div>
-			</div>
-		</>
+		<Card sx={{ maxWidth: 300 }}>
+			<CardActionArea onClick={click}>
+				<Typography gutterBottom variant="h6" component="h6">
+					#{leadingZeroes(num)}
+				</Typography>
+				<CardMedia
+					sx={{ objectFit: "contain" }}
+					component="img"
+					height="140"
+					image={pkmnSprite}
+					alt={name}
+				/>
+				<CardContent>
+					<Typography gutterBottom variant="h5" component="div">
+						{_.capitalize(name)}
+					</Typography>
+				</CardContent>
+			</CardActionArea>
+		</Card>
 	);
 }
 

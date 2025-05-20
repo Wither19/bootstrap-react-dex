@@ -1,0 +1,32 @@
+@mixin lock-width($w) {
+	width: $w;
+	max-width: $w;
+	min-width: $w;
+}
+
+@mixin lock-height($h) {
+	height: $h;
+	max-height: $h;
+	min-width: $h;
+}
+
+.pokedex-app-container {
+	margin: 24px 3%;
+}
+
+.region-select {
+	margin: 16px;
+}
+
+.pkmn-list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	margin: 12px auto;
+
+	& > div {
+		margin: 20px 0px;
+		@include lock-width(200px);
+		text-align: center;
+	}
+}

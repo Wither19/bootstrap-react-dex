@@ -9,8 +9,6 @@ import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
 
-import { PokemonContext } from "../contexts/PokemonContext";
-
 import { PokeAPI } from "pokeapi-typescript";
 import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
 
@@ -22,7 +20,7 @@ import {
 	flavorTextHandle,
 } from "../functions.ts";
 
-function PokemonMenu() {
+function PkmnMenu() {
 	const pokemon = useContext(PokemonContext);
 	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
 	const [genus, setGenus] = useState<Genus>({
@@ -79,7 +77,7 @@ function PokemonMenu() {
 						click={() => setShinyState((prev) => !prev)}
 					/>
 
-					<div style={{ display: "flex", justifyContent: "space-evenly"}}>
+					<div style={{ display: "flex", justifyContent: "space-evenly" }}>
 						<div className="stats">
 							{pkmnGeneral.stats &&
 								pkmnGeneral!.stats.map((item: PokemonStat) => (
@@ -94,7 +92,8 @@ function PokemonMenu() {
 						</div>
 
 						<div className="dex-entries">
-							<PokedexEntry game={currentDexEntry ? fancifyGameName(currentDexEntry!.version.name) : ""}>
+							<PokedexEntry
+								game={currentDexEntry ? fancifyGameName(currentDexEntry!.version.name) : ""}>
 								{currentDexEntry ? currentDexEntry!.flavor_text.replace("\f", " ") : ""}
 							</PokedexEntry>
 
@@ -123,4 +122,4 @@ function PokemonMenu() {
 	);
 }
 
-export default PokemonMenu;
+export default PkmnMenu;

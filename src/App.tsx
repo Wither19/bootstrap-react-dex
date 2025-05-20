@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import _, { capitalize } from "lodash";
+import { useEffect, useState } from "react";
+import _ from "lodash";
 
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
 
@@ -43,16 +43,8 @@ function App() {
 		let regionExp = isInRegion(pokemon.entry_number);
 
 		// True values mean no filtering
-		let searchFiltered: boolean = true;
-		let regionFiltered: boolean = true;
-
-		if (searchText) {
-			searchFiltered = searchExp;
-		}
-
-		if (regionDropdown) {
-			regionFiltered = regionExp;
-		}
+		let searchFiltered: boolean = searchText ? searchExp : true;
+		let regionFiltered: boolean = regionDropdown ? regionExp : true;
 
 		return searchFiltered && regionFiltered;
 	}

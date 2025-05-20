@@ -110,12 +110,7 @@ function App() {
 				</div>
 			</div>
 			<div style={hideJSX(displayList, true)}>
-				<ChevronLeft
-					style={{ cursor: "pointer" }}
-					size={72}
-					strokeWidth={0.9}
-					onClick={handleBackButtonClick}
-				/>
+				<ChevronLeft style={{ cursor: "pointer" }} size={80} onClick={handleBackButtonClick} />
 				<PkmnMenu pkmn={selectedNumber} />
 			</div>
 		</div>

@@ -1,15 +1,3 @@
-@mixin lock-width($w) {
-	width: $w;
-	max-width: $w;
-	min-width: $w;
-}
-
-@mixin lock-height($h) {
-	height: $h;
-	max-height: $h;
-	min-width: $h;
-}
-
 .pokedex-app-container {
 	margin: 24px 3%;
 	display: block;

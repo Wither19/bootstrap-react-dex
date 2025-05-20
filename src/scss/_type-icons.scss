@@ -1,8 +1,12 @@
 @use "variables";
 
+@mixin uniform-size($s) {
+	height: $s;
+	width: $s;
+}
+
 .icon {
-	height: 100px;
-	width: 100px;
+	@include uniform-size(100px);
 	border-radius: 100%;
 	margin: auto;
 	transition: 200ms all;
@@ -14,8 +18,7 @@
 	}
 
 	img {
-		height: 60%;
-		width: 60%;
+		@include uniform-size(60%);
 		margin: 20%;
 	}
 }

@@ -1,6 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import _ from "lodash";
 
+import { PokeAPI } from "pokeapi-typescript";
+import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
+
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
 import PkmnSprite from "./PkmnSprite";
@@ -8,9 +11,6 @@ import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
-
-import { PokeAPI } from "pokeapi-typescript";
-import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
 
 import {
 	twoDGames,
@@ -20,8 +20,11 @@ import {
 	flavorTextHandle,
 } from "../functions.ts";
 
-function PkmnMenu() {
-	const pokemon = useContext(PokemonContext);
+type PkmnMenuProps = {
+	pkmn: number;
+};
+
+function PkmnMenu({ pkmn }: PkmnMenuProps) {
 	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
 	const [genus, setGenus] = useState<Genus>({
 		genus: "Seed Pokémon",
@@ -41,22 +44,22 @@ function PkmnMenu() {
 	var currentDexEntry = dexEntries![selectedEntry];
 
 	useEffect(() => {
-		PokeAPI.Pokemon.fetch(pokemon!).then((res) => {
+		PokeAPI.Pokemon.fetch(pkmn!).then((res) => {
 			setGeneralData(res);
 			setStatTotal(getStatTotal(res.stats));
 		});
 
-		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
+		PokeAPI.PokemonSpecies.fetch(pkmn!).then((res) => {
 			setSelectedEntry(0);
 
 			setGenus(genusHandle(res.genera));
 
 			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames));
 		});
-	}, [pokemon]);
+	}, [pkmn]);
 
 	useEffect(() => {
-		PokeAPI.PokemonSpecies.fetch(pokemon!).then((res) => {
+		PokeAPI.PokemonSpecies.fetch(pkmn!).then((res) => {
 			setSelectedEntry(0);
 
 			setDexEntries(flavorTextHandle(res.flavor_text_entries, twoDGames, seeDuplicateEntries));
@@ -64,13 +67,11 @@ function PkmnMenu() {
 	}, [seeDuplicateEntries]);
 
 	return (
-		<PokemonContext.Provider value={pokemon}>
+		<>
 			{pkmnGeneral && (
 				<>
 					<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
-
 					<PkmnGenusHeader genus={genus?.genus} />
-
 					<PkmnSprite
 						id={pkmnGeneral?.id}
 						shiny={isShiny}
@@ -118,7 +119,7 @@ function PkmnMenu() {
 					</div>
 				</>
 			)}
-		</PokemonContext.Provider>
+		</>
 	);
 }
 

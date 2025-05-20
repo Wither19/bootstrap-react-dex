@@ -68,4 +68,4 @@ export type HasVersion = {
 	version: NamedApiResource<Version>;
 };
 
-export type DisplayProp = "inline" | "block" | "inline-block" | "flex";
+export type DisplayProps = "none" | "inline" | "block" | "inline-block" | "flex";

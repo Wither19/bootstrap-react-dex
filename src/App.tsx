@@ -75,6 +75,10 @@ function App() {
 		setListDisplay(false);
 	}
 
+	function handleBackButtonClick() {
+		setListDisplay(true);
+	}
+
 	function getDex() {
 		PokeAPI.Pokedex.fetch(1).then((res) => setPokedex(res.pokemon_entries));
 	}
@@ -117,7 +121,15 @@ function App() {
 						))}
 				</div>
 			</div>
-			<PkmnMenu />
+			<div style={hideJSX(displayList, true)}>
+				<ArrowBigLeft
+					style={{ cursor: "pointer" }}
+					size={72}
+					strokeWidth={0.9}
+					onClick={handleBackButtonClick}
+				/>
+				<PkmnMenu pkmn={selectedNumber} />
+			</div>
 		</div>
 	);
 }

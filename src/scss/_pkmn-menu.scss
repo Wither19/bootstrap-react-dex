@@ -85,11 +85,10 @@ img.artwork {
 }
 
 .dex-entries {
-	margin: 10px auto;
-
+	margin-top: 5%;
 	p {
-		@include lock-size("height", 120px);
 		@include lock-size("width", 1000px);
+		margin: 16px auto;
 		line-height: 1.35em;
 	}
 }

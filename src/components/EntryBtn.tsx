@@ -1,14 +1,15 @@
+import { Button } from "@mui/material";
+
 type EntryBtnProps = {
 	children: string;
-	highlight: boolean;
 	click: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-function EntryBtn({ children, highlight, click }: EntryBtnProps) {
+function EntryBtn({ children, click }: EntryBtnProps) {
 	return (
-		<button className={highlight ? "highlight" : ""} onClick={click}>
+		<Button variant="contained" onClick={click}>
 			{children}
-		</button>
+		</Button>
 	);
 }
 

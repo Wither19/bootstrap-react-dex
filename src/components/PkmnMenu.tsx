@@ -73,7 +73,7 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 				<>
 					<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
 					<PkmnGenusHeader genus={genus?.genus} />
-					
+
 					<PkmnSprite
 						id={pkmnGeneral?.id}
 						shiny={isShiny}
@@ -102,10 +102,7 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 
 							<div className="entry-buttons">
 								{dexEntries!.map((entry: FlavorText, i: number) => (
-									<EntryBtn
-										key={i}
-										highlight={selectedEntry == i}
-										click={() => setSelectedEntry(i)}>
+									<EntryBtn key={i} click={() => setSelectedEntry(i)}>
 										{fancifyGameName(entry.version.name)}
 									</EntryBtn>
 								))}

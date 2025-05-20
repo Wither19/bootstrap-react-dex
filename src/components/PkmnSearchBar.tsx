@@ -6,7 +6,9 @@ type PkmnSearchBarProps = {
 
 function PkmnSearchBar({ typing }: PkmnSearchBarProps) {
 	return (
-		<TextField fullWidth
+		<TextField
+			fullWidth
+			id="pkmn-search"
 			label="Search for Pokémon..."
 			variant="standard"
 			onKeyUp={typing}

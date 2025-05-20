@@ -83,6 +83,7 @@ function App() {
 
 	useEffect(() => {
 		setSearchText("");
+		document.querySelector("#pkmn-search").value = "";
 	}, [selectedNumber]);
 
 	return (

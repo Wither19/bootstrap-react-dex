@@ -81,6 +81,10 @@ function App() {
 		PokeAPI.Pokedex.fetch(1).then((res) => setPokedex(res.pokemon_entries));
 	}, []);
 
+	useEffect(() => {
+		setSearchText("");
+	}, [selectedNumber]);
+
 	return (
 		<div className="pokedex-app-container">
 			<div style={hideJSX(displayList, false)}>

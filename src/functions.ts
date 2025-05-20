@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import { GameName, type HasLanguage, type HasVersion } from "./types.ts";
+import { GameName, type HasLanguage, type HasVersion, type DisplayProp } from "./types.ts";
 
 import { type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
 
@@ -65,4 +65,11 @@ export function flavorTextHandle(
 
 export function leadingZeroes(num: number, size: number = 4) {
 	return num.toString().padStart(size, "0");
+}
+
+export function hideJSX(expr: boolean, inverted: boolean, displayVal: DisplayProp = "block") {
+	if (inverted) {
+		expr = !expr;
+	}
+	return { display: expr ? displayVal : "none" };
 }

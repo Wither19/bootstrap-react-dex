@@ -67,3 +67,5 @@ export type HasLanguage = {
 export type HasVersion = {
 	version: NamedApiResource<Version>;
 };
+
+export type DisplayProp = "inline" | "block" | "inline-block" | "flex";

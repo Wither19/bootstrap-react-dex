@@ -73,3 +73,12 @@ export function hideJSX(expr: boolean, inverted: boolean, displayVal: DisplayPro
 	}
 	return { display: expr ? displayVal : "none" };
 }
+
+export function range(start: number, stop: number) {
+	let numArray: any[] = new Array(stop - start);
+
+	for (let i = start; i <= stop; i++) {
+		numArray.push(i);
+	}
+	return numArray;
+}

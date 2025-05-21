@@ -16,6 +16,12 @@
 	margin: auto;
 	transition: 200ms all;
 
+	@each $name, $color in variables.$types {
+		&.#{$name} {
+			@include type-icon($color);
+		}
+	}
+
 	&:hover {
 		filter: saturate(200%);
 		transform: scale(1.1);
@@ -25,11 +31,5 @@
 	img {
 		@include uniform-size(60%);
 		margin: 20%;
-	}
-}
-
-@each $name, $color in variables.$types {
-	.#{$name} {
-		@include type-icon($color);
 	}
 }

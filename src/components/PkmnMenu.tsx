@@ -81,7 +81,7 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 						click={() => setShinyState((prev) => !prev)}
 					/>
 
-					<Types types={pkmnGeneral?.types}>
+					<Types types={pkmnGeneral?.types} />
 
 					<div style={{ display: "flex", justifyContent: "space-evenly" }}>
 						<div className="stats">

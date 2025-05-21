@@ -4,7 +4,7 @@ import _ from "lodash";
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
 
 import { Region, type RegionObj } from "./types.ts";
-import { regions, legendariesAndMythicals } from "./constants.ts";
+import { regions, legendariesAndMythicals, uniquePokemon } from "./constants.ts";
 import { hideJSX } from "./functions.ts";
 
 import PkmnMenu from "./components/PkmnMenu";
@@ -106,11 +106,7 @@ function App() {
 								num={entry.entry_number}
 								name={entry.pokemon_species.name}
 								click={() => handleClickPkmnEntry(entry.entry_number)}
-								bgColor={
-									legendariesAndMythicals.includes(entry.entry_number)
-										? "special"
-										: ""
-								}
+								bgColor={legendariesAndMythicals.includes(entry.entry_number) ? "special" : uniquePokemon.includes(entry.entry_number) ? "unique" : ""}
 							/>
 						))}
 				</div>

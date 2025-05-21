@@ -17,29 +17,35 @@ export const regions: RegionObj[] = [
 	{ name: "Paldea", start: 906, end: 1025 },
 	{ name: "Unknown", start: 808, end: 809 },
 ];
-
-const kanto = [range(144, 146), 150, 151];
-const johto = [range(243, 245), range(249, 251)];
-const hoenn = range(377, 386);
-const sinnoh = range(480, 493);
-const unova = [494, range(638, 649)];
-const kalos = range(716, 721);
-const alola = [range(785, 792), range(800, 802)];
-const galar = [range(888, 898), 905];
-const hisui = [905];
-const paldea = [range(1001, 1004), range(1007, 1010), range(1014, 1018), range(1020, 1025)];
-const unknown = [808, 809];
-
 export const legendariesAndMythicals: DeepArray<number> = flattenDeep([
-	kanto,
-	johto,
-	hoenn,
-	sinnoh,
-	unova,
-	kalos,
-	alola,
-	galar,
-	hisui,
-	paldea,
-	unknown,
+	range(144, 146),
+	150,
+	151,
+	range(243, 245),
+	range(249, 251),
+	range(377, 386),
+	range(480, 493),
+	494,
+	range(638, 649),
+	range(716, 721),
+	range(785, 792),
+	range(800, 802),
+	807,
+	range(888, 898),
+	905,
+	905,
+	range(1001, 1004),
+	range(1007, 1010),
+	range(1014, 1017),
+	range(1020, 1025),
+	808,
+	809,
+]);
+
+export const uniquePokemon: DeepArray<number> = flattenDeep([
+	range(793, 799),
+	range(803, 806),
+	range(984, 995),
+	1005,
+	1006,
 ]);

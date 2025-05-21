@@ -15,6 +15,7 @@
 
 	$normal-card-color: rgb(230, 245, 255);
 	$special-card-color: rgb(250, 230, 240);
+	$unique-card-color: rgb(240, 240, 220);
 
 	& > div {
 		margin: 20px 8px;
@@ -24,6 +25,10 @@
 
 		&.special {
 			background-color: $special-card-color;
+		}
+
+		&.unique {
+			background-color: $unique-card-color;
 		}
 	}
 }

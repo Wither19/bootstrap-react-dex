@@ -26,13 +26,13 @@ export const gbaGames = Object.keys(GameName).slice(6, 11);
 // ["diamond", "pearl", "platinum", "heartgold", "soulsilver", "black", "white", "black-2", "white-2"]
 export const dsGames = Object.keys(GameName).slice(11, 20);
 
-export const twoDGames = gbGames.concat(gbaGames).concat(dsGames);
+export const twoDGames = _.flattenDeep([gbGames, gbaGames, dsGames]);
 
 export function removeVersions<T extends HasLanguage & HasVersion>(
 	arr: T[],
 	omissions: string[]
 ): T[] {
-	return _.values(_.omitBy(arr, (item: T) => omissions.includes(item.version.name)));
+	return _.values(_.omitBy(arr, (item) => omissions.includes(item.version.name)));
 }
 
 export function stripDuplicateEntries(arr: FlavorText[]): typeof arr {

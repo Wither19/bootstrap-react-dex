@@ -1,3 +1,5 @@
+import { leadingZeroes } from "../functions";
+
 type PkmnNameHeaderProps = {
 	id: number;
 	name: string;
@@ -5,13 +7,8 @@ type PkmnNameHeaderProps = {
 };
 
 function PkmnNameHeader({ id, name, shiny }: PkmnNameHeaderProps) {
-	return (
-		<h1 className={`pkmn-name-header ${shiny ? "shiny" : "regular"}`}>
-			#{id?.toString().padStart(4, "0")}
-			{" - "}
-			{name?.replace("-", " ")}
-		</h1>
-	);
+	let displayText = `#${leadingZeroes(id)} - ${name.replace("-", " ")}`;
+	return <h1 className={`pkmn-name-header ${shiny ? "shiny" : "regular"}`}>{displayText}</h1>;
 }
 
 export default PkmnNameHeader;

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import _ from "lodash";
+import { filter } from "lodash";
 
 import { PokeAPI, type PokemonEntry } from "pokeapi-typescript";
 
@@ -100,7 +100,7 @@ function App() {
 				</div>
 				<div className="pkmn-list">
 					{pokedex &&
-						_.filter(pokedex, (entry) => dexFilter(entry)).map((entry) => (
+						filter(pokedex, (entry) => dexFilter(entry)).map((entry) => (
 							<PokedexItem
 								key={`pkmn-entry-${entry.entry_number}`}
 								num={entry.entry_number}

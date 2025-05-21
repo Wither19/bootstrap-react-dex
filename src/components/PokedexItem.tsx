@@ -27,7 +27,7 @@ function PokedexItem({ num, name, bgColor, click }: PokedexItemProps) {
 				<CardMedia
 					sx={{ objectFit: "contain" }}
 					component="img"
-					height="140"
+					height="160"
 					image={pkmnSprite}
 					alt={name}
 				/>

@@ -1,3 +1,7 @@
+import { flatten } from "lodash";
+
+import { range } from "./functions";
+
 import { type RegionObj } from "./types";
 
 export const regions: RegionObj[] = [
@@ -14,7 +18,23 @@ export const regions: RegionObj[] = [
 	{ name: "Unknown", start: 808, end: 809 },
 ];
 
-export const legendariesAndMythicals: number[] = [
-	144, 145, 146, 150, 151, 243, 244, 245, 249, 250, 251, 377, 378, 379, 380, 381, 382, 383, 384,
-	385, 386, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494, 638, 639, 640, 641, 642, 643, 643, 644, 645, 646, 647, 648, 649,
-];
+export const legendariesAndMythicals: number[] = flatten([
+	range(144, 146),
+	150,
+	151,
+	range(243, 245),
+	range(249, 251),
+	range(377, 386),
+	range(480, 494),
+	range(638, 649),
+	range(716, 721),
+	range(785, 792),
+	range(800, 802),
+	range(807, 809),
+	range(888, 898),
+	905,
+	range(1001, 1004),
+	range(1007, 1010),
+	range(1014, 1018),
+	range(1020, 1025),
+]);

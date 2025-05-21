@@ -1,6 +1,3 @@
-import { useState } from "react";
-import _ from "lodash";
-
 import { leadingZeroes } from "../functions";
 
 import { Card, CardContent, CardMedia, CardActionArea, Typography } from "@mui/material";
@@ -9,7 +6,7 @@ type PokedexItemProps = {
 	num: number;
 	name: string;
 	bgColor: string;
-	click: (event: React.MouseEvent<HTMLDivElement>) => void;
+	click: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 function PokedexItem({ num, name, bgColor, click }: PokedexItemProps) {

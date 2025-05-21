@@ -15,3 +15,9 @@
 		font-family: variables.$text-font;
 	}
 }
+
+@each $elem in variables.$ubuntu-sans-elems {
+	#{$elem} {
+		font-family: "Ubuntu Sans", sans-serif;
+	}
+}

@@ -88,8 +88,9 @@ img.artwork {
 	margin-top: 5%;
 	p {
 		@include lock-size("width", 1000px);
+		@include lock-size("height", 100px);
 		margin: 16px auto;
-		line-height: 1.35em;
+		line-height: 1.6em;
 	}
 }
 

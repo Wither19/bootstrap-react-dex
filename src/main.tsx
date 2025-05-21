@@ -1,8 +1,6 @@
 import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
-import { createTheme, ThemeProvider } from "@mui/material";
-
 import "./scss/App.scss";
 
 // Roboto fallback for Material UI
@@ -23,16 +21,8 @@ import "@fontsource/inter/700-italic.css";
 
 import App from "./App.js";
 
-const theme = createTheme({
-	typography: {
-		fontFamily: '"Ubuntu Sans", "Roboto", "Arial", "sans-serif"',
-	},
-});
-
 createRoot(document.getElementById("root")!).render(
 	<StrictMode>
-		<ThemeProvider theme={theme}>
-			<App />
-		</ThemeProvider>
+		<App />
 	</StrictMode>
 );

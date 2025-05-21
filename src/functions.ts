@@ -1,11 +1,11 @@
 import _ from "lodash";
 
-import { GameName, type HasLanguage, type HasVersion, type DisplayProps } from "./types.ts";
+import { GameName, type HasLanguage, type HasVersion, type DisplayProps, type NameCode } from "./types.ts";
 
 import { type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
 
 export function fancifyGameName(name: string): GameName {
-	type NameCode = keyof typeof GameName;
+	
 	return GameName[name as NameCode];
 }
 

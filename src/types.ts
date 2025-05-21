@@ -60,6 +60,8 @@ export enum GameName {
 	"violet" = "Violet",
 }
 
+export type NameCode = keyof typeof GameName;
+
 export type HasLanguage = {
 	language: NamedApiResource<Language>;
 };

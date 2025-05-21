@@ -1,25 +1,12 @@
-import React, { useEffect, useState } from "react";
-
 import NumberFlow from "@number-flow/react";
 
-const statColors: string[] = [
-	"#FF0000",
-	"#FFA500",
-	"#FFFF00",
-	"#00FF00",
-	"#71E1B3",
-];
+const statColors: string[] = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#71E1B3"];
 const statThresholds: number[] = [40, 65, 80, 105, 170];
 
 const getStatName = (stat: string) => {
 	let n = stat.replace("-", " ");
 
-	if (n == "hp") {
-		n = "HP";
-	} else {
-		n = n.charAt(0).toUpperCase() + n.slice(1);
-	}
-	return n;
+	return n == "hp" ? "HP" : n;
 };
 
 function Stat({ name, value }: { name: string; value: number }) {

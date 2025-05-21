@@ -7,7 +7,7 @@ type TypesProps = {
 };
 
 function Types({ types }: TypesProps) {
-	return <>{types && types.map((type, index) => <TypeIcon name={type.type.name} />)}</>;
+	return <div>{types && types.map((type, index) => <TypeIcon name={type.type.name} />)}</div>;
 }
 
 export default Types;

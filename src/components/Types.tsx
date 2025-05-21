@@ -7,7 +7,11 @@ type TypesProps = {
 };
 
 function Types({ types }: TypesProps) {
-	return <div>{types && types.map((type, index) => <TypeIcon name={type.type.name} />)}</div>;
+	return (
+		<div style={{ display: "flex", justifyContent: "center" }}>
+			{types && types.map((type, index) => <TypeIcon name={type.type.name} />)}
+		</div>
+	);
 }
 
 export default Types;

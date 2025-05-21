@@ -1,4 +1,5 @@
 @use "variables";
+@use "sass:string";
 
 @mixin uniform-size($s) {
 	height: $s;
@@ -6,6 +7,8 @@
 }
 
 @mixin type-icon($c) {
+	$c: string.unquote($c);
+
 	background-color: $c;
 	box-shadow: 0 0 20px $c;
 }
@@ -13,7 +16,7 @@
 .icon {
 	@include uniform-size(100px);
 	border-radius: 100%;
-	margin: auto;
+	margin: 8px 32px;
 	transition: 200ms all;
 
 	@each $name, $color in variables.$types {

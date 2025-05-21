@@ -1,16 +1,21 @@
-import _ from "lodash";
+import { values, pickBy, omitBy, flattenDeep, uniqBy } from "lodash";
 
-import { GameName, type HasLanguage, type HasVersion, type DisplayProps, type NameCode } from "./types.ts";
+import {
+	GameName,
+	type HasLanguage,
+	type HasVersion,
+	type DisplayProps,
+	type NameCode,
+} from "./types.ts";
 
 import { type FlavorText, type PokemonStat, type Genus } from "pokeapi-typescript";
 
 export function fancifyGameName(name: string): GameName {
-	
 	return GameName[name as NameCode];
 }
 
 export function getLangEntries<T extends HasLanguage>(arr: T[], lang: string = "en"): T[] {
-	return _.values(_.pickBy(arr, (item: T) => item.language.name === lang));
+	return values(pickBy(arr, (item: T) => item.language.name === lang));
 }
 
 export function getSingleLangEntry<T extends HasLanguage>(arr: T[], lang: string = "en"): T {
@@ -26,17 +31,17 @@ export const gbaGames = Object.keys(GameName).slice(6, 11);
 // ["diamond", "pearl", "platinum", "heartgold", "soulsilver", "black", "white", "black-2", "white-2"]
 export const dsGames = Object.keys(GameName).slice(11, 20);
 
-export const twoDGames = _.flattenDeep([gbGames, gbaGames, dsGames]);
+export const twoDGames = flattenDeep([gbGames, gbaGames, dsGames]);
 
 export function removeVersions<T extends HasLanguage & HasVersion>(
 	arr: T[],
 	omissions: string[]
 ): T[] {
-	return _.values(_.omitBy(arr, (item) => omissions.includes(item.version.name)));
+	return values(omitBy(arr, (item) => omissions.includes(item.version.name)));
 }
 
 export function stripDuplicateEntries(arr: FlavorText[]): typeof arr {
-	return _.uniqBy(arr, (item) => item.flavor_text.replace("\n", ""));
+	return uniqBy(arr, (item) => item.flavor_text.replace("\n", ""));
 }
 
 export function getStatTotal(stats: PokemonStat[]): number {

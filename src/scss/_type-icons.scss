@@ -5,6 +5,11 @@
 	width: $s;
 }
 
+@mixin type-icon($c) {
+	background-color: $c;
+	box-shadow: 0 0 20px $c;
+}
+
 .icon {
 	@include uniform-size(100px);
 	border-radius: 100%;
@@ -25,7 +30,6 @@
 
 @each $name, $color in variables.$types {
 	.#{$name} {
-		background-color: $color;
-		box-shadow: 0 0 20px $color;
+		@include type-icon($color);
 	}
 }

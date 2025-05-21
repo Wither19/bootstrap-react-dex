@@ -7,6 +7,7 @@ import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
 import PkmnSprite from "./PkmnSprite";
+import Types from "./Types";
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
@@ -79,6 +80,8 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 						shiny={isShiny}
 						click={() => setShinyState((prev) => !prev)}
 					/>
+
+					<Types types={pkmnGeneral?.types}>
 
 					<div style={{ display: "flex", justifyContent: "space-evenly" }}>
 						<div className="stats">

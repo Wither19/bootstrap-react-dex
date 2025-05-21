@@ -18,22 +18,17 @@ export const regions: RegionObj[] = [
 	{ name: "Unknown", start: 808, end: 809 },
 ];
 
-const kanto: DeepArray<number> = [range(144, 146), 150, 151];
-const johto: DeepArray<number> = [range(243, 245), range(249, 251)];
-const hoenn: DeepArray<number> = range(377, 386);
-const sinnoh: DeepArray<number> = range(480, 493);
-const unova: DeepArray<number> = [494, range(638, 649)];
-const kalos: DeepArray<number> = range(716, 721);
-const alola: DeepArray<number> = [range(785, 792), range(800, 802)];
-const galar: DeepArray<number> = [range(888, 898), 905];
-const hisui: DeepArray<number> = [905];
-const paldea: DeepArray<number> = [
-	range(1001, 1004),
-	range(1007, 1010),
-	range(1014, 1018),
-	range(1020, 1025),
-];
-const unknown: DeepArray<number> = [808, 809];
+const kanto = [range(144, 146), 150, 151];
+const johto = [range(243, 245), range(249, 251)];
+const hoenn = range(377, 386);
+const sinnoh = range(480, 493);
+const unova = [494, range(638, 649)];
+const kalos = range(716, 721);
+const alola = [range(785, 792), range(800, 802)];
+const galar = [range(888, 898), 905];
+const hisui = [905];
+const paldea = [range(1001, 1004), range(1007, 1010), range(1014, 1018), range(1020, 1025)];
+const unknown = [808, 809];
 
 export const legendariesAndMythicals: DeepArray<number> = flattenDeep([
 	kanto,

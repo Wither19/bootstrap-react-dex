@@ -108,8 +108,8 @@ function App() {
 								click={() => handleClickPkmnEntry(entry.entry_number)}
 								bgColor={
 									legendariesAndMythicals.includes(entry.entry_number)
-										? "rgb(250, 230, 240)"
-										: "rgb(230, 245, 255)"
+										? "special"
+										: ""
 								}
 							/>
 						))}

@@ -69,3 +69,5 @@ export type HasVersion = {
 };
 
 export type DisplayProps = "none" | "inline" | "block" | "inline-block" | "flex";
+
+export type DeepArray<T> = Array<T | T[]>;

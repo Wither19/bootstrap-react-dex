@@ -14,11 +14,11 @@ export function fancifyGameName(name: string): GameName {
 	return GameName[name as NameCode];
 }
 
-export function getLangEntries<T extends HasLanguage>(arr: T[], lang: string = "en"): T[] {
-	return values(pickBy(arr, (item: T) => item.language.name === lang));
+export function getLangEntries<T extends HasLanguage>(arr: T[], lang: string = "en") {
+	return values(pickBy(arr, (item) => item.language.name === lang));
 }
 
-export function getSingleLangEntry<T extends HasLanguage>(arr: T[], lang: string = "en"): T {
+export function getSingleLangEntry<T extends HasLanguage>(arr: T[], lang: string = "en") {
 	return getLangEntries(arr, lang)[0]!;
 }
 
@@ -33,10 +33,7 @@ export const dsGames = Object.keys(GameName).slice(11, 20);
 
 export const twoDGames = flattenDeep([gbGames, gbaGames, dsGames]);
 
-export function removeVersions<T extends HasLanguage & HasVersion>(
-	arr: T[],
-	omissions: string[]
-): T[] {
+export function removeVersions<T extends HasLanguage & HasVersion>(arr: T[], omissions: string[]) {
 	return values(omitBy(arr, (item) => omissions.includes(item.version.name)));
 }
 
@@ -48,7 +45,7 @@ export function checkForDuplicates(arr: FlavorText[]) {
 	return arr == stripDuplicateEntries(arr);
 }
 
-export function getStatTotal(stats: PokemonStat[]): number {
+export function getStatTotal(stats: PokemonStat[]) {
 	return stats.map((stat) => stat.base_stat).reduce((sum, num) => sum + num);
 }
 
@@ -60,7 +57,7 @@ export function flavorTextHandle(
 	flavorText: FlavorText[],
 	omissions: string[],
 	includeDupes?: boolean
-): FlavorText[] {
+) {
 	let d = getLangEntries(flavorText);
 
 	d = removeVersions(d, omissions);

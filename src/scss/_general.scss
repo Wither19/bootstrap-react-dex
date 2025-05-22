@@ -1,7 +1,7 @@
 @use "variables";
 
 :root {
-	font-size: 20px;
+	font-size: variables.$base-font-size;
 }
 
 @each $elem in variables.$header-elems {

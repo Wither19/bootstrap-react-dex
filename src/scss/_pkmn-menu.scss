@@ -1,4 +1,6 @@
 @use "sass:color";
+@use "sass:math";
+
 @use "variables";
 
 @function shadow($expanded: false, $shiny: false) {
@@ -16,8 +18,12 @@
 	@return drop-shadow($shadow $color);
 }
 
-@function convertFontSize($text-size, $scale) {
+@function convert-font-size($text-size, $scale) {
 	@return calc(($scale / ($text-size / 1em)) * 1px);
+}
+
+@function strip-units($val) {
+	@return math.div($val, ($val * 0 + 1));
 }
 
 @mixin lock-size($d, $s) {
@@ -87,15 +93,19 @@ img.artwork {
 .dex-entries {
 	margin-top: 5%;
 	p {
-		@include lock-size("width", 1000px);
-		@include lock-size("height", 100px);
+		$dex-entry-line-height: 1.6em;
+
+		@include lock-size(width, 1000px);
+		@include lock-size(
+			height,
+			(variables.$base-font-size * strip-units($dex-entry-line-height)) * 3
+		);
 		margin: 16px auto;
-		line-height: 1.6em;
+		line-height: $dex-entry-line-height;
 	}
 }
 
 .entry-buttons {
-	@include lock-size("width", 950px);
 	text-transform: capitalize;
 	height: 200px;
 	margin: 5px 5%;
@@ -108,7 +118,7 @@ img.artwork {
 
 	button {
 		$entry-btn-text-size: 1em;
-		$entry-btn-size: convertFontSize($entry-btn-text-size, 170);
+		$entry-btn-size: convert-font-size($entry-btn-text-size, 170);
 
 		font-size: $entry-btn-text-size;
 		min-width: $entry-btn-size;

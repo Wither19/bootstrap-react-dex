@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type { Pokemon, PokemonStat, FlavorText, Genus, PokemonAbility } from "pokeapi-typescript";
+import type {
+	Pokemon,
+	PokemonStat,
+	FlavorText,
+	Genus,
+	PokemonAbility,
+	PokemonMove,
+	Move,
+} from "pokeapi-typescript";
 
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
@@ -23,6 +31,7 @@ import {
 	fancifyGameName,
 	genusHandle,
 	flavorTextHandle,
+	getSingleLangEntry,
 } from "../functions.ts";
 
 type PkmnMenuProps = {
@@ -48,10 +57,19 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 	const [tabValue, setTabValue] = useState<number>(0);
 
+	const [movePaginationStart, setMovesStart] = useState<number>(0);
+	const [movePaginationEnd, setMovesEnd] = useState<number>(9);
+
+	const [moveList, setMoveList] = useState<Move[]>([]);
+
 	var currentDexEntry = dexEntries![selectedEntry];
 
 	function handleDupeEntriesCheck() {
 		setDupeEntriesOption((prev) => !prev);
+	}
+
+	function handleTabChange(event: React.SyntheticEvent, newValue: number) {
+		setTabValue(newValue);
 	}
 
 	function pokemonGet() {
@@ -71,8 +89,27 @@ function PkmnMenu(props: PkmnMenuProps) {
 		});
 	}
 
-	function handleTabChange(event: React.SyntheticEvent, newValue: number) {
-		setTabValue(newValue);
+	function moveListFetch() {
+		let start = movePaginationStart;
+		let end = movePaginationEnd;
+
+		let moves = pkmnGeneral?.moves;
+
+		let movesPageArr = [];
+
+		for (let i = start; i <= end; i++) {
+			let currentMove: PokemonMove | null = null;
+
+			if (moves) {
+				currentMove = moves![i]!;
+			}
+
+			if (currentMove) {
+				PokeAPI.Move.fetch(currentMove.move.url).then((res) => {
+					movesPageArr.push(getSingleLangEntry(res.names, "en"));
+				});
+			}
+		}
 	}
 
 	function resetTabValue() {
@@ -162,7 +199,13 @@ function PkmnMenu(props: PkmnMenuProps) {
 										</>
 									))}
 							</List>
-							<List></List>
+							<List>
+								{moveList.map((item) => (
+									<ListItem>
+										<ListItemText>{item.name}</ListItemText>
+									</ListItem>
+								))}
+							</List>
 						</div>
 						<div className="stats">
 							{pkmnGeneral.stats &&

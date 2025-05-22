@@ -95,7 +95,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 		let moves = pkmnGeneral?.moves;
 
-		let movesPageArr = [];
+		let movesPageArr: Move[] = [];
 
 		for (let i = start; i <= end; i++) {
 			let currentMove: PokemonMove | null = null;
@@ -106,10 +106,11 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 			if (currentMove) {
 				PokeAPI.Move.fetch(currentMove.move.url).then((res) => {
-					movesPageArr.push(getSingleLangEntry(res.names, "en"));
+					movesPageArr.push(res);
 				});
 			}
 		}
+		return movesPageArr;
 	}
 
 	function resetTabValue() {
@@ -119,6 +120,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	useEffect(() => {
 		pokemonGet();
 		pokemonSpeciesGet();
+		moveListFetch();
 		resetTabValue();
 	}, [props.pkmn]);
 
@@ -200,9 +202,9 @@ function PkmnMenu(props: PkmnMenuProps) {
 									))}
 							</List>
 							<List>
-								{moveList.map((item) => (
+								{moveList?.map((item) => (
 									<ListItem>
-										<ListItemText>{item.name}</ListItemText>
+										<ListItemText>{getSingleLangEntry(item.names, "en").name}</ListItemText>
 									</ListItem>
 								))}
 							</List>

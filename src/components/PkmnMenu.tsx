@@ -60,7 +60,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	const [movePaginationStart, setMovesStart] = useState<number>(0);
 	const [movePaginationEnd, setMovesEnd] = useState<number>(9);
 
-	const [moveList, setMoveList] = useState<Move[]>([]);
+	const [moveList, setMoveList] = useState<Name[]>([]);
 
 	var currentDexEntry = dexEntries![selectedEntry];
 
@@ -98,15 +98,11 @@ function PkmnMenu(props: PkmnMenuProps) {
 		let movesPageArr: Move[] = [];
 
 		for (let i = start; i <= end; i++) {
-			let currentMove: PokemonMove | null = null;
-
-			if (moves) {
-				currentMove = moves![i]!;
-			}
+			let currentMove: PokemonMove = moves![i]!;
 
 			if (currentMove) {
 				PokeAPI.Move.fetch(currentMove.move.url).then((res) => {
-					movesPageArr.push(res);
+					movesPageArr.push(getSingleLangEntry(res.names, "en"));
 				});
 			}
 		}
@@ -204,7 +200,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 							<List>
 								{moveList?.map((item) => (
 									<ListItem>
-										<ListItemText>{getSingleLangEntry(item.names, "en").name}</ListItemText>
+										<ListItemText>{item.name}</ListItemText>
 									</ListItem>
 								))}
 							</List>

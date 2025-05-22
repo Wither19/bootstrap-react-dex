@@ -71,7 +71,7 @@ img.artwork {
 
 .stats {
 	margin-top: 20px;
-	margin-left: 5%;
+	margin-left: 2.5%;
 	margin-bottom: 20px;
 	font-size: 0.9em;
 	min-width: 350px;
@@ -95,7 +95,6 @@ img.artwork {
 }
 
 .dex-entries {
-	margin-top: 5%;
 	p {
 		$dex-entry-line-height: 1.6em;
 		$dex-entry-expanded-size: (variables.$base-font-size * strip-units($dex-entry-line-height)) * 3;

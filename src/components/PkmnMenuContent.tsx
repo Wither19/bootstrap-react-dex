@@ -4,11 +4,17 @@ type PkmnMenuContentProps = {
 	value: number;
 	index: number;
 	addlStyles?: CSSProperties | undefined;
-	children: ReactNode;
+	tabContentSpacing?: number;
+	children?: ReactNode;
 };
 
 function PkmnMenuContent(props: PkmnMenuContentProps) {
-	let contentDivStyles = { display: "flex", justifyContent: "space-evenly", ...props?.addlStyles };
+	let contentDivStyles = {
+		display: "flex",
+		justifyContent: "space-evenly",
+		marginTop: props.tabContentSpacing ?? 24,
+		...props?.addlStyles,
+	};
 	return <div style={contentDivStyles}>{props.value == props.index && props.children}</div>;
 }
 

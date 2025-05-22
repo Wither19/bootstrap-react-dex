@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import _ from "lodash";
 
 import { PokeAPI } from "pokeapi-typescript";
-import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript";
+import type { Pokemon, PokemonStat, FlavorText, Genus, PokemonAbility } from "pokeapi-typescript";
 
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
@@ -14,7 +14,7 @@ import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
 
-import { Box, Tabs, Tab } from "@mui/material";
+import { Box, Tabs, Tab, List, ListItem, ListItemText, Divider } from "@mui/material";
 
 import {
 	twoDGames,
@@ -108,25 +108,12 @@ function PkmnMenu(props: PkmnMenuProps) {
 						value={tabValue}
 						onChange={handleTabChange}
 						aria-label="basic tabs example">
-						<Tab label="Stats and Lore" />
-						<Tab label="Battle Info and Moveset" />
+						<Tab label="Info & Lore" />
+						<Tab label="Battle Info & Moveset" />
 						<Tab label="Item Three" />
 					</Tabs>
 
 					<PkmnMenuContent index={0} value={tabValue}>
-						<div className="stats">
-							{pkmnGeneral.stats &&
-								pkmnGeneral!.stats.map((item: PokemonStat) => (
-									<Stat
-										key={`stat-${item.stat.name}`}
-										name={item.stat.name}
-										value={item.base_stat}
-									/>
-								))}
-							<br />
-							<Stat name="Base Stat Total" value={bst} />
-						</div>
-
 						<div className="dex-entries">
 							<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)}>
 								{currentDexEntry!.flavor_text}
@@ -144,6 +131,41 @@ function PkmnMenu(props: PkmnMenuProps) {
 									Show duplicate entries
 								</OptionCheck>
 							</div>
+						</div>
+					</PkmnMenuContent>
+					<PkmnMenuContent index={1} value={tabValue}>
+						<List
+							sx={{
+								py: 0,
+								width: "100%",
+								maxWidth: 360,
+								borderRadius: 2,
+								border: "1px solid",
+								borderColor: "divider",
+								backgroundColor: "background.paper",
+								height: "fit-content",
+							}}>
+							{pkmnGeneral.abilities &&
+								pkmnGeneral!.abilities.map((item: PokemonAbility, index) => (
+									<>
+										<ListItem>
+											<ListItemText primary={item.ability.name} />
+										</ListItem>
+										{index + 1 != pkmnGeneral!.abilities.length && <Divider variant="middle" />}
+									</>
+								))}
+						</List>
+						<div className="stats">
+							{pkmnGeneral.stats &&
+								pkmnGeneral!.stats.map((item: PokemonStat) => (
+									<Stat
+										key={`stat-${item.stat.name}`}
+										name={item.stat.name}
+										value={item.base_stat}
+									/>
+								))}
+							<br />
+							<Stat name="Base Stat Total" value={bst} />
 						</div>
 					</PkmnMenuContent>
 				</>

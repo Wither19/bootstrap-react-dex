@@ -10,6 +10,7 @@ import PkmnSprite from "./PkmnSprite";
 import PkmnMenuContent from "./PkmnMenuContent";
 import Types from "./Types";
 import Stat from "./Stat";
+import Ability from "./Ability.tsx";
 import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
@@ -145,11 +146,16 @@ function PkmnMenu(props: PkmnMenuProps) {
 								backgroundColor: "background.paper",
 								height: "fit-content",
 							}}>
+							<ListItem>
+								<ListItemText sx={{ textAlign: "center" }}>Abilities</ListItemText>
+							</ListItem>
 							{pkmnGeneral.abilities &&
 								pkmnGeneral!.abilities.map((item: PokemonAbility, index) => (
 									<>
 										<ListItem>
-											<ListItemText primary={item.ability.name} />
+											<ListItemText sx={{ textTransform: "capitalize" }}>{`${
+												item.is_hidden ? <b>(H)</b> : ""
+											}${item.ability.name.replace("-", " ")}`}</ListItemText>
 										</ListItem>
 										{index + 1 != pkmnGeneral!.abilities.length && <Divider variant="middle" />}
 									</>

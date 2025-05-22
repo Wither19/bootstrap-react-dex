@@ -12,7 +12,7 @@ function PkmnMenuContent(props: PkmnMenuContentProps) {
 	let contentDivStyles = {
 		display: "flex",
 		justifyContent: "space-evenly",
-		marginTop: props.tabContentSpacing ?? 24,
+		marginTop: props.tabContentSpacing ?? 30,
 		...props?.addlStyles,
 	};
 	return <div style={contentDivStyles}>{props.value == props.index && props.children}</div>;

@@ -7,11 +7,14 @@ import type { Pokemon, PokemonStat, FlavorText, Genus } from "pokeapi-typescript
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
 import PkmnSprite from "./PkmnSprite";
+import PkmnMenuContent from "./PkmnMenuContent";
 import Types from "./Types";
 import Stat from "./Stat";
 import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
+
+import { Box, Tabs, Tab } from "@mui/material";
 
 import {
 	twoDGames,
@@ -43,6 +46,8 @@ function PkmnMenu(props: PkmnMenuProps) {
 	const [selectedEntry, setSelectedEntry] = useState<number>(0);
 	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
 
+	const [tabValue, setTabValue] = useState<number>(0);
+
 	var currentDexEntry = dexEntries![selectedEntry];
 
 	function handleDupeEntriesCheck() {
@@ -66,15 +71,24 @@ function PkmnMenu(props: PkmnMenuProps) {
 		});
 	}
 
+	function handleTabChange(event: React.SyntheticEvent, newValue: number) {
+		setTabValue(newValue);
+	}
+
+	function resetTabValue() {
+		setTabValue(0);
+	}
+
 	useEffect(() => {
 		pokemonGet();
 		pokemonSpeciesGet();
+		resetTabValue();
 	}, [props.pkmn]);
 
 	useEffect(() => pokemonSpeciesGet(), [seeDuplicateEntries]);
 
 	return (
-		<>
+		<Box sx={{ width: "95%" }}>
 			{pkmnGeneral && (
 				<>
 					<PkmnNameHeader id={pkmnGeneral.id} name={pkmnGeneral.name} shiny={isShiny} />
@@ -88,7 +102,13 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 					<Types types={pkmnGeneral?.types} />
 
-					<div style={{ display: "flex", justifyContent: "space-evenly" }}>
+					<Tabs value={tabValue} onChange={handleTabChange} aria-label="basic tabs example">
+						<Tab label="Stats and Lore" />
+						<Tab label="Battle Info and Moveset" />
+						<Tab label="Item Three" />
+					</Tabs>
+
+					<PkmnMenuContent index={0} value={tabValue}>
 						<div className="stats">
 							{pkmnGeneral.stats &&
 								pkmnGeneral!.stats.map((item: PokemonStat) => (
@@ -120,10 +140,10 @@ function PkmnMenu(props: PkmnMenuProps) {
 								</OptionCheck>
 							</div>
 						</div>
-					</div>
+					</PkmnMenuContent>
 				</>
 			)}
-		</>
+		</Box>
 	);
 }
 

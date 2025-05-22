@@ -19,6 +19,7 @@ import {
 	fancifyGameName,
 	genusHandle,
 	flavorTextHandle,
+	checkForDuplicates,
 } from "../functions.ts";
 
 type PkmnMenuProps = {
@@ -43,6 +44,10 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 	const [seeDuplicateEntries, setDupeEntriesOption] = useState<boolean>(false);
 
 	var currentDexEntry = dexEntries![selectedEntry];
+
+	function handleDupeEntriesCheck() {
+		setDupeEntriesOption((prev) => !prev);
+	}
 
 	function pokemonGet() {
 		PokeAPI.Pokemon.fetch(pkmn!).then((res) => {
@@ -98,9 +103,8 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 						</div>
 
 						<div className="dex-entries">
-							<PokedexEntry
-								game={currentDexEntry ? fancifyGameName(currentDexEntry!.version.name) : ""}>
-								{currentDexEntry ? currentDexEntry!.flavor_text.replace("\f", " ") : ""}
+							<PokedexEntry game={fancifyGameName(currentDexEntry!.version.name)}>
+								{currentDexEntry!.flavor_text}
 							</PokedexEntry>
 
 							<div className="entry-buttons">
@@ -111,9 +115,7 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 								))}
 							</div>
 							<div className="entry-options">
-								<OptionCheck
-									option={seeDuplicateEntries}
-									setOption={() => setDupeEntriesOption((prev) => !prev)}>
+								<OptionCheck option={seeDuplicateEntries} setOption={handleDupeEntriesCheck}>
 									Show duplicate entries
 								</OptionCheck>
 							</div>

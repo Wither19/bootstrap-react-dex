@@ -40,8 +40,12 @@ export function removeVersions<T extends HasLanguage & HasVersion>(
 	return values(omitBy(arr, (item) => omissions.includes(item.version.name)));
 }
 
-export function stripDuplicateEntries(arr: FlavorText[]): typeof arr {
+export function stripDuplicateEntries(arr: FlavorText[]) {
 	return uniqBy(arr, (item) => item.flavor_text.replace("\n", ""));
+}
+
+export function checkForDuplicates(arr: FlavorText[]) {
+	return arr == stripDuplicateEntries(arr);
 }
 
 export function getStatTotal(stats: PokemonStat[]): number {
@@ -55,13 +59,13 @@ export function genusHandle(genus: Genus[]) {
 export function flavorTextHandle(
 	flavorText: FlavorText[],
 	omissions: string[],
-	dupes?: boolean
+	includeDupes?: boolean
 ): FlavorText[] {
 	let d = getLangEntries(flavorText);
 
 	d = removeVersions(d, omissions);
 
-	if (!dupes) {
+	if (!includeDupes) {
 		d = stripDuplicateEntries(d);
 	}
 

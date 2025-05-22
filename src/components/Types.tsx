@@ -6,10 +6,10 @@ type TypesProps = {
 	types: PokemonType[];
 };
 
-function Types({ types }: TypesProps) {
+function Types(props: TypesProps) {
 	return (
 		<div style={{ display: "flex", justifyContent: "center" }}>
-			{types && types.map((type, index) => <TypeIcon name={type.type.name} />)}
+			{props.types && props.types.map((type, index) => <TypeIcon name={type.type.name} />)}
 		</div>
 	);
 }

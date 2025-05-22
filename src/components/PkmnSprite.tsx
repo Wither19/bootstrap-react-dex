@@ -4,14 +4,14 @@ type PkmnSpriteProps = {
 	click: (event: React.MouseEvent<HTMLDivElement>) => void;
 };
 
-function PkmnSprite({ id, shiny, click }: PkmnSpriteProps) {
-	let classes = `artwork ${shiny ? "shiny" : "regular"}`;
+function PkmnSprite(props: PkmnSpriteProps) {
+	let classes = `artwork ${props.shiny ? "shiny" : "regular"}`;
 	let spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/home/${
-		shiny ? "shiny/" : ""
-	}${id}.png`;
+		props.shiny ? "shiny/" : ""
+	}${props.id}.png`;
 
 	return (
-		<div onClick={click} style={{ textAlign: "center" }}>
+		<div onClick={props.click} style={{ textAlign: "center" }}>
 			<img className={classes} src={spriteUrl} />
 		</div>
 	);

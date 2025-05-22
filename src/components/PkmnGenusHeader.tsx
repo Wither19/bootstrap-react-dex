@@ -1,7 +1,7 @@
 type PkmnGenusHeaderProps = { genus: string };
 
-function PkmnGenusHeader({ genus }: PkmnGenusHeaderProps) {
-	let displayText = `The ${genus}`;
+function PkmnGenusHeader(props: PkmnGenusHeaderProps) {
+	let displayText = `The ${props.genus}`;
 	return (
 		<div className="pkmn-genus-header">
 			<sub>{displayText}</sub>

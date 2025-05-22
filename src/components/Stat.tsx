@@ -1,5 +1,10 @@
 import NumberFlow from "@number-flow/react";
 
+type StatProps = {
+	name: string;
+	value: number;
+};
+
 const statColors: string[] = ["#FF0000", "#FFA500", "#FFFF00", "#00FF00", "#71E1B3"];
 const statThresholds: number[] = [40, 65, 80, 105, 170];
 
@@ -9,10 +14,10 @@ const getStatName = (stat: string) => {
 	return n == "hp" ? "HP" : n;
 };
 
-function Stat({ name, value }: { name: string; value: number }) {
-	let isBst = name == "Base Stat Total";
+function Stat(props: StatProps) {
+	let isBst = props.name == "Base Stat Total";
 
-	let colorValue: number = isBst ? value / 6 : value;
+	let colorValue: number = isBst ? props.value / 6 : props.value;
 
 	const findStat = (): number => {
 		let colorIndex: number = 0;
@@ -27,14 +32,14 @@ function Stat({ name, value }: { name: string; value: number }) {
 
 	return (
 		<div className="stat-title">
-			{getStatName(name)}
+			{getStatName(props.name)}
 			<div
 				className="stat-bar"
 				style={{
 					width: (colorValue / 255) * 300,
 					backgroundColor: statColors[findStat()],
 				}}>
-				<NumberFlow value={value}></NumberFlow>
+				<NumberFlow value={props.value}></NumberFlow>
 			</div>
 		</div>
 	);

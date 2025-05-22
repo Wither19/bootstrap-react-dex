@@ -26,7 +26,7 @@ type PkmnMenuProps = {
 	pkmn: number;
 };
 
-function PkmnMenu({ pkmn }: PkmnMenuProps) {
+function PkmnMenu(props: PkmnMenuProps) {
 	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
 	const [genus, setGenus] = useState<Genus>({
 		genus: "Seed Pokémon",
@@ -50,14 +50,14 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 	}
 
 	function pokemonGet() {
-		PokeAPI.Pokemon.fetch(pkmn!).then((res) => {
+		PokeAPI.Pokemon.fetch(props.pkmn!).then((res) => {
 			setGeneralData(res);
 			setStatTotal(getStatTotal(res.stats));
 		});
 	}
 
 	function pokemonSpeciesGet() {
-		PokeAPI.PokemonSpecies.fetch(pkmn!).then((res) => {
+		PokeAPI.PokemonSpecies.fetch(props.pkmn!).then((res) => {
 			setSelectedEntry(0);
 
 			setGenus(genusHandle(res.genera));
@@ -69,7 +69,7 @@ function PkmnMenu({ pkmn }: PkmnMenuProps) {
 	useEffect(() => {
 		pokemonGet();
 		pokemonSpeciesGet();
-	}, [pkmn]);
+	}, [props.pkmn]);
 
 	useEffect(() => pokemonSpeciesGet(), [seeDuplicateEntries]);
 

@@ -9,15 +9,15 @@ type PokedexItemProps = {
 	click: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-function PokedexItem({ num, name, bgColor, click }: PokedexItemProps) {
-	const displayNum = leadingZeroes(num);
-	const displayName = name.replace("-", " ");
+function PokedexItem(props: PokedexItemProps) {
+	const displayNum = leadingZeroes(props.num);
+	const displayName = props.name.replace("-", " ");
 
-	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${name}.avif`;
+	const pkmnSprite = `https://img.pokemondb.net/sprites/scarlet-violet/icon/avif/${props.name}.avif`;
 
 	return (
-		<Card className={bgColor} sx={{ maxWidth: 300, backgroundColor: bgColor }}>
-			<CardActionArea onClick={click}>
+		<Card className={props.bgColor} sx={{ maxWidth: 300, backgroundColor: props.bgColor }}>
+			<CardActionArea onClick={props.click}>
 				<Typography gutterBottom variant="h6" component="h6">
 					#{displayNum}
 				</Typography>
@@ -26,7 +26,7 @@ function PokedexItem({ num, name, bgColor, click }: PokedexItemProps) {
 					component="img"
 					height="120"
 					image={pkmnSprite}
-					alt={name}
+					alt={props.name}
 				/>
 				<CardContent>
 					<Typography

@@ -1,11 +1,16 @@
 import { Typography } from "@mui/material";
 
-function PokedexEntry({ children, game }: { children: string; game: string }) {
+type PokedexEntryProps = {
+	children: string;
+	game: string;
+};
+
+function PokedexEntry(props: PokedexEntryProps) {
 	return (
 		<>
 			<div style={{ textAlign: "center", margin: "1em" }}>
-				<Typography variant="body1">{children}</Typography>
-				<Typography variant="caption">Pokemon {game}</Typography>
+				<Typography variant="body1">{props.children}</Typography>
+				<Typography variant="caption">Pokemon {props.game}</Typography>
 			</div>
 		</>
 	);

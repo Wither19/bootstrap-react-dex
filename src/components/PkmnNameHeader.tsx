@@ -6,9 +6,9 @@ type PkmnNameHeaderProps = {
 	shiny: boolean;
 };
 
-function PkmnNameHeader({ id, name, shiny }: PkmnNameHeaderProps) {
-	let displayText = `#${leadingZeroes(id)} - ${name.replace("-", " ")}`;
-	return <h1 className={`pkmn-name-header ${shiny ? "shiny" : "regular"}`}>{displayText}</h1>;
+function PkmnNameHeader(props: PkmnNameHeaderProps) {
+	let displayText = `#${leadingZeroes(props.id)} - ${props.name.replace("-", " ")}`;
+	return <h1 className={`pkmn-name-header ${props.shiny ? "shiny" : "regular"}`}>{displayText}</h1>;
 }
 
 export default PkmnNameHeader;

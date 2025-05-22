@@ -4,10 +4,10 @@ type OptionCheckProps = {
 	setOption: () => void;
 };
 
-function OptionCheck({ children, option, setOption }: OptionCheckProps) {
+function OptionCheck(props: OptionCheckProps) {
 	return (
 		<label className="option-check-label">
-			<input type="checkbox" checked={option} onChange={setOption} /> {children}
+			<input type="checkbox" checked={props.option} onChange={props.setOption} /> {props.children}
 		</label>
 	);
 }

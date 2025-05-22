@@ -4,14 +4,14 @@ type PkmnSearchBarProps = {
 	typing: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 };
 
-function PkmnSearchBar({ typing }: PkmnSearchBarProps) {
+function PkmnSearchBar(props: PkmnSearchBarProps) {
 	return (
 		<TextField
 			fullWidth
 			id="pkmn-search"
 			label="Search for Pokémon..."
 			variant="standard"
-			onKeyUp={typing}
+			onKeyUp={props.typing}
 		/>
 	);
 }

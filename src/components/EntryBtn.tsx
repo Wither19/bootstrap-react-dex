@@ -5,10 +5,10 @@ type EntryBtnProps = {
 	click: (event: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-function EntryBtn({ children, click }: EntryBtnProps) {
+function EntryBtn(props: EntryBtnProps) {
 	return (
-		<Button variant="contained" onClick={click}>
-			{children}
+		<Button variant="contained" onClick={props.click}>
+			{props.children}
 		</Button>
 	);
 }

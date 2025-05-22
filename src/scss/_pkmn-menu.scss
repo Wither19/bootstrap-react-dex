@@ -18,6 +18,10 @@
 	@return drop-shadow($shadow $color);
 }
 
+@function lighten($input-color, $brightness) {
+	@return color.scale($color: $input-color, $lightness: $brightness);
+}
+
 @function convert-font-size($text-size, $scale) {
 	@return calc(($scale / ($text-size / 1em)) * 1px);
 }
@@ -94,12 +98,10 @@ img.artwork {
 	margin-top: 5%;
 	p {
 		$dex-entry-line-height: 1.6em;
+		$dex-entry-expanded-size: (variables.$base-font-size * strip-units($dex-entry-line-height)) * 3;
 
 		@include lock-size(width, 1000px);
-		@include lock-size(
-			height,
-			(variables.$base-font-size * strip-units($dex-entry-line-height)) * 3
-		);
+		@include lock-size(height, $dex-entry-expanded-size);
 		margin: 16px auto;
 		line-height: $dex-entry-line-height;
 	}
@@ -130,8 +132,8 @@ img.artwork {
 			$highlight-color: rgb(82, 56, 230);
 
 			background-color: $highlight-color;
-			color: color.scale($color: $highlight-color, $lightness: 85%);
-			border-color: color.scale($color: $highlight-color, $lightness: 80%);
+			color: lighten($highlight-color, 85%);
+			border-color: lighten($highlight-color, 80%);
 		}
 	}
 }

@@ -16,7 +16,11 @@ function AbilityText(props: AbilityProps) {
 	const [effectDisplay, setEffectDisplay] = useState<boolean>(false);
 
 	function handleShowEffect() {
-		setEffectDisplay((prev) => !prev);
+		setEffectDisplay(true);
+	}
+
+	function handleHideEffect() {
+		setEffectDisplay(false);
 	}
 
 	function abilityGet() {
@@ -48,7 +52,7 @@ function AbilityText(props: AbilityProps) {
 					{props.name.replace("-", " ")}
 				</ListItemText>
 			</ListItem>
-			<Modal sx={modalStyles} open={effectDisplay} onClick={handleShowEffect}>
+			<Modal sx={modalStyles} open={effectDisplay} onClick={handleHideEffect}>
 				<Box sx={{ textTransform: "capitalize" }}>
 					<Typography sx={{ textAlign: "center" }} variant="h5" component="h5">
 						{props.name.replace("-", " ")}

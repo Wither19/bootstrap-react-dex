@@ -144,6 +144,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 								borderColor: "divider",
 								backgroundColor: "background.paper",
 								height: "fit-content",
+								paddingBottom: 4,
 							}}>
 							<ListItem>
 								<ListItemText sx={{ textAlign: "center" }}>Abilities</ListItemText>

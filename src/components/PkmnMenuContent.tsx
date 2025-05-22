@@ -1,4 +1,4 @@
-import { type ReactNode, type CSSProperties } from "react";
+import type { ReactNode, CSSProperties } from "react";
 
 type PkmnMenuContentProps = {
 	value: number;

@@ -9,8 +9,8 @@ import PkmnGenusHeader from "./PkmnGenusHeader";
 import PkmnSprite from "./PkmnSprite";
 import PkmnMenuContent from "./PkmnMenuContent";
 import Types from "./Types";
+import AbilityText from "./AbilityText";
 import Stat from "./Stat";
-import Ability from "./Ability";
 import PokedexEntry from "./PokedexEntry";
 import EntryBtn from "./EntryBtn";
 import OptionCheck from "./OptionCheck";
@@ -23,7 +23,6 @@ import {
 	fancifyGameName,
 	genusHandle,
 	flavorTextHandle,
-	checkForDuplicates,
 } from "../functions.ts";
 
 type PkmnMenuProps = {
@@ -152,7 +151,11 @@ function PkmnMenu(props: PkmnMenuProps) {
 							{pkmnGeneral.abilities &&
 								pkmnGeneral?.abilities.map((item: PokemonAbility, index) => (
 									<>
-										<Ability name={item.ability.name} url={item.ability.url} hidden={item.is_hidden} />
+										<AbilityText
+											name={item.ability.name}
+											url={item.ability.url}
+											hidden={item.is_hidden}
+										/>
 										{index + 1 != pkmnGeneral!.abilities.length && <Divider variant="middle" />}
 									</>
 								))}

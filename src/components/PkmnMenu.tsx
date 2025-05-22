@@ -134,33 +134,36 @@ function PkmnMenu(props: PkmnMenuProps) {
 						</div>
 					</PkmnMenuContent>
 					<PkmnMenuContent index={1} value={tabValue}>
-						<List
-							sx={{
-								py: 0,
-								width: "100%",
-								maxWidth: 360,
-								borderRadius: 2,
-								border: "1px solid",
-								borderColor: "divider",
-								backgroundColor: "background.paper",
-								height: "fit-content",
-								paddingBottom: 4,
-							}}>
-							<ListItem>
-								<ListItemText sx={{ textAlign: "center" }}>Abilities</ListItemText>
-							</ListItem>
-							{pkmnGeneral.abilities &&
-								pkmnGeneral?.abilities.map((item: PokemonAbility, index) => (
-									<>
-										<AbilityText
-											name={item.ability.name}
-											url={item.ability.url}
-											hidden={item.is_hidden}
-										/>
-										{index + 1 != pkmnGeneral!.abilities.length && <Divider variant="middle" />}
-									</>
-								))}
-						</List>
+						<div style={{ display: "flex", flexDirection: "column" }}>
+							<List
+								sx={{
+									py: 0,
+									width: "100%",
+									maxWidth: 360,
+									borderRadius: 2,
+									border: "1px solid",
+									borderColor: "divider",
+									backgroundColor: "background.paper",
+									height: "fit-content",
+									paddingBottom: 4,
+								}}>
+								<ListItem>
+									<ListItemText sx={{ textAlign: "center" }}>Abilities</ListItemText>
+								</ListItem>
+								{pkmnGeneral.abilities &&
+									pkmnGeneral?.abilities.map((item: PokemonAbility, index) => (
+										<>
+											<AbilityText
+												name={item.ability.name}
+												url={item.ability.url}
+												hidden={item.is_hidden}
+											/>
+											{index + 1 != pkmnGeneral!.abilities.length && <Divider variant="middle" />}
+										</>
+									))}
+							</List>
+							<List></List>
+						</div>
 						<div className="stats">
 							{pkmnGeneral.stats &&
 								pkmnGeneral!.stats.map((item: PokemonStat) => (

@@ -8,7 +8,7 @@ type PkmnMenuContentProps = {
 };
 
 function PkmnMenuContent(props: PkmnMenuContentProps) {
-	let contentDivStyles = { ...props?.addlStyles, display: "flex", justifyContent: "space-evenly" };
+	let contentDivStyles = { display: "flex", justifyContent: "space-evenly", ...props?.addlStyles };
 	return <div style={contentDivStyles}>{props.value == props.index && props.children}</div>;
 }
 

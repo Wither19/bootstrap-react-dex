@@ -102,7 +102,12 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 					<Types types={pkmnGeneral?.types} />
 
-					<Tabs value={tabValue} onChange={handleTabChange} aria-label="basic tabs example">
+					<Tabs
+						sx={{ marginTop: "32px" }}
+						centered
+						value={tabValue}
+						onChange={handleTabChange}
+						aria-label="basic tabs example">
 						<Tab label="Stats and Lore" />
 						<Tab label="Battle Info and Moveset" />
 						<Tab label="Item Three" />

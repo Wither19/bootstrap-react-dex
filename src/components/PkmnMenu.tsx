@@ -10,6 +10,7 @@ import type {
 	PokemonAbility,
 	PokemonMove,
 	Move,
+	Name,
 } from "pokeapi-typescript";
 
 import PkmnNameHeader from "./PkmnNameHeader";
@@ -90,22 +91,20 @@ function PkmnMenu(props: PkmnMenuProps) {
 	}
 
 	function moveListFetch() {
-		let start = movePaginationStart;
-		let end = movePaginationEnd;
+		let movesPageArr: Name[] = [];
 
-		let moves = pkmnGeneral?.moves;
+		if (pkmnGeneral?.moves) {
+			for (let i = movePaginationStart; i <= movePaginationEnd; i++) {
+				let currentMove: PokemonMove = pkmnGeneral?.moves![i]!;
 
-		let movesPageArr: Move[] = [];
-
-		for (let i = start; i <= end; i++) {
-			let currentMove: PokemonMove = moves![i]!;
-
-			if (currentMove) {
 				PokeAPI.Move.fetch(currentMove.move.url).then((res) => {
-					movesPageArr.push(getSingleLangEntry(res.names, "en"));
+					let entry = getSingleLangEntry(res.names);
+					console.log(entry);
+					movesPageArr.push(entry);
 				});
 			}
 		}
+
 		return movesPageArr;
 	}
 

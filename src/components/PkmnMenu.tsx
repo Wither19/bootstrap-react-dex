@@ -94,18 +94,18 @@ function PkmnMenu(props: PkmnMenuProps) {
 		let movesPageArr: Name[] = [];
 
 		if (pkmnGeneral?.moves) {
-			for (let i = movePaginationStart; i <= movePaginationEnd; i++) {
-				let currentMove: PokemonMove = pkmnGeneral?.moves![i]!;
+			let actedArray = pkmnGeneral!.moves.slice(movePaginationStart, movePaginationEnd);
 
+			for (let currentMove of actedArray) {
 				PokeAPI.Move.fetch(currentMove.move.url).then((res) => {
 					let entry = getSingleLangEntry(res.names);
-					console.log(entry);
+
+					entry.name = entry.name.replace("-", " ");
 					movesPageArr.push(entry);
 				});
 			}
 		}
-
-		return movesPageArr;
+		setMoveList(movesPageArr);
 	}
 
 	function resetTabValue() {
@@ -115,11 +115,13 @@ function PkmnMenu(props: PkmnMenuProps) {
 	useEffect(() => {
 		pokemonGet();
 		pokemonSpeciesGet();
-		// moveListFetch();
+		moveListFetch();
 		resetTabValue();
 	}, [props.pkmn]);
 
 	useEffect(() => pokemonSpeciesGet(), [seeDuplicateEntries]);
+
+	useEffect(() => moveListFetch(), [movePaginationStart, movePaginationEnd]);
 
 	return (
 		<Box sx={{ width: "95%" }}>
@@ -173,7 +175,8 @@ function PkmnMenu(props: PkmnMenuProps) {
 								sx={{
 									py: 0,
 									width: "100%",
-									maxWidth: 360,
+									maxWidth: 600,
+									minWidth: 400,
 									borderRadius: 2,
 									border: "1px solid",
 									borderColor: "divider",
@@ -197,7 +200,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 									))}
 							</List>
 							<List>
-								{moveList?.map((item) => (
+								{moveList.map((item) => (
 									<ListItem>
 										<ListItemText>{item.name}</ListItemText>
 									</ListItem>

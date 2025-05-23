@@ -8,8 +8,6 @@ import type {
 	FlavorText,
 	Genus,
 	PokemonAbility,
-	PokemonMove,
-	Move,
 	Name,
 } from "pokeapi-typescript";
 
@@ -33,14 +31,14 @@ import {
 	genusHandle,
 	flavorTextHandle,
 	getSingleLangEntry,
-} from "../functions.ts";
+} from "../functions";
 
 type PkmnMenuProps = {
 	pkmn: number;
 };
 
 function PkmnMenu(props: PkmnMenuProps) {
-	const [pkmnGeneral, setGeneralData] = useState<Pokemon | undefined>();
+	const [pkmnGeneral, setGeneralData] = useState<Pokemon>();
 	const [genus, setGenus] = useState<Genus>({
 		genus: "Seed Pokémon",
 		language: {

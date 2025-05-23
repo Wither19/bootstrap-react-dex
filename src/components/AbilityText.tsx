@@ -53,11 +53,20 @@ function AbilityText(props: AbilityProps) {
 				</ListItemText>
 			</ListItem>
 			<Modal sx={modalStyles} open={effectDisplay} onClick={handleHideEffect}>
-				<Box sx={{ textTransform: "capitalize" }}>
-					<Typography sx={{ textAlign: "center" }} variant="h5" component="h5">
+				<Box sx={{}}>
+					<Typography
+						sx={{ textAlign: "center", textTransform: "capitalize" }}
+						variant="h5"
+						component="h5">
 						{props.name.replace("-", " ")}
 					</Typography>
 					<Typography variant="body1" component="p">
+						{props.hidden && (
+							<>
+								<div style={{ textAlign: "center" }}>Hidden Ability</div>
+								<br />
+							</>
+						)}
 						{abilityEffect}
 					</Typography>
 				</Box>

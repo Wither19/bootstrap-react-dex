@@ -115,7 +115,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	useEffect(() => {
 		pokemonGet();
 		pokemonSpeciesGet();
-		moveListFetch();
+		// moveListFetch();
 		resetTabValue();
 	}, [props.pkmn]);
 

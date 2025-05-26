@@ -22,7 +22,7 @@
 		"jquery": "^3.7.1",
 		"lodash": "^4.17.21",
 		"lucide-react": "^0.511.0",
-		"motion": "^12.12.2",
+		"motion": "^12.13.0",
 		"pokeapi-typescript": "^3.0.3",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",

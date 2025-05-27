@@ -16,6 +16,12 @@
 	}
 }
 
+@mixin lock-size($d, $s) {
+	#{$d}: $s;
+	min-#{$d}: $s;
+	max-#{$d}: $s;
+}
+
 .icon {
 	@include uniform-size(100px);
 	border-radius: 100%;
@@ -43,5 +49,14 @@
 @each $name, $color in variables.$types {
 	li .#{$name} {
 		@include type-icon($color, false);
+		@include lock-size(width, 15vw);
+		color: whitesmoke;
+		text-shadow: 0px 2px 1px gray;
+		padding: 20px;
+		border-radius: 5px;
+	}
+
+	li:has(.#{$name}) {
+		margin: 24px 4px;
 	}
 }

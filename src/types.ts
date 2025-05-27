@@ -77,4 +77,5 @@ export type DeepArray<T> = Array<T | T[]>;
 export type FormattedMove = {
 	name: string;
 	effect: string;
+	type: string;
 };

@@ -9,6 +9,7 @@ import type {
 	Genus,
 	PokemonAbility,
 	Name,
+	PokemonMove,
 } from "pokeapi-typescript";
 
 import { type FormattedMove } from "../types.ts";
@@ -77,6 +78,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 		PokeAPI.Pokemon.fetch(props.pkmn!).then((res) => {
 			setGeneralData(res);
 			setStatTotal(getStatTotal(res.stats));
+			moveListFetch(res.moves);
 		});
 	}
 
@@ -90,24 +92,20 @@ function PkmnMenu(props: PkmnMenuProps) {
 		});
 	}
 
-	function moveListFetch() {
+	function moveListFetch(moves?: PokemonMove[]) {
 		let movesPageArr: FormattedMove[] = [];
 
-		if (pkmnGeneral?.moves) {
-			let actedArray = pkmnGeneral!.moves.slice(movePaginationStart, movePaginationEnd);
+		if (moves) {
+			let actedArray = moves.slice(movePaginationStart, movePaginationEnd);
 
 			for (let currentMove of actedArray) {
-				let fixedUrl: number = parseInt(
-					currentMove.move.url.replace("https://pokeapi.co/api/v2/move/", "").replace("/", "")
-				);
+				let fixedUrl: number = parseInt(currentMove.move.url.slice(31, -1));
 
 				PokeAPI.Move.fetch(fixedUrl).then((res) => {
-					let nameEntry = getSingleLangEntry(res.names).name.replace("-", " ");
-					let effectEntry = getSingleLangEntry(res.effect_entries).short_effect;
-
 					movesPageArr.push({
-						name: nameEntry,
-						effect: effectEntry,
+						name: getSingleLangEntry(res.names).name.replace("-", " "),
+						effect: getSingleLangEntry(res.effect_entries).short_effect,
+						type: res.type.name,
 					});
 				});
 			}
@@ -122,13 +120,12 @@ function PkmnMenu(props: PkmnMenuProps) {
 	useEffect(() => {
 		pokemonGet();
 		pokemonSpeciesGet();
-		moveListFetch();
 		resetTabValue();
 	}, [props.pkmn]);
 
 	useEffect(() => pokemonSpeciesGet(), [seeDuplicateEntries]);
 
-	useEffect(() => moveListFetch(), [movePaginationStart, movePaginationEnd]);
+	useEffect(() => moveListFetch(pkmnGeneral?.moves), [movePaginationStart, movePaginationEnd]);
 
 	return (
 		<Box sx={{ width: "95%" }}>
@@ -210,7 +207,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 								{moveList.map((item) => (
 									<ListItem>
 										<ListItemText>
-											<span>{item.name}</span>
+											<span className={item.type}>{item.name}</span>
 										</ListItemText>
 									</ListItem>
 								))}

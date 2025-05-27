@@ -95,7 +95,11 @@ function PkmnMenu(props: PkmnMenuProps) {
 			let actedArray = pkmnGeneral!.moves.slice(movePaginationStart, movePaginationEnd);
 
 			for (let currentMove of actedArray) {
-				PokeAPI.Move.fetch(currentMove.move.url).then((res) => {
+				let fixedUrl: number = parseInt(
+					currentMove.move.url.replace("https://pokeapi.co/api/v2/move/", "").replace("/", "")
+				);
+
+				PokeAPI.Move.fetch(fixedUrl).then((res) => {
 					let entry = getSingleLangEntry(res.names);
 
 					entry.name = entry.name.replace("-", " ");
@@ -103,6 +107,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 				});
 			}
 		}
+		console.log(movesPageArr);
 		setMoveList(movesPageArr);
 	}
 
@@ -173,8 +178,8 @@ function PkmnMenu(props: PkmnMenuProps) {
 								sx={{
 									py: 0,
 									width: "100%",
-									maxWidth: 600,
-									minWidth: 400,
+									maxWidth: 450,
+									minWidth: 300,
 									borderRadius: 2,
 									border: "1px solid",
 									borderColor: "divider",
@@ -200,7 +205,9 @@ function PkmnMenu(props: PkmnMenuProps) {
 							<List>
 								{moveList.map((item) => (
 									<ListItem>
-										<ListItemText>{item.name}</ListItemText>
+										<ListItemText>
+											<span>{item.name}</span>
+										</ListItemText>
 									</ListItem>
 								))}
 							</List>

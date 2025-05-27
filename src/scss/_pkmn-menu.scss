@@ -118,8 +118,8 @@ img.artwork {
 	background: rgba(164, 168, 199, 0.15);
 
 	button {
-		$entry-btn-text-size: 1em;
-		$entry-btn-size: convert-font-size($entry-btn-text-size, 170);
+		$entry-btn-text-size: 0.8em;
+		$entry-btn-size: convert-font-size($entry-btn-text-size, 80);
 
 		font-size: $entry-btn-text-size;
 		min-width: $entry-btn-size;

@@ -11,6 +11,8 @@ import type {
 	Name,
 } from "pokeapi-typescript";
 
+import { type FormattedMove } from "../types.ts";
+
 import PkmnNameHeader from "./PkmnNameHeader";
 import PkmnGenusHeader from "./PkmnGenusHeader";
 import PkmnSprite from "./PkmnSprite";
@@ -59,7 +61,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	const [movePaginationStart, setMovesStart] = useState<number>(0);
 	const [movePaginationEnd, setMovesEnd] = useState<number>(9);
 
-	const [moveList, setMoveList] = useState<Name[]>([]);
+	const [moveList, setMoveList] = useState<FormattedMove[]>([]);
 
 	var currentDexEntry = dexEntries![selectedEntry];
 
@@ -89,7 +91,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	}
 
 	function moveListFetch() {
-		let movesPageArr: Name[] = [];
+		let movesPageArr: FormattedMove[] = [];
 
 		if (pkmnGeneral?.moves) {
 			let actedArray = pkmnGeneral!.moves.slice(movePaginationStart, movePaginationEnd);
@@ -100,14 +102,16 @@ function PkmnMenu(props: PkmnMenuProps) {
 				);
 
 				PokeAPI.Move.fetch(fixedUrl).then((res) => {
-					let entry = getSingleLangEntry(res.names);
+					let nameEntry = getSingleLangEntry(res.names).name.replace("-", " ");
+					let effectEntry = getSingleLangEntry(res.effect_entries).short_effect;
 
-					entry.name = entry.name.replace("-", " ");
-					movesPageArr.push(entry);
+					movesPageArr.push({
+						name: nameEntry,
+						effect: effectEntry,
+					});
 				});
 			}
 		}
-		console.log(movesPageArr);
 		setMoveList(movesPageArr);
 	}
 

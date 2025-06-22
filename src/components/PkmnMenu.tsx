@@ -59,9 +59,6 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 	const [tabValue, setTabValue] = useState<number>(0);
 
-	const [movePaginationStart, setMovesStart] = useState<number>(0);
-	const [movePaginationEnd, setMovesEnd] = useState<number>(9);
-
 	const [moveList, setMoveList] = useState<FormattedMove[]>([]);
 
 	var currentDexEntry = dexEntries![selectedEntry];
@@ -96,7 +93,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 		let movesPageArr: FormattedMove[] = [];
 
 		if (moves) {
-			let actedArray = moves.slice(movePaginationStart, movePaginationEnd);
+			let actedArray = moves;
 
 			for (let currentMove of actedArray) {
 				let fixedUrl: number = parseInt(currentMove.move.url.slice(31, -1));
@@ -125,7 +122,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 	useEffect(() => pokemonSpeciesGet(), [seeDuplicateEntries]);
 
-	useEffect(() => moveListFetch(pkmnGeneral?.moves), [movePaginationStart, movePaginationEnd]);
+	useEffect(() => moveListFetch(pkmnGeneral?.moves), [pkmnGeneral]);
 
 	return (
 		<Box sx={{ width: "95%" }}>

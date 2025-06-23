@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import _ from "lodash";
+import _, { capitalize } from "lodash";
 
 import { PokeAPI } from "pokeapi-typescript";
 import type {

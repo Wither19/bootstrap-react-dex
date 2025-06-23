@@ -198,7 +198,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 										</>
 									))}
 							</List>
-							<List>
+							<List sx={{ height: 300, overflow: "hidden scroll", marginTop: 2 }}>
 								{moveList.map((item) => (
 									<ListItem>
 										<ListItemText>

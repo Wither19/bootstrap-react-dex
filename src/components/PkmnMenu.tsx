@@ -72,7 +72,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	}
 
 	function pokemonGet() {
-		PokeAPI.Pokemon.fetch(props.pkmn!).then((res) => {
+		PokeAPI.Pokemon.resolve(props.pkmn!).then((res) => {
 			setGeneralData(res);
 			setStatTotal(getStatTotal(res.stats));
 			moveListFetch(res.moves);
@@ -80,7 +80,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 	}
 
 	function pokemonSpeciesGet() {
-		PokeAPI.PokemonSpecies.fetch(props.pkmn!).then((res) => {
+		PokeAPI.PokemonSpecies.resolve(props.pkmn!).then((res) => {
 			setSelectedEntry(0);
 
 			setGenus(genusHandle(res.genera));
@@ -98,7 +98,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 			for (let currentMove of actedArray) {
 				let fixedUrl: number = parseInt(currentMove.move.url.slice(31, -1));
 
-				PokeAPI.Move.fetch(fixedUrl).then((res) => {
+				PokeAPI.Move.resolve(fixedUrl).then((res) => {
 					movesPageArr.push({
 						name: getSingleLangEntry(res.names).name.replace("-", " "),
 						effect: getSingleLangEntry(res.effect_entries).short_effect,
@@ -158,7 +158,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 
 							<div className="entry-buttons">
 								{dexEntries!.map((entry: FlavorText, i: number) => (
-									<EntryBtn key={i} click={() => setSelectedEntry(i)}>
+									<EntryBtn selected={selectedEntry == i} key={i} click={() => setSelectedEntry(i)}>
 										{fancifyGameName(entry.version.name)}
 									</EntryBtn>
 								))}

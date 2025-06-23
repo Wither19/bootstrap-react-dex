@@ -10,7 +10,6 @@ function PokedexEntry(props: PokedexEntryProps) {
 		<>
 			<div style={{ textAlign: "center", margin: "1em" }}>
 				<Typography variant="body1">{props.children}</Typography>
-				<Typography variant="caption">Pokemon {props.game}</Typography>
 			</div>
 		</>
 	);

@@ -24,7 +24,7 @@ function AbilityText(props: AbilityProps) {
 	}
 
 	function abilityGet() {
-		PokeAPI.Ability.fetch(props.name!).then((res: Ability) =>
+		PokeAPI.Ability.resolve(props.name!).then((res: Ability) =>
 			setAbilityEffect(getSingleLangEntry(res.effect_entries, "en").effect)
 		);
 	}

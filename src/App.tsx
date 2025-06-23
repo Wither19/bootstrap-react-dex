@@ -70,7 +70,7 @@ function App() {
 	}
 
 	useEffect(() => {
-		PokeAPI.Pokedex.fetch(1).then((res) => setPokedex(res.pokemon_entries));
+		PokeAPI.Pokedex.resolve(1).then((res) => setPokedex(res.pokemon_entries));
 	}, []);
 
 	useEffect(() => {
@@ -106,7 +106,13 @@ function App() {
 								num={entry.entry_number}
 								name={entry.pokemon_species.name}
 								click={() => handleClickPkmnEntry(entry.entry_number)}
-								bgColor={legendariesAndMythicals.includes(entry.entry_number) ? "special" : uniquePokemon.includes(entry.entry_number) ? "unique" : ""}
+								bgColor={
+									legendariesAndMythicals.includes(entry.entry_number)
+										? "special"
+										: uniquePokemon.includes(entry.entry_number)
+										? "unique"
+										: ""
+								}
 							/>
 						))}
 				</div>

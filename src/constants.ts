@@ -2,7 +2,7 @@ import { flattenDeep } from "lodash";
 
 import { range } from "./functions";
 
-import { type RegionObj, type DeepArray } from "./types";
+import { type RegionObj } from "./types";
 
 export const regions: RegionObj[] = [
 	{ name: "Kanto", start: 1, end: 151 },
@@ -17,7 +17,7 @@ export const regions: RegionObj[] = [
 	{ name: "Paldea", start: 906, end: 1025 },
 	{ name: "Unknown", start: 808, end: 809 },
 ];
-export const legendariesAndMythicals: DeepArray<number> = flattenDeep([
+export const legendariesAndMythicals: number[] = flattenDeep([
 	range(144, 146),
 	150,
 	151,

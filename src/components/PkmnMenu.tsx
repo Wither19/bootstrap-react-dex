@@ -93,9 +93,7 @@ function PkmnMenu(props: PkmnMenuProps) {
 		let movesPageArr: FormattedMove[] = [];
 
 		if (moves) {
-			let actedArray = moves;
-
-			for (let currentMove of actedArray) {
+			for (let currentMove of moves) {
 				let fixedUrl: number = parseInt(currentMove.move.url.slice(31, -1));
 
 				PokeAPI.Move.resolve(fixedUrl).then((res) => {

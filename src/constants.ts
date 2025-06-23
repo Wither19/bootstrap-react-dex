@@ -42,7 +42,7 @@ export const legendariesAndMythicals: number[] = flattenDeep([
 	809,
 ]);
 
-export const uniquePokemon: DeepArray<number> = flattenDeep([
+export const uniquePokemon: number[] = flattenDeep([
 	range(793, 799),
 	range(803, 806),
 	range(984, 995),

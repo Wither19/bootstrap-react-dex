@@ -35,7 +35,8 @@ function App() {
 	}
 
 	function isInRegion(id: number): boolean {
-		return id >= getCurrentRegion()!.start && id <= getCurrentRegion()!.end;
+		const region = getCurrentRegion()!;
+		return id >= region.start && id <= region.end;
 	}
 
 	function dexFilter(pokemon: PokemonEntry) {
@@ -69,13 +70,25 @@ function App() {
 		setListDisplay(true);
 	}
 
+	function determineClassOfPokemon(pkmnNum: number) {
+		let pkmnClass = "";
+
+		if (legendariesAndMythicals.includes(pkmnNum)) {
+			pkmnClass = "special";
+		} else if (uniquePokemon.includes(pkmnNum)) {
+			pkmnClass = "unique";
+		}
+
+		return pkmnClass;
+	}
+
 	useEffect(() => {
 		PokeAPI.Pokedex.resolve(1).then((res) => setPokedex(res.pokemon_entries));
 	}, []);
 
 	useEffect(() => {
 		setSearchText("");
-		const searchBar = document!.querySelector("#pkmn-search") as HTMLInputElement;
+		const searchBar = document.querySelector("#pkmn-search") as HTMLInputElement;
 		searchBar!.value = "";
 	}, [selectedNumber]);
 
@@ -106,13 +119,7 @@ function App() {
 								num={entry.entry_number}
 								name={entry.pokemon_species.name}
 								click={() => handleClickPkmnEntry(entry.entry_number)}
-								bgColor={
-									legendariesAndMythicals.includes(entry.entry_number)
-										? "special"
-										: uniquePokemon.includes(entry.entry_number)
-										? "unique"
-										: ""
-								}
+								bgColor={determineClassOfPokemon(entry.entry_number)}
 							/>
 						))}
 				</div>
